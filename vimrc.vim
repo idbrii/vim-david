@@ -796,6 +796,9 @@ let c_no_curly_error = 1
 " Only want luarefvim for its doc files.
 let loaded_luarefvim = 0
 
+" . in insert mode crashes vim 802
+let lua_define_completion_mappings = 0
+
 " Ropevim   {{{2
 " Don't use <C-c> mappings -- I don't use the maps much.
 let g:ropevim_enable_shortcuts = 0
