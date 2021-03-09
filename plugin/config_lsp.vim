@@ -1,3 +1,11 @@
+" In lua, it's popping up and clearing text I already wrote. Using longer
+" delay to make it less annoying. TODO: Needs debugging.
+let g:asyncomplete_popup_delay = 500
+" I use completeopt=menu,preview,menuone,longest whereas asyncomplete uses
+" completeopt=menuone,noinsert,noselect. Still doesn't seem to prevent my
+" input from being cleared.
+"~ let g:asyncomplete_auto_completeopt = 0
+
 " I'm using ALE, so I don't want things to conflict
 let g:lsp_diagnostics_enabled = 0
 
