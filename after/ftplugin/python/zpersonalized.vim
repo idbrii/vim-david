@@ -63,9 +63,15 @@ endf
 function! s:set_module_entrypoint(should_be_async, args)
     " Use the current file as module. Will be invoked from this directory too.
     let cur_file = expand('%:p')
+    let cur_dir = fnamemodify(cur_file, ':h')
     let cur_module = fnamemodify(cur_file, ':t:r')
 
-    call s:set_entrypoint(a:should_be_async, s:get_python_makeprg(cur_module ..' '.. a:args))
+    if cur_module == '__main__'
+        let cur_module = fnamemodify(cur_file, ':h:t:r')
+        let cur_dir = fnamemodify(cur_file, ':h:h')
+    endif
+
+    call s:set_entrypoint(a:should_be_async, s:get_python_makeprg(cur_module ..' '.. a:args), cur_dir)
 endf
 
 function! s:set_test_entrypoint(should_be_async, test_name)
@@ -77,16 +83,16 @@ function! s:set_test_entrypoint(should_be_async, test_name)
         let specific_test = printf(" %s.%s", cur_module, a:test_name)
     endif
     
-    call s:set_entrypoint(a:should_be_async, 'nose2 -s '.. cur_dir .. specific_test)
+    call s:set_entrypoint(a:should_be_async, 'nose2 -s '.. cur_dir .. specific_test, cur_dir)
 endf
 
-function! s:set_entrypoint(should_be_async, entrypoint_makeprg)
+function! s:set_entrypoint(should_be_async, entrypoint_makeprg, cur_dir)
     let should_be_async = a:should_be_async
 
     " Will jump back current directory to run (ensures any expected relative
     " paths will work). You must have a reasonable makeprg before invoking.
     let cur_file = expand('%:p')
-    let cur_dir = fnamemodify(cur_file, ':h')
+    let cur_dir = a:cur_dir
 
     function! DavidProjectBuild() closure
         update
