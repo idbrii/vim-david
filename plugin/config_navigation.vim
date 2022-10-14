@@ -154,6 +154,9 @@ let g:david_openbrowser_safe_schemes = [
             \     'https\?',
             \     's\?ftp',
             \ ]
+" cpp, lua, vimscript all use colons. I can't think of a filetype where I want
+" to detect the protocol instead of using the above, so apply this for all.
+let g:openbrowser_allowed_schemes = g:david_openbrowser_safe_schemes
 
 " Set browsed dir as current dir.
 let g:netrw_keepdir = 0
