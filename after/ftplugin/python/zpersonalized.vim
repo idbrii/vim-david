@@ -49,11 +49,11 @@ function! s:pick_entrypoint_makeprg_safe(desired, fallback)
 endf
 
 function! s:get_python_makeprg(module_and_args)
-    if !exists("s:original_makeprg")
-        let s:original_makeprg = s:pick_entrypoint_makeprg_safe(&makeprg, 'python')
+    if !exists("b:david_original_makeprg")
+        let b:david_original_makeprg = s:pick_entrypoint_makeprg_safe(&makeprg, 'python')
     endif
 
-    let python = s:pick_entrypoint_makeprg_safe(&makeprg, s:original_makeprg)
+    let python = s:pick_entrypoint_makeprg_safe(&makeprg, b:david_original_makeprg)
 
     let entrypoint_makeprg = (python .. ' -m' .. a:module_and_args)
     let entrypoint_makeprg = substitute(entrypoint_makeprg, '%', '', '')

@@ -14,12 +14,14 @@ set cpo-=C
 
 " Options:
 "   -t     : issue warnings about inconsistent tab usage (-tt: issue errors)
+"   -u     : force the stdout and stderr streams to be unbuffered so output
+"            shows in vim immediately.
 "
 " Consider:
 "   -3     : warn about Python 3.x incompatibilities that 2to3 cannot
-"   trivially fix
+"            trivially fix
 "
-CompilerSet makeprg=python\ -t\ %
+CompilerSet makeprg=python\ -t\ -u\ %
 
 " Use each file and line of Tracebacks (to see and step through the code executing).
 CompilerSet errorformat=%A%\\s%#File\ \"%f\"\\,\ line\ %l\\,\ in%.%#
