@@ -3,11 +3,11 @@
 " Influences:
 "	* JAnderson: http://sontek.net/blog/detail/turning-vim-into-a-modern-python-ide
 
-"" no tabs in python files
+" no tabs in python files
 setlocal expandtab
 
-"" c-indenting for python
-"" Would use smartindent, but it indents # at the first column
+" c-indenting for python
+" Would use smartindent, but it indents # at the first column
 setlocal cindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 " see # as comments
 setlocal cinoptions+=#1
@@ -15,10 +15,11 @@ setlocal cinoptions+=#1
 
 let b:detectindent_check_syntax = 1
 
-"" simple indent-based folding
+" simple indent-based folding
 if &foldmethod != 'diff'
     setlocal foldmethod=indent
 endif
+
 
 function! PyCompileCheck()
     " Finds syntax errors in the current file and adds them to the quickfix.
@@ -36,8 +37,9 @@ function! PyCompileCheck()
     endif
 endfunction
 
-" pip3 install nose2
-nnoremap <buffer> <F7> :set makeprg=nose2<CR>:AsyncMake<CR>
+" pip3 install pytest
+nnoremap <buffer> <F7> <Cmd>compiler pytest<Bar> AsyncMake<CR>
+
 
 function! s:pick_entrypoint_makeprg_safe(desired, fallback)
     " Cannot use a makeprg that already has a module entrypoint defined.
