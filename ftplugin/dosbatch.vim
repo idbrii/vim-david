@@ -2,7 +2,8 @@
 setlocal isfname-==
 
 " Run batch files and capture their output in quickfix
-setlocal makeprg=%
+" Need to be fancy for files with spaces.
+let &l:makeprg = '"'.. expand("%:p") ..'"'
 
 " Built-in dosbatch syntax file provides no folding
 if &foldmethod != 'diff'
