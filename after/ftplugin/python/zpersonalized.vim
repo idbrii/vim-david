@@ -74,7 +74,24 @@ function! s:set_module_entrypoint(should_be_async, args)
     call s:set_entrypoint(a:should_be_async, s:get_python_makeprg(cur_module ..' '.. a:args), cur_dir)
 endf
 
-function! s:set_test_entrypoint(should_be_async, test_name)
+function! s:set_pytest_entrypoint(should_be_async, test_expr)
+    let cur_file = expand('%:p')
+    let cur_dir = fnamemodify(cur_file, ':h')
+    let cur_module = fnamemodify(cur_file, ':t:r')
+
+    compiler pytest
+    let entrypoint_makeprg = &l:makeprg ..' '.. cur_file
+    if !empty(a:test_expr)
+        " 'test_method or test_other' matches all test functions and classes
+        " whose name contains 'test_method' or 'test_other'.
+        let entrypoint_makeprg .= ' -k '.. a:test_expr
+    endif
+    
+    
+    call s:set_entrypoint(a:should_be_async, entrypoint_makeprg, cur_dir)
+endf
+
+function! s:set_nose_entrypoint(should_be_async, test_name)
     let cur_file = expand('%:p')
     let cur_dir = fnamemodify(cur_file, ':h')
     let cur_module = fnamemodify(cur_file, ':t:r')
@@ -120,7 +137,11 @@ endf
 " Defaults to async. Use bang for :make.
 command! -bang -buffer -nargs=* PythonSetEntrypoint call s:set_module_entrypoint(<bang>1, <q-args>)
 " Pass "TestClass.test_function" to run that specific test.
-command! -bang -buffer -nargs=* PythonTest call s:set_test_entrypoint(<bang>1, <q-args>)
+command! -bang -buffer -nargs=* PythonTestNose call s:set_nose_entrypoint(<bang>1, <q-args>)
+" Pass `test_b and not test_blah` to run any test named b but not blah.
+command! -bang -buffer -nargs=* PythonTestPytest call s:set_pytest_entrypoint(<bang>1, <q-args>)
+" Default to pytest
+command! -bang -buffer -nargs=* PythonTest PythonTestPytest<bang> <args>
 
 "" PyDoc commands (requires pydoc and python_pydoc.vim)
 if exists(':PyDoc') == 2
