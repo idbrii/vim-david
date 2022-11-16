@@ -49,7 +49,9 @@ augroup david_lsp
     " LspInstallServer
     " I'm currently preferring sumneko because it provides completion my work project,
     " and emmylua no longer provides completion (maybe it only worked in love2d?).
-    if executable('lua-lsp') || executable(lsp_settings#servers_dir() .'/emmylua-ls/emmylua-ls') || executable(lsp_settings#servers_dir() .'/sumneko-lua-language-server/sumneko-lua-language-server')
+    if filereadable(lsp_settings#servers_dir() .'/sumneko-lua-language-server/sumneko-lua-language-server')
+                \ || filereadable(lsp_settings#servers_dir() .'/emmylua-ls/emmylua-ls')
+                \ || executable('lua-lsp')
         let g:lua_define_omnifunc = 0
         let g:lua_define_completion_mappings = 0
         if executable('lua-lsp')
@@ -72,7 +74,7 @@ augroup david_lsp
     " vim-lsp-settings handles setup for pyls
 
     " brew cask install godot
-    if executable('/Applications/Godot.app/Contents/MacOS/Godot')
+    if filereadable('/Applications/Godot.app/Contents/MacOS/Godot')
         au User lsp_setup 
                     \ call lsp#register_server({
                     \ 'name': 'godot',
