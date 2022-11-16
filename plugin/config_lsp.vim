@@ -51,18 +51,9 @@ augroup david_lsp
     " and emmylua no longer provides completion (maybe it only worked in love2d?).
     if filereadable(lsp_settings#servers_dir() .'/sumneko-lua-language-server/sumneko-lua-language-server')
                 \ || filereadable(lsp_settings#servers_dir() .'/emmylua-ls/emmylua-ls')
-                \ || executable('lua-lsp')
         let g:lua_define_omnifunc = 0
         let g:lua_define_completion_mappings = 0
-        if executable('lua-lsp')
-            au User lsp_setup call lsp#register_server({
-                        \ 'name': 'lua-lsp',
-                        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'lua-lsp']},
-                        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'main.lua'))},
-                        \ 'whitelist': ['lua'],
-                        \ })
-        endif
-        " vim-lsp-settings handles setup for emmylua
+        " vim-lsp-settings handles setup for emmylua and sumneko
     endif
 
     " cpp/c
