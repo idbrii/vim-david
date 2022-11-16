@@ -17,6 +17,8 @@ if &shell !~# 'bash'
     " but I don't do that. Not silent so I know it's happening.
     tnoremap <C-u> <C-Home>
     tnoremap <C-k> <C-End>
+    " https://superuser.com/a/868213/11808
+    tnoremap <C-w> <C-Left><F4><Space>
 endif
 
 
