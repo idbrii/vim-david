@@ -55,8 +55,8 @@ if executable('git')
     xnoremap <Leader>gb :Gpopupblame<CR>
 
     command! Ghistory GV! --all
-    " Show stashes in quickfix
-    command! Gstashes Glog -g stash
+    " Show stashes in quickfix. An interactive :Git stash list (cz? lists maps)
+    command! Gstashlist Glog -g stash
 
     " Implement my own fugitive_legacy_commands without the deprecation
     " warnings.
