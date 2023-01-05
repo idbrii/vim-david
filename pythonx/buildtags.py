@@ -248,6 +248,9 @@ def build(
     # Build ctags and cscope	{{{1
     # Fixup the filelist
 
+    # Sometimes tag file gets corrupted and ctags refuses to modify it.
+    tags_file.unlink(missing_ok=True)
+
     operatingsystem = os.environ.get("OSTYPE", "")
     if "cygwin" in operatingsystem:
         # mlcscope needs full paths, so replace the relative path with the fully
