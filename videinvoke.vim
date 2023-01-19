@@ -6,6 +6,8 @@
 " VS passes the following arguments to vim:
 "   --servername Vide --remote-silent +"call cursor($(CurLine),$(CurCol))" +"runtime videinvoke.vim" $(ItemPath)
 "   It might be useful to include: +"set path+=$(SolutionDir)/**"
+" VSCode needs a keybinding with args (https://stackoverflow.com/a/68291995/79125):
+"   "text": "vide +\"call cursor(${lineNumber},0)\" +\"runtime videinvoke.vim\" ${file}\u000D"
 " Eclipse passes:
 "   --servername Vide --remote-silent "+runtime videinvoke.vim" "+set path+=${project_loc}/**" ${resource_loc}
 " Unity passes nothing on Mac and on Win:
