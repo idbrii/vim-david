@@ -56,7 +56,7 @@ if executable('git')
 
     command! Ghistory GV! --all
     " Show stashes in quickfix. An interactive :Git stash list (cz? lists maps)
-    command! Gstashlist Glog -g stash
+    command! Gstashlist Gclog -g stash
 
     " Implement my own fugitive_legacy_commands without the deprecation
     " warnings.
