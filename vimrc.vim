@@ -269,6 +269,9 @@ set autoindent				" Indent like previous line
 " Vim's built-in python indenting is excessive after open parens.
 let g:pyindent_open_paren = '&sw'
 
+" Don't bother setting up translations
+let g:diff_translations = v:false
+
 if version > 600
     set backspace=start         " backspace can clear up to beginning of line
 endif

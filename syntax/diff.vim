@@ -351,7 +351,9 @@ syn match diffFile	"^==== .*"
 
 if search('^@@ -\S\+ +\S\+ @@', 'nw', '', 100)
   " unified
-  syn match diffOldFile	"^--- .*"
+  " DAVID: Require \l so removed lua comments don't show as old file. Git
+  " always puts a/ or b/ in front of file paths.
+  syn match diffOldFile	"^--- \l.*"
   syn match diffNewFile	"^+++ .*"
 else
   " context / old style
