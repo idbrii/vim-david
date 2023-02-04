@@ -626,8 +626,8 @@ let g:loaded_logiPat = 0
 
 " dirdiff   {{{2
 " Copied out of zfdirdiff, but renamed.
-command! -nargs=+ -complete=file DirDiff :call ZF_DirDiff(<f-args>)
-command! -nargs=* -complete=file DirMarkDiff :call ZF_DirDiffMark(<q-args>)
+command! -nargs=+ -complete=file DirDiff     :call zfdirdiff#DirDiff(<f-args>)
+command! -nargs=* -complete=file DirMarkDiff :call zfdirdiff#mark#Mark(<q-args>)
 
 let g:ZFDirDiffMark_needConfirm = 1
 " Ignore dotfiles (often giant cache folders)
