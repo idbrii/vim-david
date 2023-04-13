@@ -1,16 +1,29 @@
+# To check manually installed packages, use pipdeptree.
+
+2to3>=1.0
+ahk>=0.14.1
 black>=1.0.0
 flake8>=1.0.0
 fswatch==0.1.1
+gdtoolkit>=3.4.0
+hererocks>0.0.0
 jsbeautifier>=1.14.0
+keyboard>=0.13.5
+pipdeptree>=2.3.1
 plumbum>=1.0.0
 # pycscope doesn't work with python 3
 # pycscope==1.2.1
 pylint>=1.0.0
 pytest>=6.2.5
-hererocks>0.0.0
+typing-extensions>=4.3.0
+virtualenv>=20.16.5
+
 
 # May want to install this from my checkout so it's easy to modify
 # -e git+http://github.com/idbrii/librarian#egg=code-librarian
 
 # Install this one inside sovereign
 # -e git+http://github.com/idbrii/PySvn.git@820647967d28f3de90b0a9627dc41e2e9f84f837#egg=svn
+
+# If using:
+# -e c:/code/public-clones/makelove/
