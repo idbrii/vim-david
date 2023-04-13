@@ -54,7 +54,7 @@ if executable('git')
     command! -range Gpopupblame <line1>,<line2>call david#git#Gblame_popup()
     xnoremap <Leader>gb :Gpopupblame<CR>
 
-    command! Ghistory GV! --all
+    command! -nargs=* Ghistory GV! --all <args>
     " Show stashes in quickfix. An interactive :Git stash list (cz? lists maps)
     command! Gstashlist Gclog -g stash
 
