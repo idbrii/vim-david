@@ -33,6 +33,11 @@ endif
 " Git          {{{1
 if executable('git')
 
+    augroup david_git
+        au!
+        autocmd User FugitiveIndex call david#fugitive#ConfigureIndexBuffer()
+    augroup END
+
     " I almost always do verbose, so define my own Gcommit that uses full
     " vertical height. See vim-fugitive#1519.
     command! -bang -nargs=? -range=-1 -complete=customlist,fugitive#CommitComplete Gcommit call david#git#GitCommit(<line1>, <count>, +"<range>", <bang>0, "<mods>", "commit " .. <q-args>)
