@@ -1,7 +1,15 @@
 function! s:ColorizeDates(year_start, year_end)
     let min_color = [0x00, 0x45, 0x00]
     let max_color = [0x10, 0xff, 0xff]
-    let increment = 0x10
+    let n_years = a:year_end - a:year_start
+    if n_years <= 1
+        let increment = 0x20
+    elseif n_years <= 3
+        let increment = 0x10
+    else
+        let increment = 0x05
+    endif
+    
     let color = min_color[:] " copy
     for year in range(a:year_start, a:year_end)
         for month in range(1, 12)
@@ -10,7 +18,7 @@ function! s:ColorizeDates(year_start, year_end)
             call execute(cmd)
 
             let fg = ''
-            if s:Sum(color) > 0xdd
+            if s:Sum(color) > 0x88
                 " Too bright for white.
                 let fg = 'guifg=black'
             else
@@ -67,10 +75,12 @@ endf
 function! fadingdate#ColorizeDatesInBuffer()
     let s:dates = s:FindDateRangeInBuffer()
     call s:ColorizeDates(s:dates[0], s:dates[1])
+    " Print these values if you want to know the range.
+    return [s:dates[0], s:dates[1]]
 endf
 
 " Add this to buffers where dates would be in this format.
 "~ command! -buffer -bar 		FadeDateColors call fadingdate#ColorizeDatesInBuffer() 
 
 " Testing:
-" nnoremap <buffer> \\ :<C-u>update<Bar>wincmd p<Bar>source ~/.vim/waitingroom/fadingdate.vim<Bar>ColorizeDates<Bar>wincmd w<CR>
+" nnoremap <buffer> \\ :<C-u>update<Bar>Runtime %<Bar>wincmd p<Bar>FadeDateColors<Bar>wincmd p<CR>
