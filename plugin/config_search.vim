@@ -61,6 +61,8 @@ command! -bang -nargs=1 -complete=file QFilter call s:FilterQuickfixList(<bang>0
 
 
 " vim-searchlight
-highlight link Searchlight Incsearch
+" For some reason on vim 9.0.1425, searchlight's default highlight clobbers
+" the one I have here unless I make this one default too.
+highlight default link Searchlight Incsearch
 
 " vi: et sw=4 ts=4 fdm=marker fmr={{{,}}}
