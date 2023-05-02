@@ -1,5 +1,5 @@
 " Invoke with:
-" vim -Nu ~/.vim/reprovimrc.vim -U NONE
+" vim -Nu ~/.vim/bundle/aa-david/reprovimrc.vim -U NONE
 
 " all plugins should work with sensible as a baseline.
 let s:plugins = ['sensible']
@@ -38,20 +38,20 @@ nnoremap <Leader>fs :update<CR>
 set ignorecase smartcase
 set wildmode=longest:list,full
 set tag=./tags;/
-source ~/.vim/plugin/config_navigation.vim
+source ~/.vim/bundle/aa-david/plugin/config_navigation.vim
 
 " My vim filetype
 augroup reprovim
     au!
-    autocmd FileType vim source ~/.vim/after/ftplugin/vim.vim
+    autocmd FileType vim source ~/.vim/bundle/aa-david/after/ftplugin/vim.vim
 augroup END
 
 " Load python and unix tools from local.vim
-source ~/.vim/autoload/david.vim
+source ~/.vim/bundle/aa-david/autoload/david.vim
 source ~/.vim/local.vim
 "~ let $PATH = $PATH .. ';' .. expand('$USERPROFILE/scoop/apps/python39/3.9.1/')
 
-source ~/.vim/plugin/config_display.vim
+source ~/.vim/bundle/aa-david/plugin/config_display.vim
 FontDefault
 
 nnoremap <buffer> <Leader>vso <Cmd>update<bar> Vader<CR>
