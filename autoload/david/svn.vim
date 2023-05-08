@@ -312,13 +312,21 @@ function! david#svn#TortoiseCommand(command, optional_path) abort
         let path = '%'
     endif
     let path = david#path#to_unix(path)
-    " Ensure svn will have a path inside the repo.
+    " Ensure svn is working from a path inside the repo or it gets confused.
     if isdirectory(path)
         let dir = fnamemodify(path, ':p')
     else
         let dir = fnamemodify(path, ':p:h')
     endif
     exec 'cd' dir
+    if !finddir('.svn', '.;')
+        " No .svn means it's probably git-svn. We need to use a url.
+        let urls = systemlist('git svn info '.. path)->filter({idx, val -> val =~ "^URL: "})
+        if !empty(urls)
+            let path = urls->map({key, val -> substitute(val, '\v^URL: (.*)$', '\1', '')})[0]
+        endif
+    endif
+    
     exec 'AsyncCommand TortoiseProc /command:'. a:command .' /path:"'. path .'"'
 endf
 
