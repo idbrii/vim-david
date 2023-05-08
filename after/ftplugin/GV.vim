@@ -1,3 +1,6 @@
+" I use gq to quit instead.
+nunmap <buffer> q
+
 " I added refresh to gv.
 nmap <silent> <buffer> <C-l>     <Plug>(gv-refresh)<Plug>(david-redraw-screen)
 
