@@ -32,3 +32,7 @@ function! s:search_for_head(direction, count)
 endf
 "~ nnoremap <silent> <buffer> r :<C-u>silent call <SID>search_for_head(1, v:count)<CR>
 "~ nnoremap <silent> <buffer> R :<C-u>silent call <SID>search_for_head(0, v:count)<CR>
+
+
+" Open commit in preview window like other fugitive buffers.
+nnoremap <buffer> p <Cmd>pclose<Bar>split<Bar>exec "Gedit" gv#sha()<Bar>pedit<Bar>close<CR>
