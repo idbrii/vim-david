@@ -321,7 +321,15 @@ function! david#svn#TortoiseCommand(command, optional_path) abort
     exec 'cd' dir
     if !finddir('.svn', '.;')
         " No .svn means it's probably git-svn. We need to use a url.
-        let urls = systemlist('git svn info '.. path)->filter({idx, val -> val =~ "^URL: "})
+
+        let info_cmd = 'git svn info '.. path
+        if isdirectory(path ..'/.git')
+            " info on the root gives an error (use of uninit value) instead of
+            " valid info. Use no path to get repo url.
+            let info_cmd = 'git svn info'
+        endif
+        
+        let urls = systemlist(info_cmd)->filter({idx, val -> val =~ "^URL: "})
         if !empty(urls)
             let path = urls->map({key, val -> substitute(val, '\v^URL: (.*)$', '\1', '')})[0]
         endif
