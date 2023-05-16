@@ -97,7 +97,6 @@ function! david#svn#SvnDiff(fname, optional_revision)
         %sm/\r$//
     endif
 endf
-command! -nargs=? SvnDiff :silent call david#svn#SvnDiff(expand("%"), <q-args>)
 
 function! s:SvnUser()
     let auth = systemlist("svn auth")
@@ -137,7 +136,6 @@ function! david#svn#SvnDay(days_ago)
     " Snap to width used
     vertical resize 81
 endf
-command! -count=0 SvnDay call david#svn#SvnDay(<count>)
 
 " Easy copy message from svn when committing to git. Uses the file under
 " cursor (from a git commit message buffer).
@@ -164,11 +162,6 @@ function! david#svn#SvnLastMessage() abort
     silent 0put =log[3:]
     norm! gg
 endf
-command! SvnLastMessage call david#svn#SvnLastMessage()
-command! GcommitSvnMsg :Gcommit -v | call search('to be committed:\n.*:\s*\w', 'e') | SvnLastMessage
-
-" There's no VCShow like git show.
-command! -nargs=+ SvnShow :Sedit <args>
 
 " VCMove often fails. Requires relative or repo paths, but even then it
 " thinks I'm moving to the filesystem. This is probably not as safe, but
@@ -188,7 +181,6 @@ function! david#svn#SvnMove(src, dest) abort
     let &shellslash = shellslash_bak
     return !v:shell_error
 endf
-command! -nargs=1 -complete=file MoveSvn :call david#svn#SvnMove(expand("%:p"), <q-args>)
 function! david#svn#SvnMoveUnity(src, dest) abort
     let success = david#svn#SvnMove(a:src .'.meta', a:dest .'.meta')
     if success
@@ -197,7 +189,6 @@ function! david#svn#SvnMoveUnity(src, dest) abort
         echo 'Try MoveSvn instead.'
     endif
 endf
-command! -nargs=1 -complete=file MoveUnity :call david#svn#SvnMoveUnity(expand("%:p"), <q-args>)
 
 function! david#svn#VCDiffWithDiffusable(diff_latest)
     "" Make VCDiff auto-disable diff mode when one window is closed.
@@ -281,8 +272,6 @@ function! david#svn#VCDiffFast(revision) abort
     "wincmd p
     "wincmd p
 endf
-" We're loaded before vc, so we can't clobber VCDiff
-command! VCDiffFast call david#svn#VCDiffFast('HEAD')
 
 function! david#svn#VCUpdate(...)
     let shellslash_bak = &shellslash
