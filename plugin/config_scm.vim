@@ -111,7 +111,7 @@ if executable('svn')
     command! GcommitSvnMsg :Gcommit -v | call search('to be committed:\n.*:\s*\w', 'e') | SvnLastMessage
 
     " There's no VCShow like git show.
-    command! -nargs=+ SvnShow :Sedit <args>
+    command! -nargs=+ SvnShow call david#svn#show(<q-args>)
 
     " VCMove often fails. Requires relative or repo paths, but even then it
     " thinks I'm moving to the filesystem. This is probably not as safe, but

@@ -292,6 +292,36 @@ function! david#svn#VCUpdate(...)
     let &shellslash = shellslash_bak
 endf
 
+" git-svn support {{{1
+
+function! david#svn#get_gitsvn_url_from_path(target_path) abort
+    let path = a:target_path
+    let info_cmd = 'git svn info '.. path
+    if isdirectory(path ..'/.git')
+        " info on the root gives an error (use of uninit value) instead of
+        " valid info. Use no path to get repo url.
+        let info_cmd = 'git svn info'
+    endif
+
+    let urls = systemlist(info_cmd)->filter({idx, val -> val =~ "^URL: "})
+    if !empty(urls)
+        let path = urls->map({key, val -> substitute(val, '\v^URL: (.*)$', '\1', '')})[0]
+    endif
+
+    return path
+endf
+
+function! david#svn#show(revision) abort
+    if finddir('.svn', '.;')
+        execute 'Sedit' a:revision
+    else
+        " Don't call TortoiseCommand so we can customize the path to force
+        " show the root.
+        let root = fnamemodify(finddir('.git', '.;'), ":h:p")
+        let path = david#svn#get_gitsvn_url_from_path(g:david_project_root)
+        exec printf('AsyncCommand TortoiseProc /command:log /revision:%s /path:%s', a:revision, path)
+    endif
+endf
 
 " Tortoise {{{1
 
@@ -310,18 +340,7 @@ function! david#svn#TortoiseCommand(command, optional_path) abort
     exec 'cd' dir
     if !finddir('.svn', '.;')
         " No .svn means it's probably git-svn. We need to use a url.
-
-        let info_cmd = 'git svn info '.. path
-        if isdirectory(path ..'/.git')
-            " info on the root gives an error (use of uninit value) instead of
-            " valid info. Use no path to get repo url.
-            let info_cmd = 'git svn info'
-        endif
-        
-        let urls = systemlist(info_cmd)->filter({idx, val -> val =~ "^URL: "})
-        if !empty(urls)
-            let path = urls->map({key, val -> substitute(val, '\v^URL: (.*)$', '\1', '')})[0]
-        endif
+        let path = david#svn#get_gitsvn_url_from_path(path)
     endif
     
     exec 'AsyncCommand TortoiseProc /command:'. a:command .' /path:"'. path .'"'
