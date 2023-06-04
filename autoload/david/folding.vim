@@ -22,7 +22,7 @@ function! david#folding#build_fold_syntax_script()
         endfor
         call extend(contents, [ '', 'function! david#gen#foldfiletypes#has_foldable_syntax(ft)', '    return get(s:foldable, a:ft, 0)', 'endf' ])
 
-        edit ~/.vim/autoload/david/gen/foldfiletypes.vim
+        edit ~/.vim/bundle/aa-david/autoload/david/gen/foldfiletypes.vim
         normal! ggdG
         call append(0, contents)
         write

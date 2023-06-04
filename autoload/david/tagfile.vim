@@ -89,7 +89,7 @@ function! david#tagfile#BuildTags(use_async) abort
 
     if &ft == "gdscript"
         call godot#lcd_to_project_root()
-        execute 'AsyncShell' expand('~/.vim/pythonx/buildtags.py') cscope "godot"
+        execute 'AsyncShell' expand('~/.vim/bundle/aa-david/pythonx/buildtags.py') cscope "godot"
         return
     endif
     
@@ -99,6 +99,6 @@ function! david#tagfile#BuildTags(use_async) abort
         execute '!bash ~/.vim/scripts/buildtags' cscope &ft
         call david#tagfile#LocateAll()
     else
-        execute 'AsyncShell' expand('~/.vim/pythonx/buildtags.py') cscope &ft
+        execute 'AsyncShell' expand('~/.vim/bundle/aa-david/pythonx/buildtags.py') cscope &ft
     endif
 endf

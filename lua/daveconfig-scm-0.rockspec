@@ -1,4 +1,4 @@
--- luarocks install --only-deps ~/.vim/lua/daveconfig-scm-0.rockspec
+-- luarocks install --only-deps ~/.vim/bundle/aa-david/lua/daveconfig-scm-0.rockspec
 
 package = "daveconfig"
 version = "scm-0"
