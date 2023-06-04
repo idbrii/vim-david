@@ -133,7 +133,7 @@ function! s:set_entrypoint(should_be_async, entrypoint_makeprg, cur_dir)
     command! ProjectRun  call DavidProjectBuild()
     let &makeprg = a:entrypoint_makeprg
     exec david#path#build_kill_from_current_makeprg()
-    call LocateAll()
+    LocateAllTagFiles
     NotGrepRecursiveFrom .
 endf
 " Defaults to async. Use bang for :make.

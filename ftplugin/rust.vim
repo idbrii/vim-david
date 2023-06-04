@@ -41,7 +41,7 @@ function! s:set_entrypoint(makeprg)
     endf
     command! ProjectMake call DavidProjectBuild("build --release")
     command! ProjectRun  call DavidProjectBuild("run --release")
-    call LocateAll()
+    LocateAllTagFiles
     NotGrepRecursiveFrom .
     " I put code in ./src/
     let g:inclement_n_dir_to_trim = 2

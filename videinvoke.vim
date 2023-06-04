@@ -55,7 +55,7 @@ if !exists('loaded_videinvoke')
 	" disable verbose for our initial load
 	set nocscopeverbose
 	" add any database in current directory and all other tag files
-	call LocateAll()
+	LocateAllTagFiles
 	" okay, be verbose from now on
 	set cscopeverbose
 
