@@ -54,7 +54,7 @@ if executable('git')
     xnoremap <leader>gv :GV! -n 1000<CR>
 
     command! -bar -range=% -nargs=? Gblame :silent! cd %:p:h | call david#git#Gblame('<line1>,<line2>', <q-args>)
-    nnoremap <Leader>gb :Gblame<CR>
+    nnoremap <Leader>gb :Gblame -w<CR>
 
     command! -range Gpopupblame <line1>,<line2>call david#git#Gblame_popup()
     xnoremap <Leader>gb :Gpopupblame<CR>
