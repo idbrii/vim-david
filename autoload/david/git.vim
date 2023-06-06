@@ -32,6 +32,7 @@ function! david#git#Gblame(range, args)
     let winview = winsaveview()
     exec a:range ..'Git blame '.. a:args
     wincmd T
+    setlocal nowrap
     call winrestview(winview)
     " Offset to the right past the commit info column.
     normal! 64l
