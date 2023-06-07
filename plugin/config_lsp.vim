@@ -73,4 +73,8 @@ augroup david_lsp
                     \ 'allowlist': ['gdscript3', 'gdscript']
                     \ })
     endif
+
+    " The port changed in Godot4.
+    " Remove when my PR is accepted.
+    let g:lsp_settings.godot = { 'tcp': '127.0.0.1:6005'}
 augroup END
