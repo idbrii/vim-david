@@ -46,6 +46,21 @@ let g:ale_linters.cs = [
             \       'OmniSharp',
             \   ]
 
+" Godot/gdscript {{{1
+
+" To use gdtoolkit, enable these and implement handlers for them. But I'm
+" using lsp for now instead.
+"~ let g:ale_linters.gdscript = [
+"~             \       'gdlint',
+"~             \   ]
+
+
+"~ let g:ale_fixers.gdscript = [
+"~             \       'gdformat',
+"~             \       'trim_whitespace',
+"~             \   ]
+
+
 " Python {{{1
 
 let s:python_exe = ''
