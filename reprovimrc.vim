@@ -11,7 +11,10 @@ let s:plugins += ['vader']
 
 " Plugins to test here ------------------------------------------
 
-let s:plugins += ['matchup']
+let s:plugins += ['asyncomplete']
+let s:plugins += ['asyncomplete-lsp']
+let s:plugins += ['lsp']
+let s:plugins += ['lsp-settings']
 
 " To add all plugins:
 "~ put =map(systemlist('ls ~/.vim/bundle'), { i,p -> printf('let s:plugins += [\"%s\"]', p)})
@@ -29,6 +32,10 @@ set viminfofile=NONE
 
 set hlsearch
 colorscheme desert
+
+
+let g:lsp_settings = {}
+let g:lsp_settings.godot = { 'tcp': '127.0.0.1:6005'}
 
 " Core mappings that are hard to use vim without
 let mapleader=' '
