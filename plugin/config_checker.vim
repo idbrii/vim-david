@@ -10,6 +10,10 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 1000
 
+" I don't like warnings mixed in with code. We have too many to be readable. I
+" can see them at the bottom or in ALEPopulateLocList.
+let g:ale_virtualtext_cursor = 'disabled'
+
 " Use ALEPopulateQuickfix instead.
 let g:ale_set_quickfix = 0
 let g:ale_set_loclist = 0
