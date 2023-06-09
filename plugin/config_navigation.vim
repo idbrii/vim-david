@@ -35,6 +35,11 @@ nnoremap ]b ])
 nnoremap [B [{
 nnoremap ]B ]}
 
+" I'm tempted to do this, but see
+" david#mappings#map_next_function_instead_of_zero_column() instead.
+" nmap ]] ]m
+" nmap [[ [m
+
 " Between files {{{1
 " Switch files
 nnoremap ^ <C-^>

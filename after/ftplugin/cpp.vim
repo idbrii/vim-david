@@ -47,3 +47,7 @@ iabbrev <buffer> #d #define
 nnoremap <buffer> <silent> <A-o> :call david#cpp#SwitchSourceHeader()<CR>
 
 nnoremap <buffer> <Leader>ji :<C-u>NotGrep \binclude.*\b<C-r>=expand('%:t:r')<CR>\b<CR>
+
+" I'd rather jump to methods than first {
+call david#mappings#map_next_function_instead_of_zero_column()
+
