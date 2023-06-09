@@ -52,11 +52,12 @@ let g:ale_linters.cs = [
 
 " Godot/gdscript {{{1
 
-" To use gdtoolkit, enable these and implement handlers for them. But I'm
+let g:ale_linters.gdscript = [
+            \       'vim-lsp',
+            \   ]
+" To use gdtoolkit, enable gdlint and gdformat and implement handlers for them. But I'm
 " using lsp for now instead.
-"~ let g:ale_linters.gdscript = [
-"~             \       'gdlint',
-"~             \   ]
+            "~ \       'gdlint',
 
 
 "~ let g:ale_fixers.gdscript = [
