@@ -1,6 +1,8 @@
-" In lua, it's popping up and clearing text I already wrote. Using longer
-" delay to make it less annoying. TODO: Needs debugging.
-"~ let g:asyncomplete_popup_delay = 500
+" It's hard to use ins-completion when asyncomplete pops up immediately. I use
+" ins-completion in gdscript since it doesn't always know the right
+" possibilities.
+let g:asyncomplete_popup_delay = 500
+
 " I use completeopt=menu,preview,menuone,longest whereas asyncomplete uses
 " completeopt=menuone,noinsert,noselect. Still doesn't seem to prevent my
 " input from being cleared.
@@ -9,8 +11,9 @@
 " I'm using ALE, so I don't want things to conflict
 let g:lsp_diagnostics_enabled = 0
 
-" Temporarily disable asyncomplete to prove it's causing my wipeouts.
-let g:asyncomplete_enable_for_all = 0
+" If asyncomplete is causing trouble, turn it off here. Seems like the
+" wipeouts issue is fixed.
+"~ let g:asyncomplete_enable_for_all = 0
 
 " Try out highlighting with a big delay.
 let g:lsp_highlight_references_enabled = 1
