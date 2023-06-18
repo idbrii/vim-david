@@ -34,9 +34,6 @@ set hlsearch
 colorscheme desert
 
 
-let g:lsp_settings = {}
-let g:lsp_settings.godot = { 'tcp': '127.0.0.1:6005'}
-
 " Core mappings that are hard to use vim without
 let mapleader=' '
 inoremap <C-l> <Esc>
@@ -62,3 +59,17 @@ source ~/.vim/bundle/aa-david/plugin/config_display.vim
 FontDefault
 
 nnoremap <buffer> <Leader>vso <Cmd>update<bar> Vader<CR>
+
+
+" Currently debugging:
+
+let g:lsp_settings = {}
+let g:lsp_settings.godot = { 'tcp': '127.0.0.1:6005'}
+let g:lsp_diagnostics_virtual_text_enabled = 0
+
+set omnifunc=lsp#complete
+
+"~ let g:asyncomplete_log_file = expand('~/.vim-cache/temp/asyncomplete.log')
+"~ let g:asyncomplete_enable = 0
+let g:asyncomplete_min_chars = 5
+"~ let g:lsp_diagnostics_enabled = 0
