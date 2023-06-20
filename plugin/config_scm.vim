@@ -21,15 +21,6 @@ function s:on_mergetool_set_layout(split)
 endfunction
 let g:MergetoolSetLayoutCallback = function('s:on_mergetool_set_layout')
 
-" Meld          {{{1
-if executable('meld')
-    " Invoke meld to easily diff the current directory
-    " Only useful if we're in a version-controlled directory
-
-    " :e is used to change to current file's directory. See vimrc.
-    nnoremap <Leader>gD :e<CR>:!meld . &<CR>
-endif
-
 " Git          {{{1
 if executable('git')
 
@@ -45,6 +36,7 @@ if executable('git')
     " Fugitive
     nnoremap <Leader>gi :Git<CR>gg)
     nnoremap <Leader>gd :Gdiffsplit<CR>
+    nnoremap <Leader>gD :Gdiffsplit HEAD<CR>
 
     " GV
     " V: visual repo history
