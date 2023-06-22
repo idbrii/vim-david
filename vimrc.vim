@@ -99,8 +99,9 @@ endif
 
 " Session {{{1
 command! SessionSaveAndQuit mksession! ~/.vim-cache/session.vim | qall
-command! SessionLoad        source ~/.vim-cache/session.vim
-command! SessionObsess      Obsession ~/.vim-cache/session.vim | Chmod 600 ~/.vim-cache/session.vim
+command! -bar SessionLoad      source ~/.vim-cache/session.vim | SessionCurrent
+command! -bar SessionObsess    Obsession ~/.vim-cache/session.vim | Chmod 600 ~/.vim-cache/session.vim
+command! -bar SessionCurrent   echo printf('Current %s: %s', empty(get(g:, 'this_obsession', '')) ? 'Session' : 'Obsession', v:this_session)
 " Close quickfix window so it doesn't get stored in the session since it can't
 " be properly reloaded. I think this is only a problem because I use
 " quickfix-reflector which makes qf modifiable.
