@@ -98,10 +98,10 @@ if has('win32') || has("macunix")
 endif
 
 " Session {{{1
-command! SessionSaveAndQuit mksession! ~/.vim-cache/session.vim | qall
-command! -bar SessionLoad      source ~/.vim-cache/session.vim | SessionCurrent
-command! -bar SessionObsess    Obsession ~/.vim-cache/session.vim | Chmod 600 ~/.vim-cache/session.vim
-command! -bar SessionCurrent   echo printf('Current %s: %s', empty(get(g:, 'this_obsession', '')) ? 'Session' : 'Obsession', v:this_session)
+command! SessionSaveAndQuit mksession! ~/.vim-cache/session/standard.vim | qall
+command! -bar -nargs=* SessionLoad      call david#session#LoadSession(<q-args>)
+command! -bar -nargs=* SessionObsess    call david#session#StartObsession(<q-args>)
+command! -bar          SessionCurrent   echo david#session#GetSessionInfo()
 " Close quickfix window so it doesn't get stored in the session since it can't
 " be properly reloaded. I think this is only a problem because I use
 " quickfix-reflector which makes qf modifiable.
@@ -127,8 +127,8 @@ set sessionoptions+=terminal " include terminal windows where the command can be
 set sessionoptions+=unix     " with Unix end-of-line format (single <NL>), even when on Windows or DOS
 " Config options
 set sessionoptions+=curdir " the current directory
-set sessionoptions+=globals  " global variables (String and Number) matching /^\u\k*\l\k*/
 " Disabled - I use sessions for a clean vim.
+"~ set sessionoptions+=globals  " global variables (String and Number) matching /^\u\k*\l\k*/
 "~ set sessionoptions+=buffers " hidden and unloaded buffers, not just those in windows
 "~ set sessionoptions+=folds " manually created folds, opened/closed folds and local fold options
 "~ set sessionoptions+=localoptions " options and mappings local to a window or buffer (not global values for local options)
