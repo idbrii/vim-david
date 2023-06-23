@@ -99,8 +99,7 @@ endif
 
 " Session {{{1
 command! SessionSaveAndQuit mksession! ~/.vim-cache/session/standard.vim | qall
-command! -bar -nargs=* SessionLoad      call david#session#LoadSession(<q-args>)
-command! -bar -nargs=* SessionObsess    call david#session#StartObsession(<q-args>)
+command! -bar -nargs=* -complete=customlist,david#session#CompleteSessions   SessionObsess call david#session#StartObsession(<q-args>)
 command! -bar          SessionCurrent   echo david#session#GetSessionInfo()
 " Close quickfix window so it doesn't get stored in the session since it can't
 " be properly reloaded. I think this is only a problem because I use
