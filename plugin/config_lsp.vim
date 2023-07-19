@@ -65,8 +65,10 @@ augroup david_lsp
     " and emmylua no longer provides completion (maybe it only worked in love2d?).
     if filereadable(lsp_settings#servers_dir() .'/sumneko-lua-language-server/sumneko-lua-language-server')
                 \ || filereadable(lsp_settings#servers_dir() .'/emmylua-ls/emmylua-ls')
-        let g:lua_define_omnifunc = 0
+        " Turn off some lua-xolox features when using lsp.
+        let g:lua_define_completefunc = 0
         let g:lua_define_completion_mappings = 0
+        let g:lua_define_omnifunc = 0
         " vim-lsp-settings handles setup for emmylua and sumneko
     endif
 
