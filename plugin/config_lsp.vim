@@ -1,7 +1,7 @@
 " It's hard to use ins-completion when asyncomplete pops up immediately. I use
 " ins-completion in gdscript since it doesn't always know the right
 " possibilities.
-let g:asyncomplete_popup_delay = 500
+let g:asyncomplete_popup_delay = 750
 
 " I use completeopt=menu,preview,menuone,longest whereas asyncomplete uses
 " completeopt=menuone,noinsert,noselect. Still doesn't seem to prevent my
