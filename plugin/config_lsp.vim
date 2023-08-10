@@ -48,6 +48,9 @@ let g:lsp_settings = {}
 let g:lsp_settings['omnisharp-lsp'] = {}
 " See after_lsp.vim
 
+
+call lsp_settings#set('sumneko-lua-language-server', 'args', ["--metapath", g:david_cache_root .'/lsp/meta'])
+
 augroup david_lsp
     au!
 
