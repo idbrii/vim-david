@@ -1,4 +1,5 @@
 " Plain text files
 "
 " Spellcheck text files
-au BufRead,BufNewFile *.txt setfiletype text
+" Disable: vim ships with this in filetype.vim, so it's redundant.
+"~ au BufRead,BufNewFile *.txt setfiletype text

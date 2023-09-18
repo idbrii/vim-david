@@ -1,5 +1,5 @@
 " Use spell checking for writable files that probably aren't logs.
-if !&readonly && expand('%:t') !~? '[._-]log[._-]'
+if !&readonly && expand('%:t') !~? '\Alog\A'
     setlocal spell
 endif
 
