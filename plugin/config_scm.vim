@@ -49,7 +49,9 @@ if executable('git')
     nnoremap <Leader>gb :Gblame -w<CR>
 
     command! -range Gpopupblame <line1>,<line2>call david#git#Gblame_popup()
+    command! -range Glineblame  <line1>,<line2>call david#git#Gblame_showline()
     xnoremap <Leader>gb :Gpopupblame<CR>
+    xnoremap <Leader>gB :Glineblame<CR>
 
     command! -nargs=* Ghistory GV! --all <args>
     " Show stashes in quickfix. An interactive :Git stash list (cz? lists maps)

@@ -38,8 +38,18 @@ function! david#git#Gblame(range, args)
     normal! 64l
 endf
 
+function! s:get_blame_for_line() abort range
+    return systemlist("git -C ".. shellescape(expand('%:p:h')) ..printf(" log --no-merges -n 1 -L %i,%i:", a:firstline, a:lastline)  .. shellescape(resolve(expand("%:t"))))
+endf
+
+function! david#git#Gblame_showline() abort range
+    let info = s:get_blame_for_line()
+    let commit = info[0]->split()[1]
+    exec 'Gedit '.. commit
+endf
+
 function! david#git#Gblame_popup() abort range
-    call setbufvar(winbufnr(popup_atcursor(systemlist("git -C ".. shellescape(expand('%:p:h')) ..printf(" log --no-merges -n 1 -L %i,%i:", a:firstline, a:lastline)  .. shellescape(resolve(expand("%:t")))), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")
+    call setbufvar(winbufnr(popup_atcursor(s:get_blame_for_line(), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")
 endf
 
 function! david#git#GitRevert(commit)
