@@ -69,3 +69,8 @@ function! david#git#GitRevert(commit)
     " How to open status regardless of fugitive errors?
     Git
 endf
+
+
+function! david#git#is_buf_from_fugitive_cmd(bufnr, cmd) abort
+    return 0 == get(FugitiveResult(a:bufnr), 'args', [])->index(a:cmd)
+endf

@@ -6,14 +6,18 @@ if !exists('g:loaded_fugitive')
     finish
 endif
 
-function! s:LogBranch()
-    let br = expand("<cWORD>")
-    if empty(br) || br !~ '\w'
-        return
-    endif
-    
-    let cmd = printf("GV --no-merges %s ^%s", br, FugitiveHead())
-    return execute(cmd)
-endfunction
+if david#git#is_buf_from_fugitive_cmd(bufnr(''), "branch")
 
-nnoremap <buffer> <C-CR> <cmd>call <SID>LogBranch()<CR>
+    function! s:LogBranch()
+        let br = expand("<cWORD>")
+        if empty(br) || br !~ '\w'
+            return
+        endif
+
+        let cmd = printf("GV --no-merges %s ^%s", br, FugitiveHead())
+        return execute(cmd)
+    endfunction
+
+    nnoremap <buffer> <C-CR> <cmd>call <SID>LogBranch()<CR>
+
+endif
