@@ -46,7 +46,8 @@ nnoremap <Leader>tT :grep -e TODO -e HACK -R .
 " Project-wide todos
 " Using character classes to avoid quote or Bar which aren't playing nice with
 " AsyncRun.
-nnoremap <Leader>tp :exec 'NotGrep [TH][OA][DC][OK].'. g:snips_author<CR>
+nnoremap <Leader>tp <Cmd>exec 'NotGrep [TH][OA][DC][OK].'. g:snips_author<CR>
+nnoremap <Leader>tP <Cmd>exec 'NotGrep [TH][OA][DC][OK][:(]'<CR>
 nnoremap <Leader>tl :Todo<CR>
 
 " Filters the quickfix list to keep results matching pattern. Bang removes
