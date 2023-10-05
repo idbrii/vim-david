@@ -95,6 +95,8 @@ endfunction
 "setlocal expandtab
 "setlocal textwidth=80
 "setlocal nowrap
+"" Therefore excluding from undo_indent:
+"  shiftwidth< tabstop< softtabstop< expandtab< textwidth< wrap<" 
 
 setlocal cindent
 "setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
@@ -132,5 +134,5 @@ setlocal cinoptions+=#0
 "    setlocal indentexpr=GoogleCppIndent()
 "endif
 
-let b:undo_indent = "setl sw< ts< sts< et< tw< wrap< cin< cino< inde<"
+let b:undo_indent = "setl cindent< cinoptions< indentexpr<"
 
