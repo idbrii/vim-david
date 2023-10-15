@@ -4,6 +4,9 @@ nmap <Leader>if <Plug>(ale_fix)
 
 " Ale general {{{1
 
+" Use Verbose to avoid polluting clipboard.
+command! ALEInfoBuffer exec "Verbose ALEInfo" | setfiletype vim
+
 let g:ale_linters = {}
 let g:ale_fixers = {}
 let g:ale_lint_on_text_changed = 'normal'
