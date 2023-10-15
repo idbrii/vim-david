@@ -55,18 +55,17 @@ let g:ale_linters.cs = [
 
 " Godot/gdscript {{{1
 
+" gdformat/gdlint -> :! python3 -m pip install "gdtoolkit==4.*"
+
 let g:ale_linters.gdscript = [
             \       'vim-lsp',
+            \       'gdlint',
             \   ]
-" To use gdtoolkit, enable gdlint and gdformat and implement handlers for them. But I'm
-" using lsp for now instead.
-            "~ \       'gdlint',
 
-
-"~ let g:ale_fixers.gdscript = [
-"~             \       'gdformat',
-"~             \       'trim_whitespace',
-"~             \   ]
+let g:ale_fixers.gdscript = [
+            \       'gdformat',
+            \   ]
+            "~ \       'trim_whitespace',
 
 
 " Python {{{1
