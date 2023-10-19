@@ -24,3 +24,4 @@ CompilerSet errorformat^=%f(%l):\ %tarning\ C%n:\ %m
 "   c:\proj\stuff.cpp(71,23): error C2660: 'Stuff::Tick': function does not take 1 arguments
 CompilerSet errorformat^=%f(%l\\,%c):\ %trror\ C%n:\ %m
 CompilerSet errorformat^=%f(%l\\,%c):\ %tarning\ C%n:\ %m
+CompilerSet errorformat^=%f(%l\\,%c):\ fatal\ %trror\ C%n:\ %m
