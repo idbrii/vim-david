@@ -19,3 +19,8 @@ CompilerSet errorformat&
 "   1>c:\proj\stuff.cpp(71): error C2660: 'Stuff::Tick': function does not take 1 arguments
 CompilerSet errorformat^=%f(%l):\ %trror\ C%n:\ %m
 CompilerSet errorformat^=%f(%l):\ %tarning\ C%n:\ %m
+
+" VS2022 includes column number in error output:
+"   c:\proj\stuff.cpp(71,23): error C2660: 'Stuff::Tick': function does not take 1 arguments
+CompilerSet errorformat^=%f(%l\\,%c):\ %trror\ C%n:\ %m
+CompilerSet errorformat^=%f(%l\\,%c):\ %tarning\ C%n:\ %m
