@@ -475,6 +475,15 @@ endif
 " Works for python, not sure if it works for much else.
 command! -range=% Eval execute '<line1>,<line2>:!'. substitute(&makeprg, '%', '', '')
 
+
+augroup DavidRipple
+	au!
+    " Follow my execute convention for ripple. Works in normal and visual.
+    " We'll see if operator bugs me.
+	autocmd User RippleConfigureBuffer noremap <buffer> <Leader>im :RippleEval<CR>
+augroup END 
+
+
 " Tags {{{1
 
 " read tags 4 directories deep
