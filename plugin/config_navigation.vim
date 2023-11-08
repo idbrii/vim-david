@@ -113,6 +113,8 @@ nnoremap <unique> <Leader>ih :<C-u>HoverUnderCursor<CR>
 nnoremap <unique> <Leader>js :<C-u>AsyncCscopeFindSymbol <cword><CR>
 " Search for includes. filetypes should make a better version
 nnoremap <buffer> <Leader>ji :<C-u>NotGrep \b<C-r>=expand('%:t:r')<CR>\b<CR>
+" Search for this filename. tolower for smartcase.
+nnoremap <buffer> <Leader>jI :<C-u>NotGrep \b<C-r>=tolower(expand('%:t:r'))<CR>\b<CR>
 
 command -nargs=1 EditUpwards call david#path#edit_upwards_from_current_file(<q-args>)
 
