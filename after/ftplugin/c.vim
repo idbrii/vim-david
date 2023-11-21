@@ -17,3 +17,4 @@ if executable('clangd') || executable(lsp_settings#servers_dir() .'/clangd/clang
     setlocal omnifunc=lsp#complete
 endif
 
+command! FoldPreprocessor call david#cpp#FoldPreprocessor() 

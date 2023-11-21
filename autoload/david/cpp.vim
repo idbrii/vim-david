@@ -26,3 +26,10 @@ function! david#cpp#SwitchSourceHeader()
     endtry
 endfunction
 
+function! david#cpp#Preprocessor_foldtext() abort
+    return printf("+%s %s", v:folddashes, getline(v:foldstart))
+endf
+function! david#cpp#FoldPreprocessor() abort
+    set foldtext=david#cpp#Preprocessor_foldtext()
+    set foldmarker=#if,#endif
+endf
