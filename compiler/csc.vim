@@ -5,7 +5,7 @@ if exists("current_compiler")
   finish
 endif
 
-runtime $VIMRUNTIME/compiler/mcs.vim
+runtime compiler/mcs.vim
 
 let current_compiler = "csc"
 
