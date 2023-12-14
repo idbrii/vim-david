@@ -13,7 +13,10 @@ let g:lsp_diagnostics_enabled = 0
 
 " If asyncomplete is causing trouble, turn it off here. Seems like the
 " wipeouts issue is fixed.
-"~ let g:asyncomplete_enable_for_all = 0
+" TODO: I'm getting some bad lua completion where tons of slightly relevant
+" words outweigh the contextually relevant. Turning asyncomplete off seems to
+" fix, but maybe I need to upgrade my lsp.
+let g:asyncomplete_enable_for_all = 0
 
 " Try out highlighting with a big delay.
 let g:lsp_highlight_references_enabled = 1
