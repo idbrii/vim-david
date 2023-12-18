@@ -1,0 +1,3 @@
+
+# Ignore compiled spell files -- should compile them locally.
+spell/*.add.spl
