@@ -196,3 +196,15 @@ endfunction
 
 execute ale#fix#registry#Add('beautify', 'Ale_fixers_beautify_Fix', ['json'], 'beautify for json')
 
+" zig {{{1
+let g:ale_fixers.zig = [
+            \     'zigfmt',
+            \ ]
+
+" Use zls which is a language server. I installed with scoop:
+"   scoop install zig zls
+" The version of zig installed with scoop is too old to compile zls from
+" LspInstallServer, but it still sets up the server correctly.
+let g:ale_linters.zig = [
+            \       'vim-lsp',
+            \   ]
