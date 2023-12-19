@@ -70,6 +70,10 @@ if has("autocmd")
     autocmd BufRead,BufNewFile */.vim-cache/viminfo set filetype=viminfo
 endif
 
+" Spell file location. This must be done for every file, but I handle that
+" in vim-work.
+"~ setlocal spellfile=~/.vim/bundle/aa-david/spell/en.utf-8.add
+
 " Default to utf-8 instead of latin1
 if !exists('$LANG')
     set encoding=utf-8
