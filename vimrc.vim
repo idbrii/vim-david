@@ -457,9 +457,9 @@ let g:org_agenda_files = ['~/backlog.org', '~/plan.org']
 nnoremap <S-F5> :<C-u>silent make 
 nnoremap <F5> :<C-u>make 
 " IDE make. Setup with <filetype>SetEntrypoint commands.
-nnoremap <Leader>im :<C-u>ProjectMake<CR>
-nnoremap <Leader>ir :<C-u>ProjectRun<CR>
-nnoremap <Leader>ik :<C-u>ProjectKill<CR>
+nnoremap <Leader>im <Cmd>update <Bar>ProjectMake<CR>
+nnoremap <Leader>ir <Cmd>update <Bar>ProjectRun<CR>
+nnoremap <Leader>ik <Cmd>update <Bar>ProjectKill<CR>
 " IDE lint. mirrors <L>we.
 nnoremap <Leader>ie :<C-u>ALEPopulateQuickfix<CR>
 nnoremap <Leader>iE :<C-u>ALEPopulateLocList<CR>
