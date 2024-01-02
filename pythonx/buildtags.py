@@ -58,7 +58,7 @@ example for the same but no cscope:
     arg_parser.add_argument(
         "--project-dir",
         default=Path.cwd(),
-        help="Skip generating filelist.",
+        help="The root directory of the project.",
     )
 
     arg_parser.add_argument(
