@@ -39,7 +39,7 @@ function! david#git#Gblame(range, args)
 endf
 
 function! s:get_blame_for_line() abort range
-    return systemlist("git -C ".. shellescape(expand('%:p:h')) ..printf(" log --no-merges -n 1 -L %i,%i:", a:firstline, a:lastline)  .. shellescape(resolve(expand("%:t"))))
+    return systemlist("git -C ".. shellescape(expand('%:p:h')) ..printf(" log --ignore-space-at-eol --ignore-space-change --no-merges -n 1 -L %i,%i:", a:firstline, a:lastline)  .. shellescape(resolve(expand("%:t"))))
 endf
 
 function! david#git#Gblame_showline() abort range
