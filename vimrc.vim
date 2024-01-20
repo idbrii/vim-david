@@ -679,11 +679,6 @@ function! David_DirDiff_confirmHintHeaderText(fileLeft, fileRight, type)
     return david#diff#DirDiff_confirmHintHeader(a:fileLeft, a:fileRight, a:type)
 endf
 let g:ZFDirDiffUI_confirmHintHeaderFunc = 'David_DirDiff_confirmHintHeaderText'
-let g:ZFDirDiffHLFunc_resetHL = 'ZF_DirDiffHL_resetHL_matchadd'
-
-" De-emphasize lines that are the same. My Folded is not more subtle.
-" Using 'default' because of zfdirdiff#26.
-highlight default link ZFDirDiffHL_Same Normal
 
 augroup david_dirdiff
     au!

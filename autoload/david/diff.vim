@@ -103,7 +103,6 @@ function! david#diff#DirDiff_confirmHintHeader(fileLeft, fileRight, type)
 endf
 
 function! david#diff#DirDiff_DirDiffEnter()
-    setlocal cursorline
     " zfdirdiff has no help map, so improvise. @ means buffer-local.
     nnoremap <buffer> g? :<C-u>Unite mapping -input=@\  -start-insert<CR>
 endf
