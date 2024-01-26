@@ -7,9 +7,10 @@ endif
 " unix command is mv, so Move is a better mnemonic.
 delcommand Rename
 
-" I don't have Locate setup on any system, so I don't want to accidentally
-" trigger it.
-delcommand Locate
+" I don't have locate setup to index my system, so I don't want to
+" accidentally trigger it. It's very close to :clo[se]
+delcommand Clocate
+delcommand Llocate
 
 " My fingers are too fat to allow W and I don't use hidden, so it's not very
 " useful to me.
