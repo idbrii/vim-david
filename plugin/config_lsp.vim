@@ -57,6 +57,8 @@ call lsp_settings#set('sumneko-lua-language-server', 'args', ["--metapath", g:da
 augroup david_lsp
     au!
 
+    autocmd User lsp_server_init call david#lsp#on_lsp_server_init()
+
     " # lua-lsp
     " brew install luarocks
     "   or
