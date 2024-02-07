@@ -73,6 +73,12 @@ function! s:set_module_entrypoint(should_be_async, args)
         let cur_dir = fnamemodify(cur_file, ':h:h')
     endif
 
+    " If we're inside a package, run from package root and build module path.
+    while filereadable(cur_dir .. '/__init__.py')
+        let cur_module = fnamemodify(cur_dir, ':t') .. '.' .. cur_module
+        let cur_dir = fnamemodify(cur_dir, ':h')
+    endwhile
+
     call s:set_entrypoint(a:should_be_async, s:get_python_makeprg(cur_module ..' '.. a:args), cur_dir)
 endf
 
