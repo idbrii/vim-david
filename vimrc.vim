@@ -642,43 +642,43 @@ let g:loaded_logiPat = 0
 command! -nargs=+ -complete=file DirDiff     :call zfdirdiff#DirDiff(<f-args>)
 command! -nargs=* -complete=file DirMarkDiff :call zfdirdiff#mark#Mark(<q-args>)
 
-let g:ZFDirDiffMark_needConfirm = 1
+let g:zfdirdiff_Mark_needConfirm = 1
 " Ignore dotfiles (often giant cache folders)
-let g:ZFDirDiffFileExclude = ".*"
+let g:zfdirdiff_FileExclude = ".*"
 
-let g:ZFDirDiffKeymap_update = ['<C-L>']
-let g:ZFDirDiffKeymap_open = ['<cr>', 'o', '>>']
-let g:ZFDirDiffKeymap_foldOpenAll = ['zR']
-let g:ZFDirDiffKeymap_foldClose = ['<<', "<Leader>l"]
-let g:ZFDirDiffKeymap_foldCloseAll = ['zM']
+let g:zfdirdiff_Keymap_update = ['<C-L>']
+let g:zfdirdiff_Keymap_open = ['<cr>', 'o', '>>']
+let g:zfdirdiff_Keymap_foldOpenAll = ['zR']
+let g:zfdirdiff_Keymap_foldClose = ['<<', "<Leader>l"]
+let g:zfdirdiff_Keymap_foldCloseAll = ['zM']
 " Go up one level on both left and right.
-let g:ZFDirDiffKeymap_goParent = ['U']
+let g:zfdirdiff_Keymap_goParent = ['U']
 " Change directory on this side of diff.
-let g:ZFDirDiffKeymap_diffThisDir = ['cd']
-let g:ZFDirDiffKeymap_diffParentDir = ['-']
+let g:zfdirdiff_Keymap_diffThisDir = ['cd']
+let g:zfdirdiff_Keymap_diffParentDir = ['-']
 " Mark this and then another file to open in diff. Maybe useful for renames?
-let g:ZFDirDiffKeymap_markToDiff = ['X']
-let g:ZFDirDiffKeymap_quit = ['gq', '<Leader>wq']
-let g:ZFDirDiffKeymap_nextDiff = [']c']
-let g:ZFDirDiffKeymap_prevDiff = ['[c']
-let g:ZFDirDiffKeymap_syncToHere  = ['do',"<Leader>do"]
-let g:ZFDirDiffKeymap_syncToThere = ['dp',"<Leader>dp"]
-let g:ZFDirDiffKeymap_deleteFile = ['X']
-let g:ZFDirDiffKeymap_getPath = ['p']
-let g:ZFDirDiffKeymap_getFullPath = ['P']
+let g:zfdirdiff_Keymap_markToDiff = ['X']
+let g:zfdirdiff_Keymap_quit = ['gq', '<Leader>wq']
+let g:zfdirdiff_Keymap_nextDiff = [']c']
+let g:zfdirdiff_Keymap_prevDiff = ['[c']
+let g:zfdirdiff_Keymap_syncToHere  = ['do',"<Leader>do"]
+let g:zfdirdiff_Keymap_syncToThere = ['dp',"<Leader>dp"]
+let g:zfdirdiff_Keymap_deleteFile = ['X']
+let g:zfdirdiff_Keymap_getPath = ['p']
+let g:zfdirdiff_Keymap_getFullPath = ['P']
 
 " Add my own mappings in ~/.vim/ftplugin/ZFDirDiff.vim
-let g:ZFDirDiffUI_filetypeLeft = 'ZFDirDiff'
-let g:ZFDirDiffUI_filetypeRight = 'ZFDirDiff'
+let g:zfdirdiff_UI_filetypeLeft = 'ZFDirDiff'
+let g:zfdirdiff_UI_filetypeRight = 'ZFDirDiff'
 
 function! David_DirDiff_headerText()
     return david#diff#DirDiff_headerText()
 endf
-let g:ZFDirDiffUI_headerTextFunc = 'David_DirDiff_headerText'
+let g:zfdirdiff_UI_headerTextFunc = 'David_DirDiff_headerText'
 function! David_DirDiff_confirmHintHeaderText(fileLeft, fileRight, type)
     return david#diff#DirDiff_confirmHintHeader(a:fileLeft, a:fileRight, a:type)
 endf
-let g:ZFDirDiffUI_confirmHintHeaderFunc = 'David_DirDiff_confirmHintHeaderText'
+let g:zfdirdiff_UI_confirmHintHeaderFunc = 'David_DirDiff_confirmHintHeaderText'
 
 augroup david_dirdiff
     au!
