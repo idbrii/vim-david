@@ -16,6 +16,8 @@ function! david#runner#set_entrypoint(args)
 
     function! DavidProjectBuild() closure
         update
+        " May not stop fast enough for run, but you can try again.
+        silent AsyncStop
         call execute('lcd '. cur_dir)
         let &makeprg = entrypoint_makeprg
         " Use AsyncRun instead of AsyncMake so we can pass cwd and ensure
@@ -23,7 +25,9 @@ function! david#runner#set_entrypoint(args)
         call execute('AsyncRun -program=make -auto=make -cwd='. cur_dir .' @')
     endf
 
+    " Don't set ProjectMake so previous proj has a way to build.
     "~ command! ProjectMake call DavidProjectBuild()
     command! ProjectRun  call DavidProjectBuild()
+    command! ProjectKill AsyncStop
     let &makeprg = entrypoint_makeprg
 endf
