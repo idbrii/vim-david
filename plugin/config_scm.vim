@@ -42,8 +42,8 @@ if executable('git')
     " V: visual repo history
     nnoremap <leader>gV :GV -n 1000 --all<CR>
     " v: visual file history
-    nnoremap <leader>gv :GV! -n 1000<CR>
-    xnoremap <leader>gv :GV! -n 1000<CR>
+    nnoremap <leader>gv :GV! -n 100<CR>
+    xnoremap <leader>gv :GV! -n 100<CR>
 
     command! -bar -range=% -nargs=? Gblame :silent! cd %:p:h | call david#git#Gblame('<line1>,<line2>', <q-args>)
     nnoremap <Leader>gb :Gblame -w<CR>
