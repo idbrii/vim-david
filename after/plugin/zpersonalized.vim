@@ -16,7 +16,7 @@ inoremap <expr> <C-y> pumvisible() ? '<C-l>' : david#editing#get_word_from_relat
 " TODO: I'm not sure if I want C-L to exit the popupmenu or just exit insert
 " mode. It's annoying to use it to exit popupmenu for asynccomplete because
 " it's almost always visible.
-if g:asyncomplete_loaded
+if get(g:, 'asyncomplete_loaded', 0)
     inoremap <expr> <C-l> pumvisible() ? asyncomplete#close_popup() . '<Esc>' : '<Esc>'
     inoremap <expr> <C-e> pumvisible() ? asyncomplete#cancel_popup() : david#editing#get_word_from_relative_line(1)
 else
