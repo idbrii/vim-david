@@ -33,6 +33,39 @@ function! david#svn#create_resolve_file()
     silent normal! n
 endf
 
+" Copy TortoiseSVN log for a file in a branch and run to get a summary
+" of what changes were merged in.
+function! david#svn#PasteAndFilterBranchChanges() abort
+    norm gg"ayG
+    0put +
+    %g/^\<Message\>\C/norm J
+    %v/^\<Message\>\C/d
+    %s/\VMessage: Merged revision(s) /Merged: /
+    norm gg"cyG
+    %s/from.*:.*//
+    %s/, /\r/g
+    %s/[a-zA-Z/:() ]\+//g
+    %sort
+    call append(0, "branch")
+    call append("$", "")
+    $put c
+    $put a
+endf
+
+
+" Copy TortoiseSVN log for a file in trunk and run to get a summary
+" of what changes exist.
+function! david#svn#PasteAndFilterTrunkChanges() abort
+    norm gg"ayG
+    0put +
+    %v/^\<Revision\>\C/d
+    %s/Revision: //
+    %sort
+    call append(0, "trunk")
+    call append("$", "")
+    $put a
+endf
+
 
 " Confirm revert before proceeding.
 function! david#svn#ConfirmRevert(...)
