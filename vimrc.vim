@@ -465,7 +465,8 @@ nnoremap <Leader>ie :<C-u>ALEPopulateQuickfix<CR>
 nnoremap <Leader>iE :<C-u>ALEPopulateLocList<CR>
 
 " Generic entrypoint. Filetypes have smarter versions of this.
-command! -nargs=* SetEntrypoint call david#runner#set_entrypoint(<q-args>)
+" Bang to use the current working dir.
+command! -bar -bang -nargs=* SetEntrypoint call david#runner#set_entrypoint(<q-args>, <bang>0)
 
 " If available, use scons instead of make. -u is upward search for root
 " SConstruct.

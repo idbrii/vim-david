@@ -1,10 +1,14 @@
 
 " Global entrypoint
-function! david#runner#set_entrypoint(args)
+function! david#runner#set_entrypoint(args, use_cwd)
     " Use the current file and its directory and jump back there to run
     " (ensures any expected relative paths will work).
     let cur_file = david#path#to_unix('%:p')
     let cur_dir = david#path#to_unix(fnamemodify(cur_file, ':h'))
+    if a:use_cwd
+        " Using cwd is useful when errors use relative paths.
+        let cur_dir = getcwd()
+    endif
 
     if !exists("b:david_original_makeprg")
         let b:david_original_makeprg = &makeprg
