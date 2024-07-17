@@ -1,3 +1,7 @@
+if has('nvim')
+    finish
+endif
+
 
 " Can't do this until after the omnisharp variable is defined. Can't set that
 " variable myself or it won't allow installs.

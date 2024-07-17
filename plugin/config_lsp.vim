@@ -1,3 +1,7 @@
+if has('nvim')
+    finish
+endif
+
 " It's hard to use ins-completion when asyncomplete pops up immediately. I use
 " ins-completion in gdscript since it doesn't always know the right
 " possibilities.
