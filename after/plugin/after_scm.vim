@@ -12,3 +12,6 @@ augroup david_mergetool
   autocmd User MergetoolStop delcommand MergetoolThreeWay
 augroup END
 
+" vc          {{{1
+" I never use this and always want VCInfo instead
+delcommand VCIncoming
