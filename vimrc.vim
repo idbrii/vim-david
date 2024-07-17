@@ -12,9 +12,12 @@ endif
 
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes
 " synchronization across (heterogeneous) systems easier.
-if has('win32')
+if has('win32') || has('nvim')
     set runtimepath^=$HOME/.vim
     set runtimepath+=$HOME/.vim/after
+endif
+if has('nvim')
+    let &packpath = &runtimepath
 endif
 
 " Must occur before syntax/filetype on (which pathogen triggers).
@@ -503,8 +506,11 @@ augroup END
 " search up recursively for tags file (to root)
 set tags=./tags;/
 
-" Don't show full path. Just give some path.
-set cscopepathcomp=3
+" Don't show full path. Just give some path. (not in neovim)
+if exists('&cscopepathcomp')
+    set cscopepathcomp=3
+endif
+
 
 " Cscope equivalent of :tag
 command! -nargs=1 Ctag cscope find g <args>
@@ -992,5 +998,9 @@ let g:csv_nomap_l = 1
 " =-=-=-=-=-=
 " Source local environment additions
 runtime local.vim
+
+if has('nvim')
+    luafile ~/.vim/bundle/aa-david/nvim.lua
+endif
 
 " vim:set et sw=4 ts=4 fdm=marker fmr={{{,}}}:
