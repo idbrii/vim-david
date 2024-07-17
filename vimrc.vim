@@ -27,6 +27,11 @@ runtime before_vimrc.vim
 " Storage {{{1
 " I put most vim temp files in their own directory.
 let g:david_cache_root = expand('$HOME/.vim-cache')
+if has('nvim')
+    " Separate cache due to incompatible undo+shada formats.
+    let g:david_cache_root = david#path#to_unix('$HOME/.nvim-cache')
+endif
+
 if exists("*mkdir")
     for folder in [g:david_cache_root, g:david_cache_root.'/temp']
         if filewritable(folder) == 0
@@ -65,10 +70,12 @@ let g:unite_data_directory = g:david_cache_root.'/unite'
 let g:neomru#file_mru_path = g:unite_data_directory .'/neomru/file'
 
 " Move viminfo into cache directory
-set viminfo+=n~/.vim-cache/viminfo
+let viminfo_path = g:david_cache_root ..'/viminfo'
+exec 'set viminfo+=n'.. viminfo_path
 if has("autocmd")
-    autocmd BufRead,BufNewFile */.vim-cache/viminfo set filetype=viminfo
+    exec 'autocmd BufRead,BufNewFile' viminfo_path 'set filetype=viminfo'
 endif
+unlet viminfo_path
 
 " Spell file location. This must be done for every file, but I handle that
 " in vim-work.
@@ -102,7 +109,7 @@ if has('win32') || has("macunix")
 endif
 
 " Session {{{1
-command! SessionSaveAndQuit mksession! ~/.vim-cache/session/standard.vim | qall
+command! SessionSaveAndQuit exec 'mksession!' g:david_cache_root '/session/standard.vim' | qall
 command! -bar -nargs=* -complete=customlist,david#session#CompleteSessions   SessionObsess call david#session#StartObsession(<q-args>)
 command! -bar          SessionCurrent   echo david#session#GetSessionInfo()
 " Close quickfix window so it doesn't get stored in the session since it can't

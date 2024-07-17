@@ -7,7 +7,7 @@ function! david#profiler#Start(log_name) abort
         let path .= ".log"
     endif
     
-    let path = expand('~/.vim-cache/temp/') .. path
+    let path = printf('%s/temp/%s', g:david_cache_root, path)
 
     exec 'profile start' path
     profile func *

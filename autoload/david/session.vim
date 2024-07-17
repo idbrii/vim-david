@@ -1,6 +1,7 @@
 " Wrapper around obsession to use my common session path.
 
-let s:startup_session = expand("~/.vim-cache/session.vim")
+let s:startup_session = g:david_cache_root ..'/session.vim'
+let s:session_dir = g:david_cache_root ..'/session'
 
 function! s:IsObsession() abort
     return !empty(get(g:, 'this_obsession', ''))
@@ -21,7 +22,7 @@ function! s:name_to_session_file(name) abort
     if name =~ '[./\\]'
         throw "Error: Pass a name, not a filename:" .. name
     endif
-    return david#path#to_unix(printf("~/.vim-cache/session/%s.vim", name))
+    return david#path#to_unix(printf("%s/%s.vim", s:session_dir, name))
 endf
 
 function! david#session#StartObsession(name) abort
@@ -70,5 +71,5 @@ endf
 
 
 function! david#session#CompleteSessions(ArgLead, CmdLine, CursorPos) abort
-    return map(readdir(expand("~/.vim-cache/session")), { k,v -> fnamemodify(v, ":r")})
+    return map(readdir(s:session_dir), { k,v -> fnamemodify(v, ":r")})
 endf

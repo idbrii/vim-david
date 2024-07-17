@@ -69,7 +69,7 @@ let g:lsp_diagnostics_virtual_text_enabled = 0
 
 set omnifunc=lsp#complete
 
-"~ let g:asyncomplete_log_file = expand('~/.vim-cache/temp/asyncomplete.log')
+"~ let g:asyncomplete_log_file = g:david_cache_root ..'/temp/asyncomplete.log'
 "~ let g:asyncomplete_enable = 0
 let g:asyncomplete_min_chars = 5
 "~ let g:lsp_diagnostics_enabled = 0
