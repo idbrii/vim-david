@@ -18,6 +18,7 @@ if has('win32') || has('nvim')
 endif
 if has('nvim')
     let &packpath = &runtimepath
+    set packpath+=$HOME/.vim/nvim
 endif
 
 " Must occur before syntax/filetype on (which pathogen triggers).
