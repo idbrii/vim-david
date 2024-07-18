@@ -24,6 +24,13 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 local seen_roots = {}
 
+-- # lua-lsp
+-- brew install luarocks
+--   or
+-- scoop install luarocks # also requires visual studio for cl.exe
+-- luarocks install luacheck
+-- luarocks install --server=http://luarocks.org/dev lua-lsp
+
 local function build_nvim_lsp_config()
     return {
         runtime = {
@@ -86,3 +93,28 @@ lspconfig.lua_ls.setup {
         Lua = {}
     },
 }
+
+
+-- cpp/c
+-- scoop install llvm
+-- Hopefully nvim-lspconfig handles setup for clangd, but installing via scoop gets
+-- us clang-format too which ale auto configures.
+
+-- pip install python-lsp-server
+-- Hopefully nvim-lspconfig handles setup for pylsp
+lspconfig.pylsp.setup{
+    --~ cmd = vimlsp_dir .."pylsp-all/pylsp-all.cmd",
+    --~ settings = {
+    --~     pylsp = {
+    --~         --~ plugins = {
+    --~         --~     pycodestyle = {
+    --~         --~         ignore = {'W391'},
+    --~         --~         maxLineLength = 100
+    --~         --~     }
+    --~         --~ }
+    --~     }
+    --~ }
+}
+
+-- brew cask install godot
+lspconfig.gdscript.setup{}
