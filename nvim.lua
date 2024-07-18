@@ -1,8 +1,6 @@
 -- Invoked after vimrc is loaded in neovim.
 -- File not called nvimrc or polyglot highlights it as vimscript.
 
-vim = vim or {} -- to silence lint. TODO: how to config lint for nvim?
-
 
 -- neovim has UIEnter instead of a gvimrc.
 vim.cmd.autocmd "UIEnter * runtime gvimrc.vim"
