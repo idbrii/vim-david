@@ -94,3 +94,12 @@ endf
 function! david#path#get_currentfile_resolved() abort
     return david#path#normalize(resolve(escape(expand('%:p'), '%#')))
 endf
+function! david#path#edit_currentfile_resolved() abort
+    let file = david#path#get_currentfile_resolved()
+    if has('nvim')
+        " nvim won't change a file if it's already editing the symbolic link
+        " version. BW from vim-bbye.
+        BW
+    endif
+    execute "edit" file
+endf
