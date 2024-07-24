@@ -1,7 +1,8 @@
 
 function! david#git#peek_commit(sha) abort
     let text = systemlist("git -C ".. shellescape(FugitiveCommonDir()) .." log -n1 ".. a:sha)
-    call setbufvar(winbufnr(popup_atcursor(text, { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")
+    let opts = { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 }
+    call setbufvar(winbufnr(david#window#popup_atcursor(text, opts)), "&filetype", "git")
 endf
 
 function! david#git#peek_line() abort
@@ -49,7 +50,9 @@ function! david#git#Gblame_showline() abort range
 endf
 
 function! david#git#Gblame_popup() abort range
-    call setbufvar(winbufnr(popup_atcursor(s:get_blame_for_line(), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")
+    let opts = { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 }
+    let popup = david#window#popup_atcursor(s:get_blame_for_line(), opts)
+    call setbufvar(winbufnr(popup), "&filetype", "git")
 endf
 
 function! david#git#GitRevert(commit)
