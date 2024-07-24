@@ -1,4 +1,4 @@
-if !has('terminal')
+if !has('terminal') && !has('nvim')
     finish
 endif
 
@@ -7,11 +7,19 @@ endif
 
 " Use C-w to delete a word in bash. Bash C-j is newline which I never use and
 " vim C-j is snippets, which don't exist in :terminal.
-set termwinkey=<C-J>
+if has('nvim')
+    tmap     <silent> <C-j> <C-\>
+    tnoremap <silent> <C-j><C-j> <C-j>
+    " Exit insert mode like a normal buffer.
+    tnoremap <silent> <C-l> <C-\><C-n>
+else
+    set termwinkey=<C-j>
+    " Exit insert mode like a normal buffer.
+    tnoremap <silent> <C-l> <C-j>N
+    tnoremap <silent> <C-j><C-l> <C-l>
+endif
 
-" Exit insert mode like a normal buffer.
-tnoremap <silent> <C-l> <C-j>N
-tnoremap <silent> <C-j><C-l> <C-l>
+
 if &shell !~# 'bash'
     " readline compatibility -- this will mess up applications run in a terminal,
     " but I don't do that. Not silent so I know it's happening.
