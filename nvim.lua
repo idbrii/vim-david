@@ -6,9 +6,6 @@
 vim.cmd.autocmd "UIEnter * runtime gvimrc.vim"
 
 
--- Gogo doesn't seem to work correctly in nvim, but it's really the same as OpenBrowser.
-vim.cmd "command! -nargs=1 Gogo OpenBrowser <args>"
-
 -- Neovide {{{
 -- Turn down the flash slow cursor anims.
 vim.g.neovide_cursor_animation_length = 0.002
