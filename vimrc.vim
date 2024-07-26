@@ -193,6 +193,7 @@ if !has("gui_running")
         " looks better than sandydune on Win command prompt
         colorscheme desert
     endif
+    call david#init#link_highlight_groups() 
 endif
 
 " Windowing (Full screen on my monitor)

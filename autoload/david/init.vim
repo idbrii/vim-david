@@ -17,3 +17,9 @@ function! david#init#asyncrun_status()
     endif
     return ''
 endf
+
+function! david#init#link_highlight_groups() abort
+    highlight link Searchlight IncSearch
+    " patch-8.2.4724 introduces CurSearch which is the same as searchlight.
+    highlight link CurSearch IncSearch
+endf
