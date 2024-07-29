@@ -30,7 +30,7 @@ runtime before_vimrc.vim
 
 " Storage {{{1
 " I put most vim temp files in their own directory.
-let g:david_cache_root = expand('$HOME/.vim-cache')
+let g:david_cache_root = david#path#to_unix('$HOME/.vim-cache')
 if has('nvim')
     " Separate cache due to incompatible undo+shada formats.
     let g:david_cache_root = david#path#to_unix('$HOME/.nvim-cache')
