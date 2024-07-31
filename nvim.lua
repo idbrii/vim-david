@@ -5,6 +5,25 @@
 -- neovim has UIEnter instead of a gvimrc.
 vim.cmd.autocmd "UIEnter * runtime gvimrc.vim"
 
+vim.diagnostic.config{
+    virtual_text = false,  -- floating text next to code is too noisy.
+    underline = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN]  = "",
+            [vim.diagnostic.severity.INFO]  = "",
+            [vim.diagnostic.severity.HINT]  = "",
+        },
+        linehl = {
+            [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+        },
+        numhl = {
+            [vim.diagnostic.severity.WARN] = 'WarningMsg',
+        },
+    },
+}
+
 
 -- Neovide {{{
 -- Turn down the flash slow cursor anims.
