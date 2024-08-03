@@ -36,7 +36,7 @@ function! david#session#StartObsession(name) abort
     " We want to restore David_current_session when sessions load.
     set sessionoptions+=globals  " global variables (String and Number) matching /^\u\k*\l\k*/
 
-    if exists("g:David_current_session")
+    if exists("g:David_current_session") && !empty(g:David_current_session)
         if a:name == g:David_current_session
             echomsg "Already in session" g:David_current_session
             return
