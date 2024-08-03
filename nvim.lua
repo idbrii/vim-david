@@ -3,7 +3,8 @@
 
 
 -- neovim has UIEnter instead of a gvimrc.
-vim.cmd.autocmd "UIEnter * runtime gvimrc.vim"
+vim.api.nvim_create_augroup("david_vimrc", { clear = true })
+vim.cmd.autocmd "david_vimrc UIEnter * runtime gvimrc.vim"
 
 vim.diagnostic.config{
     virtual_text = false,  -- floating text next to code is too noisy.

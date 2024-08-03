@@ -76,7 +76,7 @@ let g:neomru#file_mru_path = g:unite_data_directory .'/neomru/file'
 " Move viminfo into cache directory
 let viminfo_path = g:david_cache_root ..'/viminfo'
 exec 'set viminfo+=n'.. viminfo_path
-if has("autocmd")
+if has("autocmd") && !has('nvim')
     exec 'autocmd BufRead,BufNewFile' viminfo_path 'set filetype=viminfo'
 endif
 unlet viminfo_path
