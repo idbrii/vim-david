@@ -151,6 +151,7 @@ set sessionoptions+=curdir " the current directory
 " Display {{{1
 set background=dark			" I use dark background
 set nolazyredraw				" Don't repaint when scripts are running
+set title                   " Show current file path in window title (default off on nvim)
 set scrolloff=3				" Keep 3 lines below and above cursor
 "set number					" Show line numbering
 "set numberwidth=1			" Use 1 col + 1 space for numbers
