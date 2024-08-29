@@ -82,9 +82,11 @@ endfunction
 
 " Call a shell script to build our filelist, ctags, and cscope databases.
 function! david#tagfile#BuildTags(use_async) abort
-    let cscope = &cscopeprg
-    if !executable(cscope)
-        let cscope = '--skip-cscope'
+    let cscope = '--skip-cscope'
+    if has('cscope')
+        if executable(&cscopeprg)
+            let cscope = &cscopeprg
+        endif
     endif
 
     if &ft == "gdscript"
