@@ -25,6 +25,7 @@ vim.diagnostic.config{
     },
 }
 
+vim.opt.hidden = false
 
 -- Neovide {{{
 -- Turn down the flash slow cursor anims.
