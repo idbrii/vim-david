@@ -104,6 +104,8 @@ if executable('svn')
     command! SvnLastMessage call david#svn#SvnLastMessage()
     command! GcommitSvnMsg :Gcommit -v | call search('to be committed:\n.*:\s*\w', 'e') | SvnLastMessage
     command! -nargs=1 Gitsvnswitch :Git switch svn | G ff <args>
+    command! -nargs=1 Gitmainswitch :Git switch main | G ff <args>
+    command! -nargs=1 Gitnextswitch :Git switch next | G ff <args>
 
     " There's no VCShow like git show.
     command! -nargs=+ SvnShow call david#svn#show(<q-args>)
