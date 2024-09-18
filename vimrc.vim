@@ -341,6 +341,8 @@ set wildmode=longest:list,full
 
 " Need to set this so dirvish will autochdir.
 let g:dirvish_autochdir = 1
+" I want to keep gq for quit.
+nmap <nowait><buffer> gq <Plug>(dirvish_quit)
 
 " Using autochdir requires a preamble or scripts execute from tmp.
 if has('win32')
