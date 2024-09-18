@@ -20,7 +20,7 @@ function! s:name_to_session_file(name) abort
         throw "Error: Session name is required."
     endif
     if name =~ '[./\\]'
-        throw "Error: Pass a name, not a filename:" .. name
+        throw "Error: Pass a name, not a filename: " .. name
     endif
     return david#path#to_unix(printf("%s/%s.vim", s:session_dir, name))
 endf
