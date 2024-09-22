@@ -12,7 +12,11 @@ function! ale#fixers#gdformat#Fix(buffer) abort
     if &textwidth > 0 && stridx(l:options, "line-length") == -1
         let options .= " --line-length=".. &textwidth
     endif
-    
+
+    if &expandtab && stridx(l:options, "use-spaces") == -1
+        let options .= " --use-spaces=".. &shiftwidth
+    endif
+
     let l:cmd = printf("%s %s %%t", ale#Escape(l:executable), l:options)
     return {
         \   'command': l:cmd,
