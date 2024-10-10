@@ -79,13 +79,15 @@ lspconfig.lua_ls.setup {
             settings = build_nvim_lsp_config()
         else
             settings = david.get_sumneko_cfg_from_luacheck(new_root_dir ..'/.luacheckrc', valid_paths)
-            settings = settings.Lua
-            -- Otherwise it seems to clobber it, and I'll probably look at vim at some point.
-            table.insert(settings.diagnostics.globals, "vim")
+            if settings then
+                settings = settings.Lua
+                -- Otherwise it seems to clobber it, and I'll probably look at vim at some point.
+                table.insert(settings.diagnostics.globals, "vim")
+            end
         end
 
         if settings then
-            -- This *appends* to existing config, so if we default to nvim config above, then we'll already have
+            -- This *appends* to existing config, so if we default to nvim config above, then we'll already have its settings.
             cfg.settings.Lua = vim.tbl_deep_extend('force', cfg.settings.Lua, settings)
         end
     end,
