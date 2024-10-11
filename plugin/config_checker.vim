@@ -174,27 +174,10 @@ let g:ale_lua_luacheck_options .= ' --default-config ' .. s:rc
 " json {{{1
 let g:ale_fixers.json = [
             \     'trim_whitespace',
-            \     'beautify',
+            \     'json_pytool',
             \ ]
-let g:ale_json_beautify_executable = 'js-beautify'
-let g:ale_json_beautify_options = ''
 
-" pip install pip install jsbeautifier
-"
-" Config is local-only for now. Should be ale#fixers#beautify#Fix and need to
-" register in autoload/ale/fix/registry.vim
-" call ale#Set('json_beautify_executable', 'js-beautify')
-" call ale#Set('json_beautify_options', '')
-function! Ale_fixers_beautify_Fix(buffer) abort
-    let l:executable = ale#Var(a:buffer, 'json_beautify_executable')
-    let l:options = ale#Var(a:buffer, 'json_beautify_options')
-    let l:cmd = printf("%s %s --stdin", ale#Escape(l:executable), l:options)
-    return {
-    \   'command': l:cmd,
-    \ }
-endfunction
-
-execute ale#fix#registry#Add('beautify', 'Ale_fixers_beautify_Fix', ['json'], 'beautify for json')
+let g:ale_json_pytool_options = '--sort-keys --indent 4'
 
 " zig {{{1
 let g:ale_fixers.zig = [
