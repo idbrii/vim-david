@@ -103,7 +103,7 @@ if executable('svn')
     " cursor (from a git commit message buffer).
     command! SvnLastMessage call david#svn#SvnLastMessage()
     command! GcommitSvnMsg :Gcommit -v | call search('to be committed:\n.*:\s*\w', 'e') | SvnLastMessage
-    command! -nargs=1 Gitsvnswitch :Git switch svn | G ff <args>
+    command! -nargs=1 Gittrunkswitch :Git switch trunk | G ff <args>
     command! -nargs=1 Gitmainswitch :Git switch main | G ff <args>
     command! -nargs=1 Gitnextswitch :Git switch next | G ff <args>
 
