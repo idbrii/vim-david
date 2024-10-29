@@ -84,6 +84,9 @@ unlet viminfo_path
 " Spell file location. This must be done for every file, but I handle that
 " in vim-work.
 "~ setlocal spellfile=~/.vim/bundle/aa-david/spell/en.utf-8.add
+" Stop highlighting function names as incorrect. (Unfortunately, this seems to
+" mostly check comments and nvim doesn't check strings.)
+set spelloptions+=camel
 
 " Default to utf-8 instead of latin1
 if !exists('$LANG')
