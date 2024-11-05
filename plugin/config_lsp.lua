@@ -7,9 +7,11 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 local lspconfig = require 'lspconfig'
 local david = require 'david'
+local diag = require 'david.diag'
+
 
 -- nvim maps K for hover, but I use that for docs. Setup my command to show hover so <L>ih works.
-vim.cmd.command "HoverUnderCursor lua vim.lsp.buf.hover()"
+vim.api.nvim_create_user_command("HoverUnderCursor", diag.activate_hover, {})
 
 
 -- Turn off signs because they're currently too noisy. (Doesn't seem to work.)

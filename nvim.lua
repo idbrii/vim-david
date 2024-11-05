@@ -7,8 +7,10 @@ vim.api.nvim_create_augroup("david_vimrc", { clear = true })
 vim.cmd.autocmd "david_vimrc UIEnter * runtime gvimrc.vim"
 
 vim.diagnostic.config{
-    virtual_text = false,  -- floating text next to code is too noisy.
+    -- I don't know how to easily see the error for a line without virtual text. (Cursor position doesn't work.)
+    virtual_text = false,  -- floating text next to code is too noisy. Use hover instead.
     underline = true,
+    severity_sort = true,
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "",
