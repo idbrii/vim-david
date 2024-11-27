@@ -46,6 +46,7 @@ localhost
 lua
 malware
 matchup
+metatable
 microtransactions
 modkit
 mutex
@@ -68,3 +69,4 @@ thirdparty
 throwable
 vampiric
 whitespace
+xp
