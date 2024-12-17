@@ -13,6 +13,16 @@ local diag = require 'david.diag'
 -- nvim maps K for hover, but I use that for docs. Setup my command to show hover so <L>ih works.
 vim.api.nvim_create_user_command("HoverUnderCursor", diag.activate_hover, {})
 
+-- Shim some commands provided by vim-lsp.
+vim.api.nvim_create_user_command("LspDefinition", function(...) vim.lsp.buf.definition() end, {})
+vim.api.nvim_create_user_command("LspReferences", function(...) return vim.lsp.buf.references() end, {})
+
+-- Use default tagfunc so I can choose between tags and lsp.
+vim.o.tagfunc = ''
+vim.keymap.set('n', '<Leader>jT', vim.lsp.buf.definition)
+vim.keymap.set('n', '<Leader>jL', vim.lsp.buf.references)
+
+
 
 -- Turn off signs because they're currently too noisy. (Doesn't seem to work.)
 -- From :h lsp-handler-configuration
