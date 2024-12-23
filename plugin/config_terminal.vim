@@ -84,15 +84,30 @@ endif
 
 " zepl {{{1
 
-" Can't set a universal fallback in g:repl_config, so make a shell command to
-" replace :terminal.
-function! s:Shell(args, mods, count) abort
-    call zepl#start(&shell, a:mods, a:count)
+let g:repl_config = {
+            \     'FALLBACK': {
+            \         'cmd': &shell,
+            \     },
+            \     'python': {
+            \         'cmd': 'python',
+            \     },
+            \ }
+
+" :Shell is like :Repl but a bit more convenient for terminal tasks, whereas
+" :Repl is intended only for repls (which stay open until closed).
+function! s:Shell(args, mods, count, force_shell) abort
+    let cmd = ""
+    if a:force_shell
+        let cmd = &shell
+    endif
+    call zepl#start(cmd, a:mods, a:count)
     if len(a:args) > 0
         " Send the command instead of starting zepl with it so if command
         " terminates, window doesn't close.
         call zepl#send(a:args)
     endif
 endf
-command! -nargs=* -count Shell call s:Shell(<q-args>, <q-mods>, <count>)
+" Supports same mods/count as :Repl. Use :Shell! to force shell instead of
+" current filetype's repl.
+command! -bang -bar -nargs=* -count Shell call s:Shell(<q-args>, <q-mods>, <count>, <bang>0)
 
