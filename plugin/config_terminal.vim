@@ -91,13 +91,14 @@ let g:repl_config = {
             \     'python': {
             \         'cmd': 'python',
             \     },
+            \     'lua': {
+            \         'cmd': 'lua',
+            \     },
             \ }
 
-" :Shell is like :Repl but a bit more convenient for terminal tasks, whereas
-" :Repl is intended only for repls (which stay open until closed).
 function! s:Shell(args, mods, count, force_shell) abort
     let cmd = ""
-    if a:force_shell
+    if a:force_shell || !empty(a:args)
         let cmd = &shell
     endif
     call zepl#start(cmd, a:mods, a:count)
@@ -107,7 +108,15 @@ function! s:Shell(args, mods, count, force_shell) abort
         call zepl#send(a:args)
     endif
 endf
-" Supports same mods/count as :Repl. Use :Shell! to force shell instead of
-" current filetype's repl.
+
+" :Shell is like :Repl but more convenient for terminal tasks, whereas :Repl
+" is intended only for repls (which stay open until closed).
+"
+" :Shell will usually open a terminal or switch to the active one. Supports
+" same mods/count as :Repl. Use :Shell! to force shell instead of current
+" filetype's repl.
+"
+" TODO: Wish I could make :Shell just switch to the shell or open if it
+" doesn't exist.
 command! -bang -bar -nargs=* -count Shell call s:Shell(<q-args>, <q-mods>, <count>, <bang>0)
 
