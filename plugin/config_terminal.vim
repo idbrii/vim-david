@@ -96,12 +96,16 @@ let g:repl_config = {
             \     },
             \ }
 
-function! s:Shell(args, mods, count, force_shell) abort
-    let cmd = ""
-    if a:force_shell || !empty(a:args)
-        let cmd = &shell
-    endif
-    call zepl#start(cmd, a:mods, a:count)
+function! s:Shell(args, mods, count) abort
+    let buf = bufnr()
+    " Temporarily set cmd to use the shell. I don't use buffer-local repl_config.
+    let b:repl_config = { 'cmd': &shell }
+
+    call zepl#start("", a:mods, a:count)
+
+    wincmd p
+    unlet b:repl_config
+    wincmd p
     if len(a:args) > 0
         " Send the command instead of starting zepl with it so if command
         " terminates, window doesn't close.
@@ -112,11 +116,7 @@ endf
 " :Shell is like :Repl but more convenient for terminal tasks, whereas :Repl
 " is intended only for repls (which stay open until closed).
 "
-" :Shell will usually open a terminal or switch to the active one. Supports
-" same mods/count as :Repl. Use :Shell! to force shell instead of current
-" filetype's repl.
-"
-" TODO: Wish I could make :Shell just switch to the shell or open if it
-" doesn't exist.
-command! -bang -bar -nargs=* -count Shell call s:Shell(<q-args>, <q-mods>, <count>, <bang>0)
+" :Shell will open a terminal or switch to the active one. Supports
+" same mods/count as :Repl. Use :Repl to open current filetype's repl.
+command! -bar -nargs=* -count Shell call s:Shell(<q-args>, <q-mods>, <count>)
 
