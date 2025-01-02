@@ -5,6 +5,7 @@
 
 require("mason").setup()
 require("mason-lspconfig").setup()
+require("mason-nvim-dap").setup()
 local lspconfig = require 'lspconfig'
 local david = require 'david'
 local diag = require 'david.diag'
