@@ -1,12 +1,6 @@
 -- Invoked after vimrc is loaded in neovim.
 -- File not called nvimrc or polyglot highlights it as vimscript.
 
--- So I can :lua pprint(blah)
--- Why isn't there something similar builtin?
-function pprint(...)
-    return print(vim.print(...))
-end
-
 -- neovim has UIEnter instead of a gvimrc.
 vim.api.nvim_create_augroup("david_vimrc", { clear = true })
 vim.cmd.autocmd "david_vimrc UIEnter * runtime gvimrc.vim"
