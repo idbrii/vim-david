@@ -16,22 +16,20 @@ else
 endif
 
 " Cycle between refs.
-" Regex: Graph dots, date, sha, ref/msg.
-nnoremap <silent> <buffer> r /\v^[* \\/<Bar>]*[0-9-]{10}\s\x{7,40} \(<CR>:nohl<CR>
-nnoremap <silent> <buffer> R ?\v^[* \\/<Bar>]*[0-9-]{10}\s\x{7,40} \(<CR>:nohl<CR>
 function! s:search_for_head(direction, count)
-    " TODO: How to save the search register? this doesn't search for any but
-    " the first.
-    let g:gv_search_bak = @/
-    " After data and commit
-    let @/ = '\%23c('
-    let dir = (a:direction ? "/" : "?")
+    let search_bak = @/
 
-    let search = a:count . (a:direction ? "n" : "N")
-    exec 'silent normal! '. search
+    " Regex: Graph dots, date, sha, ref/msg.
+    let @/ = '\v^[* /|]*[0-9-]{10}\s\x{7,40} \(<'
+    let dir = (a:direction ? "/" : "?")
+    let search = a:count .. (a:direction ? "n" : "N")
+    exec 'silent normal! '.. search
+    nohl
+
+    let @/ = search_bak
 endf
-"~ nnoremap <silent> <buffer> r :<C-u>silent call <SID>search_for_head(1, v:count)<CR>
-"~ nnoremap <silent> <buffer> R :<C-u>silent call <SID>search_for_head(0, v:count)<CR>
+nnoremap <silent> <buffer> r :<C-u>silent call <SID>search_for_head(1, v:count)<CR>
+nnoremap <silent> <buffer> R :<C-u>silent call <SID>search_for_head(0, v:count)<CR>
 
 
 " Open commit in preview window like other fugitive buffers.
