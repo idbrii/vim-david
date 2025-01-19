@@ -5,12 +5,6 @@ xnoremap <C-c> :<C-U>echoerr "Use regular yanks instead: FocusClip is better."<C
 nnoremap <C-v> "+p
 nnoremap <A-v> "*p
 
-" Easier past without chording
-xnoremap <Leader>bp "_d"+p
-xnoremap <Leader>bP "_d"+P
-nnoremap <Leader>bp "+p
-nnoremap <Leader>bP "+P
-
 " Make Y work like D and C
 nnoremap Y y$
 
