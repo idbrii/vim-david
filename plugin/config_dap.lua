@@ -113,7 +113,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
 
 -- Try a leader-based approach.
-vim.keymap.set("n", "<Leader>dac", dap.continue,          { desc = "Start debugging" })
-vim.keymap.set("n", "<Leader>dao", dap.step_over,         { desc = "Step over" })
-vim.keymap.set("n", "<Leader>dai", dap.step_into,         { desc = "Step into" })
-vim.keymap.set("n", "<Leader>dab", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+vim.keymap.set("n", "<Leader>bc", dap.continue,          { desc = "Start debugging" })
+vim.keymap.set("n", "<Leader>bj", dap.step_over,         { desc = "Step over" })
+vim.keymap.set("n", "<Leader>bl", dap.step_into,         { desc = "Step into" })
+vim.keymap.set("n", "<Leader>bb", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
