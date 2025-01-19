@@ -100,16 +100,39 @@ end
 
 local GRP = vim.api.nvim_create_augroup("david_dap", { clear = true })
 
+local function MakeJump(fn, arg)
+    return function()
+        fn(arg)
+        dap.focus_frame()
+        vim.cmd.wincmd "p"
+    end
+end
+
 -- Map standard debug commands within dap windows.
-local function ConfigMappingsInBuffer()
+local function BufferMappings_Global()
     vim.keymap.set("n", "<F5>",  dap.continue,  { buffer = true, desc = "Start debugging" })
     vim.keymap.set("n", "<F10>", dap.step_over, { buffer = true, desc = "Step over" })
     vim.keymap.set("n", "<F11>", dap.step_into, { buffer = true, desc = "Step into" })
 end
 vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = { "dapui_*" },
-        callback = ConfigMappingsInBuffer,
+        callback = BufferMappings_Global,
+        group = GRP,
     })
+
+local function BufferMappings_Stacks()
+    -- In lua, CR is not jumping to the indicated frame. Add a workaround.
+    -- They keys match the direction of movement in the displayed stack.
+    vim.keymap.set("n", "<C-Up>", MakeJump(dap.down), { buffer = true, desc = "View outside the current frame" })
+    vim.keymap.set("n", "<C-Down>", MakeJump(dap.up), { buffer = true, desc = "View deeper in the current frame" })
+end
+vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = { "dapui_stacks" },
+        callback = BufferMappings_Stacks,
+        group = GRP,
+    })
+
+
 vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
 
 -- Try a leader-based approach.
