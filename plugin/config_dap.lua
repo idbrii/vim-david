@@ -120,6 +120,29 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         group = GRP,
     })
 
+local function CleanupWatch(var)
+    var = vim.trim(var)
+    -- Ignore everything after the first newline.
+    local s = var:match("(.-)\n")
+    return s or var
+end
+
+local function BufferMappings_Scopes()
+    vim.keymap.set("n", "p", function()
+        -- Guess a bit where we're pasting from.
+        local var = CleanupWatch(vim.fn.getreg('"'))
+        if var:len() == 0 or var:find("%s") then
+            var = CleanupWatch(vim.fn.getreg('0'))
+        end
+        dapui.elements.watches.add(var)
+    end, { buffer = true, desc = "Paste a watch item" })
+end
+vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = { "dapui_scopes" },
+        callback = BufferMappings_Scopes,
+        group = GRP,
+    })
+
 local function BufferMappings_Stacks()
     -- In lua, CR is not jumping to the indicated frame. Add a workaround.
     -- They keys match the direction of movement in the displayed stack.
