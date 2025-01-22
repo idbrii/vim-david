@@ -120,11 +120,18 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         group = GRP,
     })
 
+
 local function CleanupWatch(var)
     var = vim.trim(var)
     -- Ignore everything after the first newline.
     local s = var:match("(.-)\n")
     return s or var
+end
+
+local function AddWatch()
+    local word = vim.fn.expand("<cword>")
+    word = CleanupWatch(word)
+    dapui.elements.watches.add(word)
 end
 
 local function BufferMappings_Watches()
@@ -142,6 +149,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         callback = BufferMappings_Watches,
         group = GRP,
     })
+
 
 local function BufferMappings_Stacks()
     -- In lua, CR is not jumping to the indicated frame. Add a workaround.
@@ -163,3 +171,4 @@ vim.keymap.set("n", "<Leader>bc", dap.continue,          { desc = "Start debuggi
 vim.keymap.set("n", "<Leader>bj", dap.step_over,         { desc = "Step over" })
 vim.keymap.set("n", "<Leader>bl", dap.step_into,         { desc = "Step into" })
 vim.keymap.set("n", "<Leader>bb", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+vim.keymap.set("n", "<Leader>bw", AddWatch,              { desc = "Add word to watch" } )
