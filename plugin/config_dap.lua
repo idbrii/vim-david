@@ -127,7 +127,7 @@ local function CleanupWatch(var)
     return s or var
 end
 
-local function BufferMappings_Scopes()
+local function BufferMappings_Watches()
     vim.keymap.set("n", "p", function()
         -- Guess a bit where we're pasting from.
         local var = CleanupWatch(vim.fn.getreg('"'))
@@ -138,8 +138,8 @@ local function BufferMappings_Scopes()
     end, { buffer = true, desc = "Paste a watch item" })
 end
 vim.api.nvim_create_autocmd({ "FileType" }, {
-        pattern = { "dapui_scopes" },
-        callback = BufferMappings_Scopes,
+        pattern = { "dapui_watches" },
+        callback = BufferMappings_Watches,
         group = GRP,
     })
 
