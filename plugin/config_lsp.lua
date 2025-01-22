@@ -10,6 +10,7 @@ local lspconfig = require 'lspconfig'
 local david = require 'david'
 local diag = require 'david.diag'
 
+-- lsp config        {{{1
 local GRP = vim.api.nvim_create_augroup("david_nvimrc", {})
 
 -- nvim maps K for hover, but I use that for docs. Setup my command to show hover so <L>ih works.
@@ -42,15 +43,41 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 
-local seen_roots = {}
 
--- # lua-lsp
+-- cpp/c        {{{1
+-- scoop install llvm
+-- Hopefully nvim-lspconfig handles setup for clangd, but installing via scoop gets
+-- us clang-format too which ale auto configures.
+
+-- pip install python-lsp-server
+-- Hopefully nvim-lspconfig handles setup for pylsp
+lspconfig.pylsp.setup{
+    --~ cmd = vimlsp_dir .."pylsp-all/pylsp-all.cmd",
+    --~ settings = {
+    --~     pylsp = {
+    --~         --~ plugins = {
+    --~         --~     pycodestyle = {
+    --~         --~         ignore = {'W391'},
+    --~         --~         maxLineLength = 100
+    --~         --~     }
+    --~         --~ }
+    --~     }
+    --~ }
+}
+
+-- Godot        {{{1
+-- brew cask install godot
+lspconfig.gdscript.setup{}
+
+
+-- lua-lsp        {{{1
 -- brew install luarocks
 --   or
 -- scoop install luarocks # also requires visual studio for cl.exe
 -- luarocks install luacheck
 -- luarocks install --server=http://luarocks.org/dev lua-lsp
 
+local lua_seen_roots = {}
 local function build_nvim_lsp_config()
     return {
         runtime = {
@@ -88,10 +115,10 @@ lspconfig.lua_ls.setup {
             return
         end
         -- Called for each file, but only want to load on first in workspace.
-        if seen_roots[new_root_dir] then
+        if lua_seen_roots[new_root_dir] then
             return
         end
-        seen_roots[new_root_dir] = true
+        lua_seen_roots[new_root_dir] = true
 
         local valid_paths = {'data', 'scripts'}
         local settings
@@ -117,26 +144,3 @@ lspconfig.lua_ls.setup {
 }
 
 
--- cpp/c
--- scoop install llvm
--- Hopefully nvim-lspconfig handles setup for clangd, but installing via scoop gets
--- us clang-format too which ale auto configures.
-
--- pip install python-lsp-server
--- Hopefully nvim-lspconfig handles setup for pylsp
-lspconfig.pylsp.setup{
-    --~ cmd = vimlsp_dir .."pylsp-all/pylsp-all.cmd",
-    --~ settings = {
-    --~     pylsp = {
-    --~         --~ plugins = {
-    --~         --~     pycodestyle = {
-    --~         --~         ignore = {'W391'},
-    --~         --~         maxLineLength = 100
-    --~         --~     }
-    --~         --~ }
-    --~     }
-    --~ }
-}
-
--- brew cask install godot
-lspconfig.gdscript.setup{}
