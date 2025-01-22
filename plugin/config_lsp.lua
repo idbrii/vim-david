@@ -70,6 +70,20 @@ lspconfig.pylsp.setup{
 lspconfig.gdscript.setup{}
 
 
+-- harper       {{{1
+-- Grammar checker
+lspconfig.harper_ls.setup {
+    settings = {
+        ["harper-ls"] = {
+            linters = {
+                -- It doesn't respect my multiple vim dictionaries, so disable.
+                spell_check = true,
+            },
+        },
+    },
+}
+
+
 -- lua-lsp        {{{1
 -- brew install luarocks
 --   or
