@@ -37,6 +37,7 @@ frontend
 gamemode
 gameplay
 grep
+hivemind
 https
 init
 leaderboard
@@ -61,12 +62,15 @@ pseudocode
 quickfix
 realtime
 refactors
+revenant
 revisioned
 rootkit
+scalemail
 stackoverflow
 steampunk
 thirdparty
 throwable
+unequip
 vampiric
 whitespace
 xp
