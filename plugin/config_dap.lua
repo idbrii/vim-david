@@ -128,10 +128,15 @@ local function CleanupWatch(var)
     return s or var
 end
 
-local function AddWatch()
-    local word = vim.fn.expand("<cword>")
+local function AddWatch(word)
     word = CleanupWatch(word)
     dapui.elements.watches.add(word)
+end
+
+local function MakeCursorWordWatchFn(pattern)
+    return function()
+        AddWatch(vim.fn.expand(pattern))
+    end
 end
 
 local function BufferMappings_Watches()
@@ -171,4 +176,10 @@ vim.keymap.set("n", "<Leader>bc", dap.continue,          { desc = "Start debuggi
 vim.keymap.set("n", "<Leader>bj", dap.step_over,         { desc = "Step over" })
 vim.keymap.set("n", "<Leader>bl", dap.step_into,         { desc = "Step into" })
 vim.keymap.set("n", "<Leader>bb", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
-vim.keymap.set("n", "<Leader>bw", AddWatch,              { desc = "Add word to watch" } )
+vim.keymap.set("n", "<Leader>bw", MakeCursorWordWatchFn("<cword>"), { desc = "Add word to watch" } )
+vim.keymap.set("n", "<Leader>bW", MakeCursorWordWatchFn("<cWORD>"), { desc = "Add WORD to watch" } )
+vim.keymap.set("x", "<Leader>bw", function()
+    -- Why doesn't this work?
+    local buffer = require "david.buffer"
+    AddWatch(buffer.get_visual_text())
+end, { desc = "Add word to watch" } )
