@@ -2,6 +2,7 @@ local dap = require "dap"
 
 -- Make it easier to autocomplete common commands.
 vim.cmd("command! DapBreakpoint DapToggleBreakpoint")
+vim.api.nvim_create_user_command("DapJumpToCurrentLine", dap.focus_frame, {})
 
 -- Adapters: Debug process launch config {{{1
 
