@@ -25,6 +25,8 @@ local function BufferMappings_Global()
     vim.keymap.set("n", "<F5>",  dap.continue,  { buffer = true, desc = "Start debugging" })
     vim.keymap.set("n", "<F10>", dap.step_over, { buffer = true, desc = "Step over" })
     vim.keymap.set("n", "<F11>", dap.step_into, { buffer = true, desc = "Step into" })
+    vim.keymap.set("n", "<S-F11>", dap.step_out, { buffer = true, desc = "Step out" })
+
 end
 vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = { "dapui_*" },
@@ -87,6 +89,7 @@ vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "Toggle breakpoint" 
 vim.keymap.set("n", "<Leader>bc", dap.continue,          { desc = "Start debugging" })
 vim.keymap.set("n", "<Leader>bj", dap.step_over,         { desc = "Step over" })
 vim.keymap.set("n", "<Leader>bl", dap.step_into,         { desc = "Step into" })
+vim.keymap.set("n", "<Leader>bk", dap.step_out,          { desc = "Step out" })
 vim.keymap.set("n", "<Leader>bb", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
 vim.keymap.set("n", "<Leader>bw", MakeCursorWordWatchFn("<cword>"), { desc = "Add word to watch" } )
 vim.keymap.set("n", "<Leader>bW", MakeCursorWordWatchFn("<cWORD>"), { desc = "Add WORD to watch" } )
