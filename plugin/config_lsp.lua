@@ -9,9 +9,10 @@ require("mason-nvim-dap").setup()
 local lspconfig = require 'lspconfig'
 local david = require 'david'
 local diag = require 'david.diag'
+local slick = require 'david.slick'
 
 -- lsp config        {{{1
-local GRP = vim.api.nvim_create_augroup("david_nvimrc", {})
+--~ local GRP = vim.api.nvim_create_augroup("david_nvimrc", {})
 
 -- nvim maps K for hover, but I use that for docs. Setup my command to show hover so <L>ih works.
 vim.api.nvim_create_user_command("HoverUnderCursor", diag.activate_hover, {})
@@ -20,15 +21,22 @@ vim.api.nvim_create_user_command("HoverUnderCursor", diag.activate_hover, {})
 vim.api.nvim_create_user_command("LspDefinition", function(...) vim.lsp.buf.definition() end, {})
 vim.api.nvim_create_user_command("LspReferences", function(...) return vim.lsp.buf.references() end, {})
 
--- Use default buffer-local tagfunc so I can choose between tags and lsp.
-vim.api.nvim_create_autocmd(
-    "FileType",
-    {
-        group = GRP,
-        pattern = "*",
-        callback = function(ev) vim.o.tagfunc = '' end,
-    })
-vim.keymap.set('n', '<Leader>jT', vim.lsp.buf.definition)
+vim.keymap.set('n', '<Leader>jt', function()
+    -- Blank tagfunc to use ctags. nvim autoconfigures tagfunc to use lsp.
+    local fn = vim.o.tagfunc
+    vim.o.tagfunc = ''
+    local success, msg = pcall(slick.normal, "<C-]>")
+    vim.o.tagfunc = fn
+    if not success then
+        -- Try again with lsp.
+        success, msg = pcall(slick.normal, "<C-]>")
+        if not success then
+            msg = msg:gsub("not found", "%0 in ctags or lsp")
+            vim.notify(msg, vim.log.levels.ERROR)
+        end
+    end
+end)
+vim.keymap.set('n', '<Leader>jT', '<C-]>')
 vim.keymap.set('n', '<Leader>jL', vim.lsp.buf.references)
 
 
