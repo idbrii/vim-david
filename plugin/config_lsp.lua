@@ -3,15 +3,12 @@
 -- nvim auto sets omnifunc
 --~ set omnifunc=lsp#complete
 
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("mason-nvim-dap").setup()
 local lspconfig = require 'lspconfig'
 local david = require 'david'
 local diag = require 'david.diag'
 local slick = require 'david.slick'
 
--- lsp config        {{{1
+-- cmds/mapping        {{{1
 --~ local GRP = vim.api.nvim_create_augroup("david_nvimrc", {})
 
 -- nvim maps K for hover, but I use that for docs. Setup my command to show hover so <L>ih works.
@@ -40,6 +37,10 @@ vim.keymap.set('n', '<Leader>jT', '<C-]>')
 vim.keymap.set('n', '<Leader>jL', vim.lsp.buf.references)
 
 
+-- lsp config        {{{1
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-nvim-dap").setup()
 
 -- Turn off signs because they're currently too noisy. (Doesn't seem to work.)
 -- From :h lsp-handler-configuration
