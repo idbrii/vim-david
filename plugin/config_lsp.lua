@@ -9,7 +9,7 @@ local diag = require 'david.diag'
 local slick = require 'david.slick'
 
 -- cmds/mapping        {{{1
---~ local GRP = vim.api.nvim_create_augroup("david_nvimrc", {})
+--~ local GRP = vim.api.nvim_create_augroup("david_lsp", {})
 
 -- nvim maps K for hover, but I use that for docs. Setup my command to show hover so <L>ih works.
 vim.api.nvim_create_user_command("HoverUnderCursor", diag.activate_hover, {})

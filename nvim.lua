@@ -2,8 +2,12 @@
 -- File not called nvimrc or polyglot highlights it as vimscript.
 
 -- neovim has UIEnter instead of a gvimrc.
-vim.api.nvim_create_augroup("david_vimrc", { clear = true })
-vim.cmd.autocmd "david_vimrc UIEnter * runtime gvimrc.vim"
+local GRP = vim.api.nvim_create_augroup("david_nvimrc", { clear = true })
+vim.api.nvim_create_autocmd({ "UIEnter" }, {
+        pattern = { "*" },
+        command = "runtime gvimrc.vim",
+        group = GRP,
+    })
 
 vim.diagnostic.config{
     -- I don't know how to easily see the error for a line without virtual text. (Cursor position doesn't work.)
@@ -24,8 +28,24 @@ vim.diagnostic.config{
             [vim.diagnostic.severity.WARN] = 'WarningMsg',
         },
     },
+    float = {
+        border = 'rounded',
+        source = true,
+        header = '',
+        prefix = '',
+    },
 }
 
+-- Show diagnostics when cursor stays still.
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+        pattern = { "*" },
+        callback = function()
+            vim.diagnostic.open_float(nil, { focusable = false })
+        end,
+        group = GRP,
+    })
+
+-- Neovim enables by default, but I don't want unsaved surprises on shutdown.
 vim.opt.hidden = false
 
 -- Neovide {{{
