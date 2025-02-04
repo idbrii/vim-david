@@ -42,6 +42,8 @@ if exists("g:goneovim") && g:goneovim
     command! FontDefault     call s:SetFont('Fira_Code:h09:cANSI:qDRAFT', 1)
 endif
 
+command! -count=20 FontPresent        set guifont=Fira\ Code:h<count>
+
 " Ligatures are sometimes confusing (lua's ~=). Directx's alignment makes
 " ja/zh hard to follow.
 command! FontNoFancy call s:SetFont('Fira_Mono:h11:cANSI:qDRAFT', 0)
