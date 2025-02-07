@@ -88,6 +88,7 @@ lspconfig.harper_ls.setup {
                 spell_check = false,  -- Doesn't respect my multiple vim dictionaries, so disable.
 
                 -- Disabled due to example code in comments.
+                ellipsis_length = false, -- .. is string concat
                 long_sentences = false,  -- Code looks like long sentences.
                 sentence_capitalization = false,  -- Code doesn't start with capital.
                 spaces = false,  -- Code has lots of spaces.
