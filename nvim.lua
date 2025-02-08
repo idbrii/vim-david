@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd({ "UIEnter" }, {
         pattern = { "*" },
         command = "runtime gvimrc.vim",
         group = GRP,
+        nested = true,
     })
 
 vim.diagnostic.config{
@@ -47,6 +48,7 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 
 -- Neovim enables by default, but I don't want unsaved surprises on shutdown.
 vim.opt.hidden = false
+
 
 -- Neovide {{{
 -- Turn down the flash slow cursor anims.
