@@ -720,13 +720,6 @@ let g:loaded_LargeFile = 0
 " TODO: Setup scons files instead.
 let b:loaded_magic_make = 1
 
-" Mark   {{{2
-if has('gui_running')
-    " Requires lots of colours, but doesn't use my IncSearch colour.
-    let g:mwDefaultHighlightingPalette = 'maximum'
-endif
-
-
 " Renamer   {{{2
 let g:RenamerSupportColonWToRename = 1
 

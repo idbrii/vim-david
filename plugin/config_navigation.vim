@@ -170,6 +170,10 @@ let g:netrw_keepdir = 0
 
 " Mark {{{1
 let g:mw_no_mappings = 1
+if has('gui_running')
+    " Requires lots of colours, but doesn't use my IncSearch colour.
+    let g:mwDefaultHighlightingPalette = 'maximum'
+endif
 nmap <unique> <silent> <Leader>m <Plug>MarkSet
 vmap <unique> <silent> <Leader>m <Plug>MarkSet
 nmap <unique> <silent> <Leader>M <Plug>MarkAllClear
