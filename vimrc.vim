@@ -317,7 +317,7 @@ let macvim_skip_cmd_opt_movement = 1
 let macvim_skip_colorscheme = 1
 
 " Coding {{{1
-set history=500				" cmdline history
+set history=1500				" cmdline history
 
 " Figure out what function we're in. This relies on a coding standard where
 " functions start in the first column (max_indents=0) and their signature is
