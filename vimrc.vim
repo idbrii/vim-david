@@ -21,8 +21,10 @@ if has('nvim')
     set packpath+=$HOME/.vim/nvim
 endif
 
-" Must occur before syntax/filetype on (which pathogen triggers).
-set guioptions+=M			" Don't bother sourcing the menu
+if exists("+guioptions")
+    " Must occur before syntax/filetype on (which pathogen triggers).
+    set guioptions+=M			" Don't bother sourcing the menu
+endif
 
 " Some things need to be setup before anything else in the vimrc (but after
 " the above path setup since it uses those paths).
@@ -158,13 +160,15 @@ set title                   " Show current file path in window title (default of
 set scrolloff=3				" Keep 3 lines below and above cursor
 "set number					" Show line numbering
 "set numberwidth=1			" Use 1 col + 1 space for numbers
-set guioptions-=T			" Disable the toolbar
-set guioptions-=m			" Disable the menu
-set guioptions-=t			" Disable the tearoff menus (don't use 'em)
-set guioptions+=c			" Use curses prompt instead of gui prompt (has better shortcuts)
-if has("win32")
-    set guioptions-=e		" Disable fancy tabline (repositions vim on tab in Win32)
-    set guioptions-=L		" Disable left scrollbar (repositions vim on vsplit in Win32)
+if exists("+guioptions")
+    set guioptions-=T			" Disable the toolbar
+    set guioptions-=m			" Disable the menu
+    set guioptions-=t			" Disable the tearoff menus (don't use 'em)
+    set guioptions+=c			" Use curses prompt instead of gui prompt (has better shortcuts)
+    if has("win32")
+        set guioptions-=e		" Disable fancy tabline (repositions vim on tab in Win32)
+        set guioptions-=L		" Disable left scrollbar (repositions vim on vsplit in Win32)
+    endif
 endif
 
 if !has("gui_running")

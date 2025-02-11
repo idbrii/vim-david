@@ -4,8 +4,11 @@ colorscheme sandydune
 
 call david#init#link_highlight_groups() 
 
-" tab labels show the filename without path(tail)
-set guitablabel=%N/\ %t\ %M
+if exists("+guitablabel")
+    " tab labels show the filename without path(tail)
+    set guitablabel=%N/\ %t\ %M
+endif
+
 
 """ Extra menu options
 " If we're unix or mac, we probably have the required unix tools
@@ -14,7 +17,7 @@ if has("unix") || has("mac")
     menu Tools.Build\ David\ Tags   :BuildTags<CR>
 endif
 
-if has("mac") && !has("nvim")
+if has("mac") && exists("+guifont")
     set guifont=Menlo\ Regular:h13
 endif
 
