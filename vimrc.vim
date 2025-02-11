@@ -267,7 +267,7 @@ set isfname-==              " allow completion in var=/some/path
 set tabstop=4				" 1 tab = x spaces
 set shiftwidth=4			" Used by auto indent (see below for 0)
 set softtabstop=4           " &sw spaces as a tab for bs/del
-if exists('&breakindent')
+if exists('+breakindent')
     " Show line wraps as lines with one additional indent.
     set breakindent
     set breakindentopt=shift:4
@@ -519,7 +519,7 @@ augroup END
 set tags=./tags;/
 
 " Don't show full path. Just give some path. (not in neovim)
-if exists('&cscopepathcomp')
+if exists('+cscopepathcomp')
     set cscopepathcomp=3
 endif
 

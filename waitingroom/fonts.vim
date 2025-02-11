@@ -53,7 +53,7 @@ function! s:next_font()
     let s:font_idx = s:wrapped_increment(s:font_idx, len(s:font_list))
     let next_font = s:font_list[s:font_idx]
     exec 'set guifont='. next_font
-    if has("win32") && exists("&renderoptions")
+    if has("win32") && exists("+renderoptions")
         if get(s:has_ligatures, next_font, 0) > 0
             " Ligatures on Windows require directx rendering. This may be
             " slower (for cursorline or relativenumber).

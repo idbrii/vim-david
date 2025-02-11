@@ -190,7 +190,7 @@ function! s:DoesWantPy3()
             return v:false
         endif
     endif
-    return exists('&pyxversion') && &pyxversion == 3
+    return exists('+pyxversion') && &pyxversion == 3
 endf
 if s:DoesWantPy3() && &makeprg !~# 'python3' && executable('python3')
     let b:autocompiler_skip_detection = 1

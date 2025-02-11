@@ -7,7 +7,7 @@ function! s:SetFont(font, allow_ligatures)
     " fixed-width they're centred.
     " Fira Code only supports digraphs with directx.
     " Using directx may be slower (for cursorline or relativenumber).
-    if exists('&renderoptions')
+    if exists('+renderoptions')
         if a:allow_ligatures
             set renderoptions=type:directx
         else

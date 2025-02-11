@@ -1,4 +1,4 @@
-if exists('&shellslash')
+if exists('+shellslash')
     function! david#path#to_unix(path)
         let shellslash_bak = &shellslash
         let &shellslash = 1
