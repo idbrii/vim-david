@@ -50,6 +50,11 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 vim.opt.hidden = false
 
 
+-- nightly workarounds {{{
+-- nvim#32411
+vim.o.titlestring = '%t%( %M%)%( (%{&ft=="help"?"help":expand("%:p:~:h")})%)%a - nvim'
+
+
 -- Neovide {{{
 -- Turn down the flash slow cursor anims.
 vim.g.neovide_cursor_animation_length = 0.002
