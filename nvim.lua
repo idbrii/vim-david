@@ -11,8 +11,8 @@ vim.api.nvim_create_autocmd({ "UIEnter" }, {
     })
 
 vim.diagnostic.config{
-    -- I don't know how to easily see the error for a line without virtual text. (Cursor position doesn't work.)
-    virtual_text = false,  -- floating text next to code is too noisy. Use hover instead.
+    -- Seems to be no built-in way to easily see the error for a line without virtual text. (Cursor position doesn't work.)
+    virtual_text = false,  -- floating text next to code is too noisy. Use CursorHold instead.
     underline = true,
     severity_sort = true,
     signs = {
@@ -23,10 +23,13 @@ vim.diagnostic.config{
             [vim.diagnostic.severity.HINT]  = "",
         },
         linehl = {
-            [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+            -- nvim 0.11 does linting when I leave insert mode which flashes
+            -- error highlights too much for me.
+            --~ [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
         },
         numhl = {
             [vim.diagnostic.severity.WARN] = 'WarningMsg',
+            [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
         },
     },
     float = {
