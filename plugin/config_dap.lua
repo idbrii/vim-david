@@ -12,11 +12,12 @@ vim.api.nvim_create_user_command("DapJumpToCurrentLine", dap.focus_frame, {})
 
 local GRP = vim.api.nvim_create_augroup("david_dap", { clear = true })
 
-local function MakeJump(fn, arg)
+local function MakeJump(jump_fn)
     return function()
-        fn(arg)
+        local winid = vim.fn.win_getwinid()
+        jump_fn()
         dap.focus_frame()
-        vim.cmd.wincmd "p"
+        vim.api.nvim_set_current_win(winid)
     end
 end
 
