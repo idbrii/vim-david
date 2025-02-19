@@ -12,6 +12,10 @@ vim.api.nvim_create_user_command("DapJumpToCurrentLine", dap.focus_frame, {})
 
 local GRP = vim.api.nvim_create_augroup("david_dap", { clear = true })
 
+local function DefineHelp()
+    vim.keymap.set("n", "g?", "<Cmd>map <buffer><CR>",  { buffer = true, desc = "Show buffer mappings" })
+end
+
 local function MakeJump(jump_fn)
     return function()
         local winid = vim.fn.win_getwinid()
@@ -27,7 +31,6 @@ local function BufferMappings_Global()
     vim.keymap.set("n", "<F10>", dap.step_over, { buffer = true, desc = "Step over" })
     vim.keymap.set("n", "<F11>", dap.step_into, { buffer = true, desc = "Step into" })
     vim.keymap.set("n", "<S-F11>", dap.step_out, { buffer = true, desc = "Step out" })
-
 end
 vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = { "dapui_*" },
@@ -63,6 +66,7 @@ local function BufferMappings_Watches()
         end
         dapui.elements.watches.add(var)
     end, { buffer = true, desc = "Paste a watch item" })
+    DefineHelp()
 end
 vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = { "dapui_watches" },
@@ -76,6 +80,7 @@ local function BufferMappings_Stacks()
     -- They keys match the direction of movement in the displayed stack.
     vim.keymap.set("n", "<C-Up>", MakeJump(dap.down), { buffer = true, desc = "View outside the current frame" })
     vim.keymap.set("n", "<C-Down>", MakeJump(dap.up), { buffer = true, desc = "View deeper in the current frame" })
+    DefineHelp()
 end
 vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = { "dapui_stacks" },
