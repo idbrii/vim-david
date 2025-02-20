@@ -55,7 +55,13 @@ vim.opt.hidden = false
 
 -- nightly workarounds {{{
 -- nvim#32411
-vim.o.titlestring = '%t%( %M%)%( (%{&ft=="help"?"help":expand("%:p:~:h")})%)%a - nvim'
+vim.o.titlestring = '%t%( %M%)%( (%{&ft=="help"?"help":expand("%:p:~:h")})%)%a - '
+if vim.v.servername:find('localhost') then
+    -- Make it easier to identify my server.
+    vim.o.titlestring = vim.o.titlestring .. 'vide'
+else
+    vim.o.titlestring = vim.o.titlestring .. 'nvim'
+end
 
 
 -- Neovide {{{
