@@ -5,7 +5,8 @@ setlocal keywordprg=:help
 
 if &buftype != 'help' && &modifiable
     " When it's an editable file, the buftype changes to empty.
-    setlocal colorcolumn=50
+    " nvim right aligns tags with their last char in 76th column.
+    setlocal colorcolumn=77
 endif
 
 " Easy echo. Copied from vim ft.
