@@ -52,6 +52,38 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 -- Neovim enables by default, but I don't want unsaved surprises on shutdown.
 vim.opt.hidden = false
 
+local quicker = require("quicker")
+quicker.setup({
+        keys = {
+            {
+                ">",
+                function()
+                    quicker.expand({ before = 2, after = 2, add_to_existing = true })
+                end,
+                desc = "Expand quickfix context",
+            },
+            {
+                "<",
+                function()
+                    quicker.collapse()
+                end,
+                desc = "Collapse quickfix context",
+            },
+        },
+        on_qf = function(bufnr)
+            vim.b.detectindent_has_tried_to_detect = 1
+        end,
+        edit = {
+            enabled = true,          -- Edit the quickfix like a normal buffer.
+            autosave = "unmodified", -- Only write unmodified buffers.
+        },
+        constrain_cursor = false,    -- Constrains to right of the filename and lnum columns.
+        max_filename_width = function()
+            local biggest = 50
+            return math.floor(math.min(biggest, vim.o.columns / 2))
+        end,
+  })
+
 
 -- nightly workarounds {{{
 -- nvim#32411

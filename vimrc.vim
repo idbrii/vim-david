@@ -123,7 +123,7 @@ command! -bar -nargs=* -complete=customlist,david#session#CompleteSessions   Ses
 command! -bar          SessionCurrent   echo david#session#GetSessionInfo()
 " Close quickfix window so it doesn't get stored in the session since it can't
 " be properly reloaded. I think this is only a problem because I use
-" quickfix-reflector which makes qf modifiable.
+" quickfix-reflector/quicker which makes qf modifiable.
 " Need to only do on quit because obsession runs on BufEnter and windo messes
 " up our windows.
 augroup obsession_david
