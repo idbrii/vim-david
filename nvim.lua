@@ -10,6 +10,14 @@ vim.api.nvim_create_autocmd({ "UIEnter" }, {
         nested = true,
     })
 
+local icon = {
+    ERROR = "",
+    WARN  = "",
+    INFO  = "",
+    HINT  = "",
+    NONE  = " ",
+}
+
 vim.diagnostic.config{
     -- Seems to be no built-in way to easily see the error for a line without virtual text. (Cursor position doesn't work.)
     virtual_text = false,  -- floating text next to code is too noisy. Use CursorHold instead.
@@ -17,10 +25,10 @@ vim.diagnostic.config{
     severity_sort = true,
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN]  = "",
-            [vim.diagnostic.severity.INFO]  = "",
-            [vim.diagnostic.severity.HINT]  = "",
+            [vim.diagnostic.severity.ERROR] = icon.ERROR,
+            [vim.diagnostic.severity.WARN]  = icon.WARN,
+            [vim.diagnostic.severity.INFO]  = icon.INFO,
+            [vim.diagnostic.severity.HINT]  = icon.HINT,
         },
         linehl = {
             -- nvim 0.11 does linting when I leave insert mode which flashes
@@ -82,6 +90,14 @@ quicker.setup({
             local biggest = 50
             return math.floor(math.min(biggest, vim.o.columns / 2))
         end,
+        -- Aesthetics
+        type_icons = {
+            E = icon.ERROR,
+            W = icon.WARN,
+            I = icon.INFO,
+            H = icon.HINT,
+            N = icon.NONE, -- does N stand for none?
+        },
   })
 
 
