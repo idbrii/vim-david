@@ -87,8 +87,9 @@ quicker.setup({
         },
         constrain_cursor = false,    -- Constrains to right of the filename and lnum columns.
         max_filename_width = function()
+            -- A quarter of screen width, but capped at biggest.
             local biggest = 50
-            return math.floor(math.min(biggest, vim.o.columns / 2))
+            return math.floor(math.min(biggest, vim.o.columns / 4))
         end,
         -- Aesthetics
         type_icons = {
