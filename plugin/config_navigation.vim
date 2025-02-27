@@ -146,6 +146,19 @@ endif
 
 " dirvish plugin -- Navigate filesystems {{{1
 
+" Need to set this so dirvish will autochdir.
+let g:dirvish_autochdir = 1
+" I want to keep gq for quit.
+nmap <nowait><buffer> gq <Plug>(dirvish_quit)
+
+" Using autochdir requires a preamble or scripts execute from tmp.
+if has('win32')
+    " work across hard drives
+    let g:dirvish_shdo_before = 'pushd {}'
+else
+    let g:dirvish_shdo_before = 'cd {}'
+endif
+
 " dirvish and open-browser replace netrw.
 " My only use for Netrw is browsing remote
 " filesystems, but I can turn it back on when necessary.

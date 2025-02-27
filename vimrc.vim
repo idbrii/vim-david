@@ -346,19 +346,6 @@ set wildmode=longest:list,full
 
 " Autocommands {{{1
 
-" Need to set this so dirvish will autochdir.
-let g:dirvish_autochdir = 1
-" I want to keep gq for quit.
-nmap <nowait><buffer> gq <Plug>(dirvish_quit)
-
-" Using autochdir requires a preamble or scripts execute from tmp.
-if has('win32')
-    " work across hard drives
-    let g:dirvish_shdo_before = 'pushd {}'
-else
-    let g:dirvish_shdo_before = 'cd {}'
-endif
-
 " macOS has a temp dir aliased to another dir.
 let s:temp_dirs = map([$TEMP, $TMPDIR], { k,v -> resolve(v)})
 let s:temp_dirs = filter(s:temp_dirs , { k,v -> !empty(v)})
