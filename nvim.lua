@@ -62,6 +62,10 @@ vim.opt.hidden = false
 
 local quicker = require("quicker")
 quicker.setup({
+        opts = {
+          -- De-colour non matching lines (for log output).
+          winhighlight = 'QuickFixTextInvalid:Normal',
+        },
         keys = {
             {
                 ">",
