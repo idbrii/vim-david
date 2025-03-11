@@ -18,7 +18,7 @@ end
 
 local function MakeJump(jump_fn)
     return function()
-        local winid = vim.fn.win_getwinid()
+        local winid = vim.fn.win_getid()
         jump_fn()
         dap.focus_frame()
         vim.api.nvim_set_current_win(winid)
