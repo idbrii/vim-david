@@ -114,8 +114,8 @@ dap.adapters.gdb = {
 }
 
 -- Must check:
--- * Script -> Debug -> Debug with External Editor
--- * Editor -> Editor Settings -> Network -> Debug Adapter -> Sync Breakpoints
+-- * Script -> Debug -> Debug with External Editor.
+-- * Editor -> Editor Settings -> Network -> Debug Adapter -> Sync Breakpoints.
 dap.adapters.godot = {
     type = "server",
     host = "127.0.0.1",
@@ -150,8 +150,7 @@ dap.configurations.cpp = {
 
 -- UI: Interact with debugger {{{1
 
----@diagnostic disable: missing-parameter
----@diagnostic disable-next-line: missing-parameter
+---@diagnostic disable: missing-fields
 dapui.setup({
         controls = {
             icons = {
@@ -182,6 +181,7 @@ dapui.setup({
         --~     toggle = "t"
         --~ },
 })
+---@diagnostic enable: missing-fields
 
 dap.listeners.before.attach.dapui_config = function()
     dapui.open()
