@@ -16,6 +16,21 @@ local function DefineHelp()
     vim.keymap.set("n", "g?", "<Cmd>map <buffer><CR>",  { buffer = true, desc = "Show buffer mappings" })
 end
 
+local function JumpToElement(element_name)
+    local element = require"dapui".elements[element_name]
+    if not element then
+        print("[ERROR] Unknown dapui element:", element_name)
+        return
+    end
+    local bufnr = element.buffer()
+    local win_ids = vim.fn.win_findbuf(bufnr)
+    if next(win_ids) then
+        vim.fn.win_gotoid(win_ids[1])
+    else
+        print("[ERROR] dapui element not found:", element_name)
+    end
+end
+
 local function MakeJump(jump_fn)
     return function()
         local winid = vim.fn.win_getid()
@@ -104,6 +119,18 @@ vim.keymap.set("x", "<Leader>bw", function()
     local buffer = require "david.buffer"
     AddWatch(buffer.get_visual_text())
 end, { desc = "Add word to watch" } )
+
+for mapping,element in pairs({
+        b = "breakpoints",
+        --~ c = "console",
+        r = "repl",
+        s = "scopes",
+        k = "stacks",
+        w = "watches",
+    })
+do
+    vim.keymap.set("n", "<Leader>bg".. mapping, function() return JumpToElement(element) end, { desc = "Jump to ".. element })
+end
 
 -- Adapters: Debug process launch config {{{1
 
