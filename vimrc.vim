@@ -389,6 +389,9 @@ if has("autocmd")
         " When invoking vim from bash with fc, use sh filetype.
         autocmd BufRead,BufNewFile /tmp/bash-fc-* set filetype=sh
 
+        " Implement my preamble.
+        autocmd User DirvishShdoCreated :call david#dirvish#OnShdoCreated()
+
     augroup END
 endif
 
