@@ -105,6 +105,13 @@ quicker.setup({
         },
   })
 
+-- LLM {{{
+-- Not sure I always want copilot, so it's an opt plugin.
+vim.cmd.packadd "copilot"
+vim.g.copilot_filetypes = {
+    unite = false,
+}
+
 
 -- nightly workarounds {{{
 -- nvim#32411
