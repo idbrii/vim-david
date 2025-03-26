@@ -112,6 +112,9 @@ vim.g.copilot_filetypes = {
     unite = false,
 }
 
+vim.cmd.packadd "copilot-chat"
+require("CopilotChat").setup{}
+
 
 -- nightly workarounds {{{
 -- nvim#32411
