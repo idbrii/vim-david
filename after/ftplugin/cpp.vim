@@ -31,7 +31,10 @@ setlocal formatoptions-=o
 " To prevent extra indents to ctor initializations, I want cino=i0. Not sure
 " how to only change that option, so I've modified ~/.vim/indent/cpp.vim
 
-runtime cscope_maps.vim
+if has('cscope')
+	runtime cscope_maps.vim
+endif
+
 
 " macros
 iabbrev <buffer> #i #include
