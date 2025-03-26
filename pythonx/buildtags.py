@@ -43,11 +43,11 @@ def _get_and_validate_args():
         description="""Build the filelist, tag file, and cscope databases.
 
 example to build C++ in current directory recursively:
-  buildtags.sh --continous cscope cpp
+  buildtags.py --continous cscope cpp
 example for the same but only tags (no filelist or cscope):
-  buildtags.sh --skip-filelist --skip-cscope cpp
+  buildtags.py --skip-filelist --skip-cscope cpp
 example for the same but no cscope:
-  buildtags.sh --skip-cscope cpp""",
+  buildtags.py --skip-cscope cpp""",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
