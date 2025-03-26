@@ -65,8 +65,9 @@ if executable('git')
     command! -bar -bang -nargs=1 -complete=customlist,fugitive#RenameComplete Grename exe fugitive#RenameCommand(<line1>, <count>, +"<range>", <bang>0, "<mods>", <q-args>, [<f-args>])
     command! -bar -bang -range=-1 -nargs=* -complete=customlist,fugitive#CompleteObject Gbrowse exe fugitive#BrowseCommand(<line1>, <count>, +"<range>", <bang>0, "<mods>", <q-args>, [<f-args>])
 
-
     command! -nargs=1 Grevert call david#git#GitRevert(<f-args>)
+
+    command! -nargs=1 Gitmainswitch :Git switch main | G ff <args>
 
     " Delete Fugitive buffers when I leave them so they don't pollute BufExplorer
     augroup FugitiveCustom
@@ -103,8 +104,8 @@ if executable('svn')
     " cursor (from a git commit message buffer).
     command! SvnLastMessage call david#svn#SvnLastMessage()
     command! GcommitSvnMsg :Gcommit -v | call search('to be committed:\n.*:\s*\w', 'e') | SvnLastMessage
+
     command! -nargs=1 Gittrunkswitch :Git switch trunk | G ff <args>
-    command! -nargs=1 Gitmainswitch :Git switch main | G ff <args>
 
     " There's no VCShow like git show.
     command! -nargs=+ SvnShow call david#svn#show(<q-args>)
