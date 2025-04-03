@@ -57,14 +57,14 @@ vim.diagnostic.config{
 }
 
 if use_cursorhold_diagnostic then
-  -- Show diagnostics when cursor stays still.
-  vim.api.nvim_create_autocmd({ "CursorHold" }, {
-          pattern = { "*" },
-          callback = function()
-              vim.diagnostic.open_float(nil, { focusable = false })
-          end,
-          group = GRP,
-      })
+    -- Show diagnostics when cursor stays still.
+    vim.api.nvim_create_autocmd({ "CursorHold" }, {
+            pattern = { "*" },
+            callback = function()
+                vim.diagnostic.open_float(nil, { focusable = false })
+            end,
+            group = GRP,
+        })
 end
 -- else: virtual_lines.current_line seems better.
 
@@ -117,7 +117,7 @@ quicker.setup({
             H = icon.HINT,
             N = icon.NONE, -- does N stand for none?
         },
-  })
+      })
 
 -- LLM {{{
 -- Not sure I always want copilot, so it's an opt plugin.
