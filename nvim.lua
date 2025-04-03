@@ -1,6 +1,8 @@
 -- Invoked after vimrc is loaded in neovim.
 -- File not called nvimrc or polyglot highlights it as vimscript.
 
+local VERSION = vim.version()
+
 -- neovim has UIEnter instead of a gvimrc.
 local GRP = vim.api.nvim_create_augroup("david_nvimrc", { clear = true })
 vim.api.nvim_create_autocmd({ "UIEnter" }, {
@@ -18,9 +20,14 @@ local icon = {
     NONE  = " ",
 }
 
+
+local use_cursorhold_diagnostic = VERSION.major <= 0 and VERSION.minor < 11
+
 vim.diagnostic.config{
-    -- Seems to be no built-in way to easily see the error for a line without virtual text. (Cursor position doesn't work.)
-    virtual_text = false,  -- floating text next to code is too noisy. Use CursorHold instead.
+    virtual_text = not use_cursorhold_diagnostic,  -- floating text next to code is too noisy. Use CursorHold instead.
+    virtual_lines = {
+        current_line = true, -- Only show virtual line diagnostics for the current cursor line
+    },
     underline = true,
     severity_sort = true,
     signs = {
@@ -48,14 +55,17 @@ vim.diagnostic.config{
     },
 }
 
--- Show diagnostics when cursor stays still.
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
-        pattern = { "*" },
-        callback = function()
-            vim.diagnostic.open_float(nil, { focusable = false })
-        end,
-        group = GRP,
-    })
+if use_cursorhold_diagnostic then
+  -- Show diagnostics when cursor stays still.
+  vim.api.nvim_create_autocmd({ "CursorHold" }, {
+          pattern = { "*" },
+          callback = function()
+              vim.diagnostic.open_float(nil, { focusable = false })
+          end,
+          group = GRP,
+      })
+end
+-- else: virtual_lines.current_line seems better.
 
 -- Neovim enables by default, but I don't want unsaved surprises on shutdown.
 vim.o.hidden = false
