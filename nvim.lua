@@ -58,7 +58,10 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
     })
 
 -- Neovim enables by default, but I don't want unsaved surprises on shutdown.
-vim.opt.hidden = false
+vim.o.hidden = false
+
+-- Prettier (but bigger) floating windows.
+vim.o.winborder = 'rounded'
 
 local quicker = require("quicker")
 quicker.setup({
