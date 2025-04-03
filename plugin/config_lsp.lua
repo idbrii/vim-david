@@ -42,16 +42,6 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-nvim-dap").setup()
 
--- Turn off signs because they're currently too noisy. (Doesn't seem to work.)
--- From :h lsp-handler-configuration
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- Disable signs
-        signs = false,
-    }
-)
-
-
 
 -- cpp/c        {{{1
 -- scoop install llvm

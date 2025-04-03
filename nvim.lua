@@ -28,6 +28,7 @@ vim.diagnostic.config{
     virtual_lines = {
         current_line = true, -- Only show virtual line diagnostics for the current cursor line
     },
+    update_in_insert = false,  -- Delay to prevent flashing irrelevant errors.
     underline = true,
     severity_sort = true,
     signs = {
