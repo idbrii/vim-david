@@ -16,7 +16,7 @@ else
 endif
 
 " Cycle between refs.
-function! s:search_for_head(direction, count)
+function! s:search_for_head(direction, count) abort
     let search_bak = @/
 
     " Regex: Graph dots, date, sha, ref/msg.
@@ -31,6 +31,15 @@ endf
 nnoremap <silent> <buffer> r :<C-u>silent call <SID>search_for_head(1, v:count)<CR>
 nnoremap <silent> <buffer> R :<C-u>silent call <SID>search_for_head(0, v:count)<CR>
 
+" Scroll the diff window. If there's no diff window it will scroll the current
+" window.
+function! s:scroll_commits(down) abort
+    wincmd p
+    execute 'normal!' a:down ? "\<C-d>" : "\<C-u>"
+    wincmd p
+endf
+nnoremap <buffer> <silent> J <Cmd>call <SID>scroll_commits(1)<CR>
+nnoremap <buffer> <silent> K <Cmd>call <SID>scroll_commits(0)<CR>
 
 " Open commit in preview window like other fugitive buffers.
 nnoremap <buffer> p <Cmd>pclose<Bar>split<Bar>exec "Gedit" gv#sha()<Bar>pedit<Bar>close<CR>
