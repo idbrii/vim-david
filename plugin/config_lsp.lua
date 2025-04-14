@@ -42,26 +42,49 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-nvim-dap").setup()
 
+local line_length = 200  -- must be obscene to warn.
+
 
 -- cpp/c        {{{1
 -- scoop install llvm
 -- Hopefully nvim-lspconfig handles setup for clangd, but installing via scoop gets
 -- us clang-format too which ale auto configures.
 
--- pip install python-lsp-server
--- Hopefully nvim-lspconfig handles setup for pylsp
+-- Python       {{{1
 lspconfig.pylsp.setup{
-    --~ cmd = vimlsp_dir .."pylsp-all/pylsp-all.cmd",
-    --~ settings = {
-    --~     pylsp = {
-    --~         --~ plugins = {
-    --~         --~     pycodestyle = {
-    --~         --~         ignore = {'W391'},
-    --~         --~         maxLineLength = 100
-    --~         --~     }
-    --~         --~ }
-    --~     }
-    --~ }
+    settings = {
+        pylsp = {
+            plugins = {
+                -- pycodestyle is default over flake8, but they're configured the same so just roll with it.
+                pycodestyle = {
+                    ignore = {
+                        'E225',  -- missing whitespace around operator -- I like 'sdf'+ val
+                        'E302',  -- expected 2 blank lines, found 1
+                        'E402',  -- module level import not at top of file
+                        'E501',  -- line too long
+                        'W503',  -- line break before binary operator -- my preferred style
+                    },
+
+                    -- Minimal set for other people's code.
+                    -- https://pycodestyle.readthedocs.io/en/latest/intro.html#error-codes
+                    -- Things that are likely bugs (disabled because I don't know how to configure).
+                    --~ include = {
+                    --~     'C90',  -- mccabe
+                    --~     'F',  -- flake errors
+                    --~     'E999',  -- SyntaxError
+                    --~     'E7',  -- Statement
+                    --~     'E9',  -- Runtime error
+                    --~     'W6',  -- Deprecation
+                    --~     -- Worthwhile style:
+                    --~     'E1',  -- Indentation
+                    --~     'W291',  -- trailing whitespace
+                    --~     'W293',  -- blank line contains whitespace
+                    --~ },
+                    maxLineLength = line_length,
+                },
+            },
+        },
+    },
 }
 
 -- Godot        {{{1

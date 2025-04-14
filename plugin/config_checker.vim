@@ -88,6 +88,11 @@ let g:ale_linters.python = [
 
 " pyls -> :LspInstallServer
 let g:ale_python_pyls_executable = expand('~/.vim/bundle/lsp-settings/servers/pyls/venv/Scripts/pyls')
+if executable(g:ale_python_pyls_executable) || has('nvim')
+    " Disable all linters and rely on lsp instead.
+    let g:ale_linters.python = []
+endif
+
 
 " Install: AsyncPython -m pip install --user flake8
 let g:ale_python_flake8_executable = s:python_exe
