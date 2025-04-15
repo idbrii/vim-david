@@ -74,10 +74,11 @@ lspconfig.gdscript.setup{}
 lspconfig.harper_ls.setup {
     settings = {
         ["harper-ls"] = {
-            linters = {
+            linters = { -- https://writewithharper.com/docs/rules
                 spell_check = false,  -- Doesn't respect my multiple vim dictionaries, so disable.
 
                 -- Disabled due to example code in comments.
+                an_a = false,  -- I don't always capitalize acronyms (eg, npc).
                 ellipsis_length = false, -- .. is string concat
                 long_sentences = false,  -- Code looks like long sentences.
                 sentence_capitalization = false,  -- Code doesn't start with capital.
