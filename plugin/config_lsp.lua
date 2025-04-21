@@ -75,14 +75,18 @@ lspconfig.harper_ls.setup {
     settings = {
         ["harper-ls"] = {
             linters = { -- https://writewithharper.com/docs/rules
-                spell_check = false,  -- Doesn't respect my multiple vim dictionaries, so disable.
+                SpellCheck = false,  -- Doesn't respect my multiple vim dictionaries, so disable.
+                DotInitialisms = false,  -- e.g. is too long.
+                USUniversities = false,  -- Probably wrong.
 
                 -- Disabled due to example code in comments.
-                an_a = false,  -- I don't always capitalize acronyms (eg, npc).
-                ellipsis_length = false, -- .. is string concat
-                long_sentences = false,  -- Code looks like long sentences.
-                sentence_capitalization = false,  -- Code doesn't start with capital.
-                spaces = false,  -- Code has lots of spaces.
+                AnA = false,  -- I don't always capitalize acronyms (eg, npc).
+                Dashes = false, -- Lua uses dashes for comments.
+                EllipsisLength = false, -- .. is string concat
+                LongSentences = false,  -- Code looks like long sentences.
+                SentenceCapitalization = false,  -- Code doesn't start with capital.
+                Spaces = false,  -- Code has lots of spaces.
+                ToDoHyphen = false,  -- Always use todo.
             },
         },
     },
