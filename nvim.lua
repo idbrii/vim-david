@@ -74,6 +74,8 @@ vim.o.hidden = false
 -- Prettier (but bigger) floating windows.
 vim.o.winborder = 'rounded'
 
+vim.g.quicker_force_full_path_name = false
+
 local quicker = require("quicker")
 quicker.setup({
         opts = {
@@ -105,6 +107,9 @@ quicker.setup({
         },
         constrain_cursor = false,    -- Constrains to right of the filename and lnum columns.
         max_filename_width = function()
+            if vim.g.quicker_force_full_path_name then
+                return 1000000
+            end
             -- A quarter of screen width, but capped at biggest.
             local biggest = 50
             return math.floor(math.min(biggest, vim.o.columns / 4))
