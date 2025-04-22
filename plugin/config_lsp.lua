@@ -80,6 +80,7 @@ lspconfig.harper_ls.setup {
                 AnA = false,  -- I don't always capitalize acronyms (eg, npc).
                 DotInitialisms = false,  -- e.g. is too long.
                 ExpandDependencies = false, -- "deps" is common in code
+                InflectedVerbAfterTo = false, -- "set to selected state" is common terse form.
                 ToDoHyphen = false,  -- Always use todo.
                 USUniversities = false,  -- Probably wrong.
 
