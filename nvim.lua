@@ -128,6 +128,7 @@ quicker.setup({
 -- Not sure I always want copilot, so it's an opt plugin.
 vim.cmd.packadd "copilot"
 vim.g.copilot_filetypes = {
+    ["copilot-chat"] = false,  -- shows suggestions but I can't accept (probably mapping CR?)
     unite = false,
 }
 
