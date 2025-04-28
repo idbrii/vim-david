@@ -133,7 +133,17 @@ vim.g.copilot_filetypes = {
 }
 
 vim.cmd.packadd "copilot-chat"
-require("CopilotChat").setup{}
+require("CopilotChat").setup{
+    mappings = {
+        reset = {
+            normal = false, -- default: C-l which is my nohl
+            insert = false, -- default: C-l which is my exit insert
+        },
+        close = {
+            normal = 'gq',
+        },
+    },
+}
 
 
 -- nightly workarounds {{{
