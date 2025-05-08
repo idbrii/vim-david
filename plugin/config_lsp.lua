@@ -104,13 +104,16 @@ lspconfig.harper_ls.setup {
                 DotInitialisms = false,  -- e.g. is too long.
                 ExpandDependencies = false, -- "deps" is common in code
                 InflectedVerbAfterTo = false, -- "set to selected state" is common terse form.
+                Overall = false,  -- False positives. #1249
                 ToDoHyphen = false,  -- Always use todo.
                 USUniversities = false,  -- Probably wrong.
 
                 -- Disabled due to example code in comments.
+                CommaFixes = false,  -- Lua often uses commas without following space.
                 Dashes = false, -- Lua uses dashes for comments.
                 EllipsisLength = false, -- .. is string concat in Lua.
                 LongSentences = false,  -- Code looks like long sentences.
+                PhrasalVerbAsCompoundNoun = false,  -- Complains about "startup_level".
                 SentenceCapitalization = false,  -- Code doesn't start with capital.
                 Spaces = false,  -- Code has lots of spaces.
             },
