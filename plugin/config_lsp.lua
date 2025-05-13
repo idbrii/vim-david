@@ -112,6 +112,7 @@ lspconfig.harper_ls.setup {
                 CommaFixes = false,  -- Lua often uses commas without following space.
                 Dashes = false, -- Lua uses dashes for comments.
                 EllipsisLength = false, -- .. is string concat in Lua.
+                ExpandMinimum = false, -- min() is a function.
                 LongSentences = false,  -- Code looks like long sentences.
                 PhrasalVerbAsCompoundNoun = false,  -- Complains about "startup_level".
                 SentenceCapitalization = false,  -- Code doesn't start with capital.
