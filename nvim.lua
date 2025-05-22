@@ -126,11 +126,14 @@ quicker.setup({
 
 -- LLM {{{
 -- Not sure I always want copilot, so it's an opt plugin.
-vim.cmd.packadd "copilot"
-vim.g.copilot_filetypes = {
-    ["copilot-chat"] = false,  -- shows suggestions but I can't accept (probably mapping CR?)
-    unite = false,
-}
+
+-- Disabled: Annoyed at its tiny barely-helpful suggestions that discourage
+-- snippets and whole line matching which usually work better.
+--~ vim.cmd.packadd "copilot"
+--~ vim.g.copilot_filetypes = {
+--~     ["copilot-chat"] = false,  -- shows suggestions but I can't accept (probably mapping CR?)
+--~     unite = false,
+--~ }
 
 vim.cmd.packadd "copilot-chat"
 require("CopilotChat").setup{
