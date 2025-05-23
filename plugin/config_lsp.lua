@@ -44,6 +44,7 @@ require("mason-nvim-dap").setup()
 
 local line_length = 200  -- must be obscene to warn.
 
+diag.show_virtual_text_only_for_current_line()
 
 -- cpp/c        {{{1
 -- scoop install llvm

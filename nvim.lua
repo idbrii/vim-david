@@ -24,10 +24,10 @@ local icon = {
 local use_cursorhold_diagnostic = VERSION.major <= 0 and VERSION.minor < 11
 
 vim.diagnostic.config{
-    virtual_text = not use_cursorhold_diagnostic,  -- floating text next to code is too noisy. Use CursorHold instead.
-    virtual_lines = {
-        current_line = true, -- Only show virtual line diagnostics for the current cursor line
-    },
+    -- See diag.show_virtual_text_only_for_current_line()
+    virtual_text = false,  -- floating text next to code is too noisy. Use CursorHold instead.
+    -- Disabled: fake newlines from virtual_lines move code around too much.
+    --~ virtual_lines = { current_line = true, },
     update_in_insert = false,  -- Delay to prevent flashing irrelevant errors.
     underline = true,
     severity_sort = true,
@@ -67,6 +67,17 @@ if use_cursorhold_diagnostic then
         })
 end
 -- else: virtual_lines.current_line seems better.
+
+-- Rotate diagnostics when I really want to see more.
+vim.keymap.set('n', '<Leader>vd',
+    function()
+        local cfg = vim.diagnostic.config().virtual_lines
+        vim.diagnostic.config({ virtual_lines = not cfg, })
+    end,
+    {
+        desc = 'Toggle diagnostic virtual_lines',
+    })
+
 
 -- Neovim enables by default, but I don't want unsaved surprises on shutdown.
 vim.o.hidden = false
