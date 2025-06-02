@@ -47,9 +47,8 @@ local line_length = 200  -- must be obscene to warn.
 diag.show_virtual_text_only_for_current_line()
 
 -- cpp/c        {{{1
--- scoop install llvm
--- Hopefully nvim-lspconfig handles setup for clangd, but installing via scoop gets
--- us clang-format too which ale auto configures.
+-- Install clangd and clang-format via mason. Hopefully ale and lsp don't conflict.
+lspconfig.clangd.setup{}
 
 -- Python       {{{1
 lspconfig.pylsp.setup{
