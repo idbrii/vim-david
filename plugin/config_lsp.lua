@@ -102,17 +102,23 @@ lspconfig.harper_ls.setup {
 
                 AnA = false,  -- I don't always capitalize acronyms (eg, npc).
                 DotInitialisms = false,  -- e.g. is too long.
-                ExpandDependencies = false, -- "deps" is common in code
                 InflectedVerbAfterTo = false, -- "set to selected state" is common terse form.
                 Overall = false,  -- False positives. #1249
                 ToDoHyphen = false,  -- Always use todo.
                 USUniversities = false,  -- Probably wrong.
 
                 -- Disabled due to example code in comments.
+                CapitalizePersonalPronouns = false, -- i is a common variable name.
                 CommaFixes = false,  -- Lua often uses commas without following space.
                 Dashes = false, -- Lua uses dashes for comments.
                 EllipsisLength = false, -- .. is string concat in Lua.
+                ExpandDependencies = false,  -- deps is a common variable name.
+                ExpandDependency = false,  -- dep is a common variable name.
                 ExpandMinimum = false, -- min() is a function.
+                ExpandStandardInput = false,  -- stdin is a common variable name.
+                ExpandStandardOutput = false,  -- stdout is a common variable name.
+                ExpandTimeShorthands = false,  -- Common variable names.
+                ExpandWith = false,  -- Dividing width (w/2) is common.
                 LongSentences = false,  -- Code looks like long sentences.
                 PhrasalVerbAsCompoundNoun = false,  -- Complains about "startup_level".
                 SentenceCapitalization = false,  -- Code doesn't start with capital.
