@@ -29,6 +29,7 @@ function diag.activate_hover()
 end
 
 
+-- This updates on specific events unlike virtual_text.current_line which updates on a timer.
 function diag.show_virtual_text_only_for_current_line()
     local GRP = vim.api.nvim_create_augroup("david_lsp_diag", {})
     local ns = vim.api.nvim_create_namespace("CurrentLineDiagnostic")

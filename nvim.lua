@@ -21,11 +21,10 @@ local icon = {
 }
 
 
--- diag.show_virtual_text_only_for_current_line's virtual_text is more elegant than a floatwin.
-local use_cursorhold_diagnostic = false -- VERSION.major <= 0 and VERSION.minor < 11
+local use_my_diagnostic_display = VERSION.major <= 0 and VERSION.minor < 11
 
 vim.diagnostic.config{
-    virtual_text = false,  -- floating text next to code is too noisy. Use diag.show_virtual_text_only_for_current_line instead.
+    virtual_text = { current_line = true, },  -- floating text only next to current line
     -- Disabled: fake newlines from virtual_lines move code around too much.
     --~ virtual_lines = { current_line = true, },
     update_in_insert = false,  -- Delay to prevent flashing irrelevant errors.
@@ -56,17 +55,19 @@ vim.diagnostic.config{
     },
 }
 
-if use_cursorhold_diagnostic then
-    -- Show diagnostics when cursor stays still.
-    vim.api.nvim_create_autocmd({ "CursorHold" }, {
-            pattern = { "*" },
-            callback = function()
-                vim.diagnostic.open_float(nil, { focusable = false })
-            end,
-            group = GRP,
-        })
+if use_my_diagnostic_display then
+    require 'david.diag'.show_virtual_text_only_for_current_line()
+
+    -- Show diagnostics when cursor stays still. Not as nice is exmarks
+    --~ vim.api.nvim_create_autocmd({ "CursorHold" }, {
+    --~         pattern = { "*" },
+    --~         callback = function()
+    --~             vim.diagnostic.open_float(nil, { focusable = false })
+    --~         end,
+    --~         group = GRP,
+    --~     })
 end
--- else: diag.show_virtual_text_only_for_current_line seems better.
+-- else: virtual_text.current_line is better
 
 -- Rotate diagnostics when I really want to see more.
 vim.keymap.set('n', '<Leader>vd',
