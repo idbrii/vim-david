@@ -21,11 +21,11 @@ local icon = {
 }
 
 
-local use_cursorhold_diagnostic = VERSION.major <= 0 and VERSION.minor < 11
+-- diag.show_virtual_text_only_for_current_line's virtual_text is more elegant than a floatwin.
+local use_cursorhold_diagnostic = false -- VERSION.major <= 0 and VERSION.minor < 11
 
 vim.diagnostic.config{
-    -- See diag.show_virtual_text_only_for_current_line()
-    virtual_text = false,  -- floating text next to code is too noisy. Use CursorHold instead.
+    virtual_text = false,  -- floating text next to code is too noisy. Use diag.show_virtual_text_only_for_current_line instead.
     -- Disabled: fake newlines from virtual_lines move code around too much.
     --~ virtual_lines = { current_line = true, },
     update_in_insert = false,  -- Delay to prevent flashing irrelevant errors.
@@ -66,7 +66,7 @@ if use_cursorhold_diagnostic then
             group = GRP,
         })
 end
--- else: virtual_lines.current_line seems better.
+-- else: diag.show_virtual_text_only_for_current_line seems better.
 
 -- Rotate diagnostics when I really want to see more.
 vim.keymap.set('n', '<Leader>vd',
