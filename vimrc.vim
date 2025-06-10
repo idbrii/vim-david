@@ -134,7 +134,8 @@ augroup END
 set sessionoptions=
 
 " Layout options
-set sessionoptions+=blank    " empty windows
+set sessionoptions-=blank    " skip empty windows
+set sessionoptions-=buffers  " exclude hidden and unloaded buffers
 set sessionoptions+=help     " the help window
 set sessionoptions+=resize   " size of the Vim window: 'lines' and 'columns'
 set sessionoptions+=winpos   " position of the whole Vim window
