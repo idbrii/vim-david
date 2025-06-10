@@ -3,10 +3,25 @@
 -- nvim auto sets omnifunc
 --~ set omnifunc=lsp#complete
 
-local lspconfig = require 'lspconfig'
+
 local david = require 'david'
 local diag = require 'david.diag'
 local slick = require 'david.slick'
+
+
+local function setup_lsp(lsp_id, cfg)
+    vim.lsp.enable(lsp_id)
+    vim.lsp.config(lsp_id, cfg)
+end
+
+local VERSION = vim.version()
+if VERSION.major <= 0 and VERSION.minor < 11 then
+    -- lspconfig used to do more.
+    local lspconfig = require 'lspconfig'
+    setup_lsp = function(lsp_id, cfg)
+        lspconfig[lsp_id].setup(cfg)
+    end
+end
 
 -- cmds/mapping        {{{1
 --~ local GRP = vim.api.nvim_create_augroup("david_lsp", {})
@@ -46,10 +61,10 @@ local line_length = 200  -- must be obscene to warn.
 
 -- cpp/c        {{{1
 -- Install clangd and clang-format via mason. Hopefully ale and lsp don't conflict.
-lspconfig.clangd.setup{}
+setup_lsp("clangd", {})
 
 -- Python       {{{1
-lspconfig.pylsp.setup{
+setup_lsp("pylsp", {
     settings = {
         pylsp = {
             plugins = {
@@ -83,16 +98,16 @@ lspconfig.pylsp.setup{
             },
         },
     },
-}
+})
 
 -- Godot        {{{1
 -- brew cask install godot
-lspconfig.gdscript.setup{}
+setup_lsp("gdscript", {})
 
 
 -- harper       {{{1
 -- Grammar checker
-lspconfig.harper_ls.setup {
+setup_lsp("harper_ls", {
     settings = {
         ["harper-ls"] = {
             linters = { -- https://writewithharper.com/docs/rules
@@ -124,7 +139,7 @@ lspconfig.harper_ls.setup {
             },
         },
     },
-}
+})
 
 
 -- lua-lsp        {{{1
@@ -162,7 +177,7 @@ end
 -- Currently preferring sumneko because it provides completion my work project,
 -- and emmylua no longer provides completion (maybe it only worked in love2d?).
 -- TODO: Should I pass lsp this command like I did for gvim: "--metapath ".. vim.g.david_cache_root ..'/lsp/meta'
-lspconfig.lua_ls.setup {
+setup_lsp("lua_ls", {
     on_new_config = function(cfg, new_root_dir)
         -- We apply different config for different roots, so don't use on_init.
         if vim.loop.fs_stat(new_root_dir..'/.luarc.json')
@@ -198,6 +213,6 @@ lspconfig.lua_ls.setup {
     settings = {
         Lua = {}
     },
-}
+})
 
 
