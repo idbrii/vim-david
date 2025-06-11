@@ -149,7 +149,6 @@ setup_lsp("harper_ls", {
 -- luarocks install luacheck
 -- luarocks install --server=http://luarocks.org/dev lua-lsp
 
-local lua_seen_roots = {}
 local function build_nvim_lsp_config()
     return {
         runtime = {
@@ -178,19 +177,17 @@ end
 -- and emmylua no longer provides completion (maybe it only worked in love2d?).
 -- TODO: Should I pass lsp this command like I did for gvim: "--metapath ".. vim.g.david_cache_root ..'/lsp/meta'
 setup_lsp("lua_ls", {
-    on_new_config = function(cfg, new_root_dir)
-        -- We apply different config for different roots, so don't use on_init.
-        if vim.loop.fs_stat(new_root_dir..'/.luarc.json')
-            or vim.loop.fs_stat(new_root_dir..'/.luarc.jsonc')
+    on_init = function(client)
+        local cfg = client.settings
+        local new_root_dir = client.root_dir
+
+        if not new_root_dir  -- nil for fugitive files.
+            or vim.uv.fs_stat(new_root_dir ..'/.luarc.json')
+            or vim.uv.fs_stat(new_root_dir ..'/.luarc.jsonc')
         then
-            -- Rely on config file if it exists
+            -- Rely on config file if it exists.
             return
         end
-        -- Called for each file, but only want to load on first in workspace.
-        if lua_seen_roots[new_root_dir] then
-            return
-        end
-        lua_seen_roots[new_root_dir] = true
 
         local valid_paths = {'data', 'scripts'}
         local settings
@@ -206,8 +203,9 @@ setup_lsp("lua_ls", {
         end
 
         if settings then
-            -- This *appends* to existing config, so if we default to nvim config above, then we'll already have its settings.
-            cfg.settings.Lua = vim.tbl_deep_extend('force', cfg.settings.Lua, settings)
+            -- This *appends* to existing config, so if we default to nvim
+            -- config above, then we'll already have its settings.
+            cfg.Lua = vim.tbl_deep_extend('force', cfg.Lua, settings)
         end
     end,
     settings = {
