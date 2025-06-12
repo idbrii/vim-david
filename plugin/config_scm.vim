@@ -44,6 +44,9 @@ if executable('git')
     " v: visual file history
     nnoremap <leader>gv :GV! -n 100<CR>
     xnoremap <leader>gv :GV! -n 100<CR>
+    " Last change to file/directory.
+    nnoremap <leader>gl :Git log -1 -- %<CR>
+    nnoremap <leader>gL :Git log -1 -- .<CR>
 
     command! -bar -range=% -nargs=? Gblame :silent! cd %:p:h | call david#git#Gblame('<line1>,<line2>', <q-args>)
     nnoremap <Leader>gb :Gblame -w<CR>
