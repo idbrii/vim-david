@@ -63,6 +63,11 @@ local line_length = 200  -- must be obscene to warn.
 -- Install clangd and clang-format via mason. Hopefully ale and lsp don't conflict.
 setup_lsp("clangd", {})
 
+-- Don't add comment highlighting. I'm using clangd with msvc without a
+-- compile_commands.json so it doesn't actually know what defines are set.
+vim.api.nvim_set_hl(0, '@lsp.type.comment.cpp', {})
+
+
 -- Python       {{{1
 setup_lsp("pylsp", {
     settings = {
