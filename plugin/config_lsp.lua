@@ -113,6 +113,15 @@ setup_lsp("gdscript", {})
 -- harper       {{{1
 -- Grammar checker
 setup_lsp("harper_ls", {
+    filetypes = {
+        'gitcommit',
+        'html',
+        'markdown',
+        'text',
+        'toml',
+        -- Having some random slowdowns while typing, so limiting harper to see if
+        -- they go away. False positives in code make it more friction than helpful.
+    },
     settings = {
         ["harper-ls"] = {
             linters = { -- https://writewithharper.com/docs/rules
