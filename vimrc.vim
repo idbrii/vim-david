@@ -792,7 +792,7 @@ nmap S <Plug>YSurround
 
 " \ surrounds with anything. (Replaces latex map that I don't use except by
 " accident.)
-let g:surround_92 = "\1Surround with: \1 \r \1\1"
+let g:surround_{char2nr('\')} = "\1Surround with: \1\r\1\1"
 
 function! s:SetupSurroundForCurrentFiletype()
     " m surrounds with commented foldmarkers
@@ -805,7 +805,7 @@ function! s:SetupSurroundForCurrentFiletype()
     if len(comment) == 0
         let comment = "%s"
     endif
-    let b:surround_109 = printf(comment, " \1Marker name: \1 {{{") . " \r " . printf(comment, " }}}")
+    let b:surround_{char2nr('m')} = printf(comment, " \1Marker name: \1 {{{") . " \r " . printf(comment, " }}}")
 endf
 augroup SurroundCustom
     au!
