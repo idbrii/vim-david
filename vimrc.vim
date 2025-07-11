@@ -793,6 +793,9 @@ nmap S <Plug>YSurround
 " \ surrounds with anything. (Replaces latex map that I don't use except by
 " accident.)
 let g:surround_{char2nr('\')} = "\1Surround with: \1\r\1\1"
+" Custom surround that includes a suffix for fenced code blocks in markdown.
+let g:surround_{char2nr('c')} = "\1Surround with: \1\2Opening suffix: \2\r\1\1"
+let g:surround_{char2nr('C')} = "\1Surround with: \1\2Opening suffix: \2\n\r\n\1\1"
 
 function! s:SetupSurroundForCurrentFiletype()
     " m surrounds with commented foldmarkers
