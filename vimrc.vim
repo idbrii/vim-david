@@ -721,6 +721,9 @@ let g:RenamerSupportColonWToRename = 1
 " colorizer {{{2
 let g:colorizer_auto_map = 0
 "~ let g:colorizer_auto_filetype = "vim,css"
+" Lately I'm using hex numbers not css codes.
+let g:colorizer_hex_pattern = ['0x', '\%(\x\{6,8}\)', '']
+let g:colorizer_rgb_disable = 1  " Colorizer#111
 xmap <silent> <Leader>vcol <Plug>Colorizer
 nmap <silent> <Leader>vcol <Plug>Colorizer
 
