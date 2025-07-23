@@ -184,8 +184,16 @@ let g:netrw_keepdir = 0
 " Mark {{{1
 let g:mw_no_mappings = 1
 if has('gui_running')
-    " Requires lots of colours, but doesn't use my IncSearch colour.
-    let g:mwDefaultHighlightingPalette = 'maximum'
+    " Palette 'original' uses something close to my IncSearch colour. Deal
+    " with it for faster cmdline startup, but modify it in gui to strip out
+    " colours that look like IncSearch. (Could just use 'extended', but I like
+    " 'maximum's colours more.)
+    let g:mwDefaultHighlightingPalette = 'mine'
+    let g:mwPalettes = {
+                \   'mine': mark#palettes#Maximum()[1:],
+                \   'extended': function('mark#palettes#Extended'),
+                \   'soft': function('mark#palettes#Soft'),
+                \ }
 endif
 nmap <unique> <silent> <Leader>m <Plug>MarkSet
 vmap <unique> <silent> <Leader>m <Plug>MarkSet
