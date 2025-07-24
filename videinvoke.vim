@@ -3,6 +3,10 @@
 " Be sure to call cursor() before :runtime, or you won't consistently jump to
 " the line.
 "
+" VS passes the following arguments to vide.cmd for neovim:
+"   --cursor $(CurLine) $(CurCol) $(ItemPath)
+"   I can't get neovim to combine --server with cursor() without my vide.cmd
+"   workaround.
 " VS passes the following arguments to vim:
 "   --servername Vide --remote-silent +"call cursor($(CurLine),$(CurCol))" +"runtime videinvoke.vim" $(ItemPath)
 "   It might be useful to include: +"set path+=$(SolutionDir)/**"
