@@ -122,6 +122,12 @@ vim.keymap.set("x", "<Leader>bw", function()
     AddWatch(buffer.get_visual_text())
 end, { desc = "Add word to watch" } )
 
+local enterable = {
+    --~ watches = true, -- disabled to just peek at watches
+    repl = true,
+    scopes = true, -- too big to be useful without searching inside
+    stacks = true,
+}
 for mapping,element in pairs({
         b = "breakpoints",
         --~ c = "console",
@@ -132,6 +138,7 @@ for mapping,element in pairs({
     })
 do
     vim.keymap.set("n", "<Leader>bg".. mapping, function() return JumpToElement(element) end, { desc = "Jump to ".. element })
+    vim.keymap.set("n", "<Leader>bG".. mapping, function() return dapui.float_element(element, { enter = enterable[element], }) end, { desc = "Open floating ".. element })
 end
 
 -- Adapters: Debug process launch config {{{1
