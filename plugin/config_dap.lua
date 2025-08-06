@@ -4,9 +4,12 @@ local dapui = require "dapui"
 
 -- Dap mappings {{{1
 
+local DESIRED_LAYOUT = 1  -- Default config has stuff I want on the left. 2 is console and repl.
+
 -- Make it easier to autocomplete common commands.
 vim.cmd("command! DapBreakpoint DapToggleBreakpoint")
 vim.api.nvim_create_user_command("DapGuiToggle", function(...) return dapui.toggle() end, {})
+vim.api.nvim_create_user_command("DapGuiReset", function() dapui.close(); dapui.open(DESIRED_LAYOUT, {reset = true}) end, {})
 vim.api.nvim_create_user_command("DapJumpToCurrentLine", dap.focus_frame, {})
 
 
@@ -220,10 +223,10 @@ dapui.setup({
 ---@diagnostic enable: missing-fields
 
 dap.listeners.before.attach.dapui_config = function()
-    dapui.open()
+    dapui.open(DESIRED_LAYOUT)
 end
 dap.listeners.before.launch.dapui_config = function()
-    dapui.open()
+    dapui.open(DESIRED_LAYOUT)
 end
 dap.listeners.before.event_terminated.dapui_config = function()
     dapui.close()
