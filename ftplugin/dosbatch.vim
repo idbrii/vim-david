@@ -13,3 +13,6 @@ endif
 " :: Is how I insert documentation comments, but commentstring is generally
 " for inserting temporary commments.
 setlocal commentstring=REM\ %s
+
+" Don't need a marker since I use REM for temp comments.
+let b:commentary_marker = ''

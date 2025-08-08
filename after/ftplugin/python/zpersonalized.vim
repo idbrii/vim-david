@@ -11,6 +11,8 @@ setlocal expandtab
 setlocal cindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 " see # as comments
 setlocal cinoptions+=#1
+" Add space so black doesn't reformat it.
+let b:commentary_marker = ' ~'
 
 
 let b:detectindent_check_syntax = 1
