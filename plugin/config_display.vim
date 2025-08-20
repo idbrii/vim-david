@@ -65,3 +65,38 @@ let g:vim_markdown_fenced_languages = [
             \ "ini=dosini",
             \ "lua=lua",
             \ ]
+
+
+" Mark {{{1
+let g:mw_no_mappings = 1
+if has('gui_running')
+    " Palette 'original' uses something close to my IncSearch colour. Deal
+    " with it for faster cmdline startup, but modify it in gui to strip out
+    " colours that look like IncSearch. (Could just use 'extended', but I like
+    " 'maximum's colours more.)
+    let g:mwDefaultHighlightingPalette = 'mine'
+    let g:mwPalettes = {
+                \   'mine': mark#palettes#Maximum()[1:],
+                \   'extended': function('mark#palettes#Extended'),
+                \   'soft': function('mark#palettes#Soft'),
+                \ }
+endif
+nmap <unique> <silent> <Leader>m <Plug>MarkSet
+vmap <unique> <silent> <Leader>m <Plug>MarkSet
+nmap <unique> <silent> <Leader>M <Plug>MarkAllClear
+
+
+" Nrrwrgn {{{1
+
+" Default is full screen narrow. I usually narrow to limit the application of
+" substitutions without worrying about setting the range. Also, use n as the
+" narrow prefix.
+xmap <unique> <Leader>nr <Plug>NrrwrgnBangDo
+nmap <unique> <Leader>nr :<C-u>WidenRegion!<CR>
+xmap <unique> <Leader>nR <Plug>NrrwrgnDo
+
+" Narrow multiple regions
+xmap <unique> <Leader>nm :NRPrepare<CR>
+nmap <unique> <Leader>nm :<C-u>NRMulti<CR>
+
+
