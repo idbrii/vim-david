@@ -195,9 +195,13 @@ setup_lsp("lua_ls", {
         local cfg = client.settings
         local new_root_dir = client.root_dir
 
-        if not new_root_dir  -- nil for fugitive files.
-            or vim.uv.fs_stat(new_root_dir ..'/.luarc.json')
-            or vim.uv.fs_stat(new_root_dir ..'/.luarc.jsonc')
+        -- Not using `path == vim.fn.stdpath('config')` because I don't keep my config in AppData.
+        local is_vim_plugin = new_root_dir and new_root_dir:find("%pvim")
+
+        if not is_vim_plugin  -- luarc from vim plugins are additive.
+            and (not new_root_dir  -- nil for fugitive files.
+                or vim.uv.fs_stat(new_root_dir ..'/.luarc.json')
+                or vim.uv.fs_stat(new_root_dir ..'/.luarc.jsonc'))
         then
             -- Rely on config file if it exists.
             return
@@ -205,7 +209,7 @@ setup_lsp("lua_ls", {
 
         local valid_paths = {'data', 'scripts'}
         local settings
-        if new_root_dir:find("%pvim") then
+        if is_vim_plugin then
             settings = build_nvim_lsp_config()
         else
             settings = david.get_sumneko_cfg_from_luacheck(new_root_dir ..'/.luacheckrc', valid_paths)
