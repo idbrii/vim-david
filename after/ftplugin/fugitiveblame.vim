@@ -12,3 +12,5 @@ augroup END
 " Provide mapping to avoid repeated waiting. This uses x for examine.
 nnoremap <buffer> x :<C-u>Gpeekcommit<CR>
 
+" File diff that changed current line. Needs remap to use fugitive's CR.
+nmap <buffer> dd <CR>?^diff<CR><CR>
