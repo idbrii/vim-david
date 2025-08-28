@@ -1,3 +1,8 @@
+" Mappings   {{{1
+" Toggle conceal
+nnoremap <Leader>vcon <Cmd>let &l:conceallevel = 2 - &l:conceallevel<CR>
+
+" Font   {{{1
 
 function! s:SetFont(font, allow_ligatures)
     let &guifont = a:font
@@ -51,10 +56,18 @@ command! FontNoFancy call s:SetFont('Fira_Mono:h11:cANSI:qDRAFT', 0)
 command! FontForForeign  call s:SetFont('DejaVu_Sans_Mono:h11:cANSI:qDRAFT', 1)
 
 
+" Lua   {{{1
+
 " I find ~= confusing every time I come back and ligatures make it worse
 " because they focus on math symbols instead of code operators.
 let g:lua_syntax_fancynotequal = 1
 
+" Json   {{{1
+" Only want luarefvim for its doc files.
+let g:vim_json_syntax_conceal = 0  " Hiding quotes is neat, but annoying when editing.
+"~ let g:vim_json_warnings = 0
+
+" Markdown   {{{1
 
 " cpp-dosini are the default set.
 let g:vim_markdown_fenced_languages = [
@@ -65,7 +78,6 @@ let g:vim_markdown_fenced_languages = [
             \ "ini=dosini",
             \ "lua=lua",
             \ ]
-
 
 " Mark {{{1
 let g:mw_no_mappings = 1
