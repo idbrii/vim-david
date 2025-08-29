@@ -28,6 +28,12 @@ let b:commentary_format = '//~ %s'
 " to continue comments
 setlocal formatoptions-=o
 
+" I don't often use regions but other people do. They look like this:
+"   #pragma region Boring code
+"   blah
+"   #pragma endregion
+setlocal foldmarker=region,endregion
+
 " To prevent extra indents to ctor initializations, I want cino=i0. Not sure
 " how to only change that option, so I've modified ~/.vim/indent/cpp.vim
 
