@@ -6,6 +6,9 @@ if !exists('g:loaded_fugitive')
     finish
 endif
 
+" Diffs are harder to read when they wrap and it's rarely useful.
+setlocal nowrap
+
 if david#git#is_buf_from_fugitive_cmd(bufnr(''), "branch")
 
     function! s:LogBranch()

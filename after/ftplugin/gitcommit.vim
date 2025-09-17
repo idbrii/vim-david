@@ -77,6 +77,8 @@ setlocal foldexpr=FoldGitCommit(v:lnum)
 " message.
 setlocal spell
 
+" Diffs are harder to read when they wrap and it's rarely useful.
+setlocal nowrap
 
 setlocal omnifunc=rhubarb#Complete
 
