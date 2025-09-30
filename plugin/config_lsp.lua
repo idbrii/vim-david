@@ -23,8 +23,10 @@ if VERSION.major <= 0 and VERSION.minor < 11 then
     end
 end
 
+local lsp_attach = {}
+
 -- cmds/mapping        {{{1
---~ local GRP = vim.api.nvim_create_augroup("david_lsp", {})
+local GRP = vim.api.nvim_create_augroup("david_lsp", {})
 
 -- nvim maps K for hover, but I use that for docs. Setup my command to show hover so <L>ih works.
 vim.api.nvim_create_user_command("HoverUnderCursor", diag.activate_hover, {})
@@ -63,10 +65,12 @@ local line_length = 200  -- must be obscene to warn.
 -- Install clangd and clang-format via mason. Hopefully ale and lsp don't conflict.
 setup_lsp("clangd", {})
 
--- Don't add comment highlighting. I'm using clangd with msvc without a
--- compile_commands.json so it doesn't actually know what defines are set.
-vim.api.nvim_set_hl(0, '@lsp.type.comment.cpp', {})
-
+function lsp_attach.clangd(args)
+    -- Don't add comment highlighting. I'm using clangd with msvc without a
+    -- compile_commands.json so it doesn't actually know what defines are set.
+    -- Must happen after attach (or FileType?) or it's overwritten.
+    vim.api.nvim_set_hl(0, '@lsp.type.comment.cpp', {})
+end
 
 -- Python       {{{1
 setup_lsp("pylsp", {
@@ -231,4 +235,18 @@ setup_lsp("lua_ls", {
     },
 })
 
+-- LspAttach {{{1
+vim.api.nvim_create_autocmd('LspAttach', {
+        group = GRP,
+        callback = function(args)
+            -- client_id is a number, so we need to do a lookup to get the
+            -- name. pattern doesn't work for LspAttach, so presumably you
+            -- should have a single LspAttach callback.
+            local name = vim.lsp.get_client_by_id(args.data.client_id).name
+            local fn = lsp_attach[name]
+            if fn then
+                fn(args)
+            end
+        end,
+    })
 
