@@ -2,7 +2,8 @@
 function! david#git#peek_commit(sha) abort
     let text = systemlist("git -C ".. shellescape(FugitiveCommonDir()) .." log -n1 ".. a:sha)
     let opts = { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 }
-    call setbufvar(winbufnr(david#window#popup_atcursor(text, opts)), "&filetype", "git")
+    let win_bufnr = david#window#popup_atcursor(text, opts)
+    call setbufvar(winbufnr(win_bufnr), "&filetype", "git")
 endf
 
 function! david#git#peek_line() abort
