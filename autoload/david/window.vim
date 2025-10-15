@@ -81,10 +81,11 @@ function! david#window#copen_without_moving_cursor()
 endf
 
 " Popup window {{{1
+"   popup_atcursor(lines, opts)
 function! david#window#popup_atcursor(...) abort
     " args:
-    " * lines (list of strings)
-    " * opts (dict of options)
+    " * lines (string[]) Lines to display inside popup win.
+    " * opts ({}?) Dict of options to configure popup win.
     if has('nvim')
         " ale implements an api like vim's for nvim, but it's not as pretty.
         let popup_id = call("ale#floating_preview#Show", a:000)
