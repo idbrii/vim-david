@@ -2,6 +2,11 @@
 
 nmap <Leader>if <Plug>(ale_fix)
 
+if has("gui_running")
+    let g:ale_floating_window_border =  ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
+endif
+
+
 " Ale general {{{1
 
 " Use Verbose to avoid polluting clipboard.
