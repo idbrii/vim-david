@@ -91,7 +91,7 @@ function! david#tagfile#BuildTags(use_async) abort
 
     if &ft == "gdscript"
         call godot#lcd_to_project_root()
-        execute 'AsyncShell' expand('~/.vim/bundle/aa-david/pythonx/buildtags.py') cscope "godot"
+        execute 'AsyncShell' expand('~/.vim/bundle/aa-david/pythonx/buildtags.py') "--project-dir" getcwd() cscope "godot"
         return
     endif
     
