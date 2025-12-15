@@ -906,11 +906,12 @@ nmap <Leader>w+ <Plug>(window-fill-screen)
 let g:notgrep_no_mappings = 1
 let g:notgrep_ripgrep_fold_matches = 1
 
+set smartcase  " Set before ripgrep since it's used to configure.
 if executable('rg')
     let g:searchsavvy_smartgrep_auto_enable = 0
-    let &grepprg = 'rg --vimgrep'
-    let &grepformat = "%f:%l:%c:%m"
     call notgrep#setup#NotGrepUseRipgrep()
+    let &grepprg = g:notgrep_prg
+    let &grepformat = g:notgrep_efm
     let $RIPGREP_CONFIG_PATH = fnamemodify(resolve(expand("~/.vim")), ":h") ..'/ripgreprc'
 else
     " Fallback to grep so NotGrepRecursiveFrom will work.
