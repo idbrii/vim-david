@@ -2,9 +2,15 @@ local buffer = {}
 
 
 -- Get the current visual selection as text.
+--- @return string
 function buffer.get_visual_text()
-    local r = vim.region(0, "'<", "'>", vim.fn.visualmode(), true)
-    return buffer.region_to_text(r)
+    return table.concat(buffer.get_visual_lines(), "\n")
+end
+
+-- Get the current visual selection.
+--- @return string[]
+function buffer.get_visual_lines()
+    return vim.fn.getregion(vim.fn.getpos("'<"), vim.fn.getpos("'>"))
 end
 
 

@@ -122,9 +122,9 @@ vim.keymap.set("n", "<Leader>b<Up>",   MakeJump(dap.up),   { desc = "View deeper
 vim.keymap.set("n", "<Leader>bw", MakeCursorWordWatchFn("<cword>"), { desc = "Add word to watch" } )
 vim.keymap.set("n", "<Leader>bW", MakeCursorWordWatchFn("<cWORD>"), { desc = "Add WORD to watch" } )
 vim.keymap.set("x", "<Leader>bw", function()
-    -- Why doesn't this work?
     local buffer = require "david.buffer"
-    AddWatch(buffer.get_visual_text())
+    local lines = buffer.get_visual_lines() or {}
+    AddWatch(lines[0])
 end, { desc = "Add word to watch" } )
 
 local enterable = {
