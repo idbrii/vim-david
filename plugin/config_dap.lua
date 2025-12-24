@@ -30,7 +30,9 @@ local function JumpToElement(element_name)
     if next(win_ids) then
         vim.fn.win_gotoid(win_ids[1])
     else
-        print("[ERROR] dapui element not found:", element_name)
+        -- Better to open a float than error.
+        --~ print("[ERROR] dapui element not found:", element_name)
+        dapui.float_element(element, { enter = true, })
     end
 end
 
