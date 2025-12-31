@@ -2,6 +2,15 @@ if !has('win32')
     finish
 endif
 
+" TODO
+" :GV fails because the last character of the command is truncated in this
+" shell.
+" rm fails to delete multiple files because PowerShell uses a command that
+" takes a single argument instead of a program.
+" My Gpopupblame fails because it quotes the filename within the path. Gblame
+" is fine.
+finish
+
 " Install:
 "   winget install Microsoft.PowerShell --accept-package-agreements --accept-source-agreements
 
