@@ -137,8 +137,12 @@ let g:ale_python_pylint_use_global = 0
 
 let g:ale_fixers.python = [
             \     'black',
-            \     'isort',
             \ ]
+" isort doesn't handle line endings on Windows: https://github.com/PyCQA/isort/issues/2453
+if has('unix')
+    call add(g:ale_fixers.python, 'isort')
+endif
+
 
 " black -> :! python3 -m pip install black
 
