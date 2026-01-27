@@ -7,7 +7,11 @@ local VERSION = vim.version()
 local GRP = vim.api.nvim_create_augroup("david_nvimrc", { clear = true })
 vim.api.nvim_create_autocmd({ "UIEnter" }, {
         pattern = { "*" },
-        command = "runtime gvimrc.vim",
+        callback = function()
+            if vim.fn.has('gui_running') > 0 then
+                vim.cmd.runtime "gvimrc.vim"
+            end
+        end,
         group = GRP,
         nested = true,
     })
