@@ -615,10 +615,10 @@ nnoremap <S-space> :<C-u>ResolveFile<CR>
 set foldmethod=indent
 set foldlevelstart=99		" All folds open by default
 
-" At deepest, fold blocks within class methods
-let g:david_foldnestmax = 5 " Standard value, used in ftplugins
-" Use set so verbose leads us back here.
-set foldnestmax=5
+" Default nestmax for code at filescope. ftplugins will bump for languages
+" requiring extra nesting.
+let g:david_foldnestmax = 5 " Not too deep to reduce unfolding.
+" Set so verbose leads us back here.
 let &foldnestmax = g:david_foldnestmax
 
 let g:fastfold_map = 0

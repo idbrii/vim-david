@@ -21,6 +21,9 @@ let b:detectindent_check_syntax = 1
 if &foldmethod != 'diff'
     setlocal foldmethod=indent
 endif
+" Python has classes, so allow for more folding depth. (+1)
+let &l:foldnestmax = max([g:david_foldnestmax + 1, &l:foldnestmax])
+
 
 
 function! PyCompileCheck()
