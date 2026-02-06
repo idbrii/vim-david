@@ -124,7 +124,11 @@ vim.keymap.set("n", "<Leader>bW", MakeCursorWordWatchFn("<cWORD>"), { desc = "Ad
 vim.keymap.set("x", "<Leader>bw", function()
     local buffer = require "david.buffer"
     local lines = buffer.get_visual_lines() or {}
-    AddWatch(lines[0])
+    if lines[0] then
+        AddWatch(lines[0])
+    else
+        vim.fn["david#error"]("Failed to get selection.")
+    end
 end, { desc = "Add word to watch" } )
 
 local enterable = {
