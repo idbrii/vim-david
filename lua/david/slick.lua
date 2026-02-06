@@ -1,6 +1,10 @@
 -- A module to make working with vim.api a bit easier.
 local slick = {}
 
+function slick.error(msg)
+    return vim.fn["david#error"](msg)
+end
+
 -- Run input normal command and also replace termcodes.
 --
 -- Goal: Always do what I expect. Replaces termcodes to simplify conversion

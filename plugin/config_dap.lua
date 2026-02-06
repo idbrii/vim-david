@@ -1,5 +1,6 @@
 local dap = require "dap"
 local dapui = require "dapui"
+local slick = require "david.slick"
 
 
 -- Dap mappings {{{1
@@ -127,7 +128,7 @@ vim.keymap.set("x", "<Leader>bw", function()
     if lines[0] then
         AddWatch(lines[0])
     else
-        vim.fn["david#error"]("Failed to get selection.")
+        slick.error("Failed to get selection.")
     end
 end, { desc = "Add word to watch" } )
 
