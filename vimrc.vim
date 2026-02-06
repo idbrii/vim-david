@@ -968,11 +968,6 @@ inoremap <silent> <C-x><C-t> <C-o>:ThesaurusQueryReplaceCurrentWord<CR>
 vnoremap <silent> <C-x><C-t> "cy:<C-u>ThesaurusQueryReplace <C-r>c<CR>
 nnoremap <silent> <C-x><C-t> :<C-u>ThesaurusQueryReplaceCurrentWord<CR>
 
-" table-mode
-" Disable maps that conflict with standard vim { and } commands
-let g:table_mode_motion_up_map = ''
-let g:table_mode_motion_down_map = ''
-
 " DetectIndent should use my settings when it doesn't know what to do.
 let g:detectindent_preferred_when_mixed = 1
 let g:detectindent_preferred_expandtab = &expandtab

@@ -119,8 +119,17 @@ nmap <unique> g/g/ <Plug>Commentary<Plug>Commentary
 " Table-mode {{{1
 "
 " Change mode -- table mode
-" I use it so frequently, that I don't need it on a short prefix.
+" I use it so infrequently, that I don't need it on a short prefix.
 let g:table_mode_map_prefix = '<Leader>ct'
+let g:table_mode_tableize_d_map = '<Leader>cT'
+
+let g:table_mode_realign_map = ''
+nmap <Leader>ctr <Plug>(table-mode-realign)
+
+" Disable maps that conflict with standard vim { and } commands
+let g:table_mode_motion_up_map = ''
+let g:table_mode_motion_down_map = ''
+
 
 
 " text_obj {{{1
