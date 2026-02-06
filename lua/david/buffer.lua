@@ -10,7 +10,13 @@ end
 -- Get the current visual selection.
 --- @return string[]
 function buffer.get_visual_lines()
-    return vim.fn.getregion(vim.fn.getpos("'<"), vim.fn.getpos("'>"))
+    local start = "'<"
+    local stop = "'>"
+    if vim.api.nvim_get_mode().mode == "v" then
+        start = "v"
+        stop = "."
+    end
+    return vim.fn.getregion(vim.fn.getpos(start), vim.fn.getpos(stop))
 end
 
 
