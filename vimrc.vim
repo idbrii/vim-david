@@ -74,6 +74,9 @@ endif
 let g:unite_data_directory = g:david_cache_root.'/unite'
 " unite-mru cache
 let g:neomru#file_mru_path = g:unite_data_directory .'/neomru/file'
+" unite-history_yank cache
+let g:neoyank#file = g:unite_data_directory ..'/neoyank/file'
+
 
 " Move viminfo into cache directory
 let viminfo_path = g:david_cache_root ..'/viminfo'
