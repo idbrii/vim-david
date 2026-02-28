@@ -19,5 +19,5 @@ xnoremap <buffer> <Leader>gb <Cmd>Gpeekcommit<CR>
 nmap <buffer> <Leader>gB -
 xmap <buffer> <Leader>gB -
 
-" File diff that changed current line.
-nnoremap <buffer> dd <Cmd>:lua require "david.git".ReblameCurrentLine()<CR>
+" View Gdiff that changed current line.
+nnoremap <buffer> dd <Cmd>:lua require "david.git".DiffBlamedLine()<CR>
