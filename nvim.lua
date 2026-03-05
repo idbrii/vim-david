@@ -143,6 +143,8 @@ quicker.setup({
 -- LLM {{{
 -- Not sure I always want copilot, so it's an opt plugin.
 
+require("david.claudehopper").setup()
+
 -- Disabled: Annoyed at its tiny barely-helpful suggestions that discourage
 -- snippets and whole line matching which usually work better.
 --~ vim.cmd.packadd "copilot"
