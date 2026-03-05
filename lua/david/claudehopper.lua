@@ -171,6 +171,69 @@ function claudehopper.resume(args)
 	open_session(session)
 end
 
+local function delete_session(session)
+	assert(session and session.id, "Expected session with id")
+	local session_path = get_session_dir() .. "/" .. session.id
+	local display = claudehopper.display_name(session)
+    local confirm = "Yes, delete."
+	vim.ui.select({ confirm, "Cancel" }, {
+		prompt = string.format("Delete session '%s' last updated %s?", display, session.updated_at),
+	}, function(choice)
+		if choice ~= confirm then
+			vim.notify("Delete cancelled", vim.log.levels.INFO)
+			return
+		end
+		local ok, err = vim.fn.delete(session_path, "rf")
+		if ok ~= 0 then
+			vim.notify("Failed to delete session: " .. (err or "unknown error"), vim.log.levels.ERROR)
+			return
+		end
+		vim.notify("Deleted session: " .. display, vim.log.levels.INFO)
+	end)
+end
+
+function claudehopper.delete(args)
+	if not args or args == "" then
+		local sessions = claudehopper.get_sessions()
+		if #sessions == 0 then
+			vim.notify("No copilot sessions found", vim.log.levels.WARN)
+			return
+		end
+
+		local items = {}
+		for _, session in ipairs(sessions) do
+			table.insert(items, claudehopper.display_name(session))
+		end
+
+		vim.ui.select(items, {
+			prompt = "Select Copilot session to delete:",
+			format_item = function(item)
+				for _, session in ipairs(sessions) do
+					if claudehopper.display_name(session) == item and session.cwd then
+						return item .. "  [" .. session.cwd .. "]"
+					end
+				end
+				return item
+			end,
+		}, function(choice)
+			if not choice then return end
+			local session = claudehopper.find_session(choice)
+			if session then
+				delete_session(session)
+			end
+		end)
+		return
+	end
+
+	local session = claudehopper.find_session(args)
+	if not session then
+		vim.notify("Session not found: " .. args, vim.log.levels.ERROR)
+		return
+	end
+
+	delete_session(session)
+end
+
 function claudehopper.setup(cfg_overrides)
 	for key,val in pairs(cfg_overrides or {}) do
 		cfg[key] = val
@@ -179,10 +242,15 @@ function claudehopper.setup(cfg_overrides)
 		claudehopper.resume(cmd_args.args)
 	end, {
 		nargs = "?",
-		complete = function(arg_lead)
-			return claudehopper.complete(arg_lead)
-		end,
+		complete = claudehopper.complete,
 		desc = "Resume a GitHub Copilot CLI session.",
+	})
+	vim.api.nvim_create_user_command("ClaudeDelete", function(cmd_args)
+		claudehopper.delete(cmd_args.args)
+	end, {
+		nargs = "?",
+		complete = claudehopper.complete,
+		desc = "Delete a GitHub Copilot CLI session.",
 	})
 end
 
