@@ -2,13 +2,20 @@
 --
 -- Requirements:
 -- * copilot-cli installed and copilot.exe in path
--- * :Shell command to start a :terminal
 local claudehopper = {}
 
--- Keys to remap to themselves in terminal mode to ignore existing mappings
--- (because copilot handles them correctly).
-claudehopper.terminal_unmap_keys = {
-	"<C-w>",
+local cfg = {
+	-- Keys to remap to themselves in terminal mode to ignore existing mappings
+	-- (because copilot handles them correctly).
+	terminal_unmap_keys = {
+		"<C-w>",
+	},
+
+	-- How to invoke the terminal (a vim command).
+	terminal_cmd = "terminal",
+
+	-- How to run copilot (an executable).
+	copilot_exe = "copilot",
 }
 
 local function get_session_dir()
@@ -104,7 +111,7 @@ end
 
 local function setup_terminal_keymaps(bufnr)
 	assert(bufnr)
-	for _, key in ipairs(claudehopper.terminal_unmap_keys) do
+	for _, key in ipairs(cfg.terminal_unmap_keys) do
 		vim.api.nvim_buf_set_keymap(bufnr, "t", key, key, {
 			noremap = true,
 			desc = "Pass through to copilot",
@@ -117,7 +124,7 @@ local function open_session(session)
 	if session.cwd then
 		vim.cmd.cd(vim.fn.fnameescape(session.cwd))
 	end
-	vim.cmd("Shell copilot --resume=" .. session.id)
+	vim.cmd(string.format("%s %s --resume=%s", cfg.terminal_cmd, cfg.copilot_exe, session.id))
 	setup_terminal_keymaps(vim.api.nvim_get_current_buf())
 	--~ vim.cmd.cd(vim.fn.fnameescape(prev_dir))
 end
@@ -164,7 +171,10 @@ function claudehopper.resume(args)
 	open_session(session)
 end
 
-function claudehopper.setup()
+function claudehopper.setup(cfg_overrides)
+	for key,val in pairs(cfg_overrides or {}) do
+		cfg[key] = val
+	end
 	vim.api.nvim_create_user_command("Claude", function(cmd_args)
 		claudehopper.resume(cmd_args.args)
 	end, {
