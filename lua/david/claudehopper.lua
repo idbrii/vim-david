@@ -94,9 +94,11 @@ function claudehopper.find_session(query)
 	return nil
 end
 
+local NEW_SESSION = "[new]"
+
 function claudehopper.complete(arg_lead)
 	local sessions = claudehopper.get_sessions()
-	local completions = {}
+	local completions = { NEW_SESSION }
 	local lead = arg_lead:lower()
 
 	for _, session in ipairs(sessions) do
@@ -121,23 +123,30 @@ end
 
 local function open_session(session)
 	--~ local prev_dir = vim.fn.getcwd()
-	if session.cwd then
-		vim.cmd.cd(vim.fn.fnameescape(session.cwd))
+	local resume = ""
+	if session then
+		if session.cwd then
+			vim.cmd.cd(vim.fn.fnameescape(session.cwd))
+		end
+		resume = "--resume=" .. session.id
 	end
-	vim.cmd(string.format("%s %s --resume=%s", cfg.terminal_cmd, cfg.copilot_exe, session.id))
+	-- else: Use new session.
+
+	vim.cmd(string.format("%s %s %s", cfg.terminal_cmd, cfg.copilot_exe, resume))
 	setup_terminal_keymaps(vim.api.nvim_get_current_buf())
 	--~ vim.cmd.cd(vim.fn.fnameescape(prev_dir))
 end
 
 function claudehopper.resume(args)
+	if args == NEW_SESSION then
+		open_session()
+		return
+	end
+
 	if not args or args == "" then
 		local sessions = claudehopper.get_sessions()
-		if #sessions == 0 then
-			vim.notify("No copilot sessions found", vim.log.levels.WARN)
-			return
-		end
 
-		local items = {}
+		local items = { NEW_SESSION }
 		for _, session in ipairs(sessions) do
 			table.insert(items, claudehopper.display_name(session))
 		end
@@ -145,6 +154,9 @@ function claudehopper.resume(args)
 		vim.ui.select(items, {
 			prompt = "Select Copilot session:",
 			format_item = function(item)
+				if item == NEW_SESSION then
+					return item
+				end
 				for _, session in ipairs(sessions) do
 					if claudehopper.display_name(session) == item and session.cwd then
 						return item .. "  [" .. session.cwd .. "]"
@@ -153,10 +165,16 @@ function claudehopper.resume(args)
 				return item
 			end,
 		}, function(choice)
-			if not choice then return end
-			local session = claudehopper.find_session(choice)
-			if session then
-				open_session(session)
+			if not choice then
+				return
+			end
+			if choice == NEW_SESSION then
+				open_session()
+			else
+				local session = claudehopper.find_session(choice)
+				if session then
+					open_session(session)
+				end
 			end
 		end)
 		return
