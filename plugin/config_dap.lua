@@ -33,7 +33,7 @@ local function JumpToElement(element_name)
     else
         -- Better to open a float than error.
         --~ print("[ERROR] dapui element not found:", element_name)
-        dapui.float_element(element, { enter = true, })
+        dapui.float_element(element_name, { enter = true, width = 100, height = 25, })
     end
 end
 
