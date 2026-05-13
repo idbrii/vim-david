@@ -197,4 +197,7 @@ vim.g.neovide_cursor_animation_length = 0.002
 vim.g.neovide_position_animation_length = 0.007
 vim.g.neovide_scroll_animation_length = 0.007
 
+-- Bar shows on every save and is very distracting.
+vim.g.neovide_progress_bar_enabled = false
+
 -- Goneovim {{{
