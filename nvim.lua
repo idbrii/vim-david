@@ -168,6 +168,17 @@ require("CopilotChat").setup{
     },
 }
 
+-- hex plugin {{{
+
+-- Hex editor
+vim.api.nvim_create_user_command('HexToggle', function()
+    local hex = require "hex"
+    hex.setup{  -- Replaces HexToggle command.
+        dump_cmd = "xxd -g 2 -c 32",
+    }
+    hex.toggle()
+end, {})
+
 
 -- nightly workarounds {{{
 -- nvim#32411
