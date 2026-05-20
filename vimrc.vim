@@ -911,6 +911,7 @@ let g:notgrep_no_mappings = 1
 let g:notgrep_ripgrep_fold_matches = 1
 
 set smartcase  " Set before ripgrep since it's used to configure.
+set infercase  " nvim seems to prefer uppercase results without it.
 if executable('rg')
     let g:searchsavvy_smartgrep_auto_enable = 0
     call notgrep#setup#NotGrepUseRipgrep()
