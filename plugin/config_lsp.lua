@@ -34,6 +34,10 @@ vim.api.nvim_create_user_command("HoverUnderCursor", diag.activate_hover, {})
 -- Shim some commands provided by vim-lsp.
 vim.api.nvim_create_user_command("LspDefinition", function(...) vim.lsp.buf.definition() end, {})
 vim.api.nvim_create_user_command("LspReferences", function(...) return vim.lsp.buf.references() end, {})
+if vim.fn.exists(":LspInfo") == 0 then
+    vim.api.nvim_create_user_command("LspInfo", function() return vim.cmd.checkhealth "vim.lsp" end, {})
+end
+
 
 vim.keymap.set('n', '<Leader>jt', function()
     -- Blank tagfunc to use ctags. nvim autoconfigures tagfunc to use lsp.
