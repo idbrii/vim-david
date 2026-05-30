@@ -348,6 +348,10 @@ command! -nargs=+ -complete=function   VisualizeVimscript call david#fn_visualiz
 " tab through options.
 set wildmenu
 set wildmode=longest:list,full
+" Don't use the popupmenu since it prevents using longest (it just fills
+" in all of the first match). (Nvim enabled by default.)
+set wildoptions-=pum
+
 
 " Autocommands {{{1
 
