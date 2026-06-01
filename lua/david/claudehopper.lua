@@ -49,7 +49,7 @@ function claudehopper.get_sessions()
         if data and data.id then
             table.insert(sessions, {
                     id = data.id,
-                    summary = data.summary,
+                    summary = data.name or data.summary,
                     cwd = data.cwd,
                     branch = data.branch,
                     updated_at = data.updated_at or "",
