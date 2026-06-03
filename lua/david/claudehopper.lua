@@ -121,7 +121,7 @@ local function setup_terminal_keymaps(bufnr)
     end
 end
 
-local function open_session(session)
+local function send_session(send_cmd, session)
     --~ local prev_dir = vim.fn.getcwd()
     local resume = ""
     if session then
@@ -132,12 +132,16 @@ local function open_session(session)
     end
     -- else: Use new session.
 
-    vim.cmd(string.format("%s %s %s", cfg.terminal_cmd, cfg.copilot_exe, resume))
+    vim.cmd(string.format("%s %s %s", send_cmd, cfg.copilot_exe, resume))
     setup_terminal_keymaps(vim.api.nvim_get_current_buf())
     --~ vim.cmd.cd(vim.fn.fnameescape(prev_dir))
 end
 
-function claudehopper.resume(args)
+local function open_session(session)
+    return send_session(cfg.terminal_cmd, session)
+end
+
+function claudehopper.resume(args, use_existing_repl)
     if args == NEW_SESSION then
         open_session()
         return
@@ -152,7 +156,7 @@ function claudehopper.resume(args)
         end
 
         vim.ui.select(items, {
-                prompt = "Select Copilot session:",
+                prompt = string.format("Select Copilot session %s:", use_existing_repl and "to send to repl" or "to open"),
                 format_item = function(item)
                     if item == NEW_SESSION then
                         return item
@@ -174,7 +178,11 @@ function claudehopper.resume(args)
                 else
                     local session = claudehopper.find_session(choice)
                     if session then
-                        open_session(session)
+                        if use_existing_repl then
+                            send_session('ReplSend', session)
+                        else
+                            open_session(session)
+                        end
                     end
                 end
             end)
@@ -259,12 +267,14 @@ function claudehopper.setup(cfg_overrides)
     for key,val in pairs(cfg_overrides or {}) do
         cfg[key] = val
     end
-    vim.api.nvim_create_user_command("Claude", function(cmd_args)
-        claudehopper.resume(cmd_args.args)
+    vim.api.nvim_create_user_command("Claude", function(opt)
+        claudehopper.resume(opt.args, opt.bang)
     end, {
         nargs = "?",
+        bang = true,
         complete = claudehopper.complete,
-        desc = "Resume a GitHub Copilot CLI session.",
+        -- Better to use `copilot --resume` if you already have a shell open!
+        desc = "Resume a GitHub Copilot CLI session. Use bang to open in existing repl.",
     })
     vim.api.nvim_create_user_command("ClaudeDelete", function(cmd_args)
         claudehopper.delete(cmd_args.args)
