@@ -48,7 +48,8 @@ function claudehopper.get_sessions()
         local data = parse_workspace_yaml(yaml_path)
         if data and data.id then
             table.insert(sessions, {
-                    id = data.id,
+                    load_id = data.name or data.id,  -- What we pass to copilot.
+                    id = data.id,  -- The directory id.
                     summary = data.name or data.summary,
                     cwd = data.cwd,
                     branch = data.branch,
@@ -68,10 +69,11 @@ function claudehopper.display_name(session)
     if session.summary and session.summary ~= "" then
         return session.summary
     end
-    return session.id
+    return session.load_id
 end
 
---- Find a session by name or GUID (exact then prefix match).
+-- Find a session by name or GUID (exact then prefix match).
+--- @param query string A partial match for a session name/id.
 function claudehopper.find_session(query)
     local sessions = claudehopper.get_sessions()
     local query_lower = query:lower()
@@ -128,7 +130,7 @@ local function send_session(send_cmd, session)
         if session.cwd then
             vim.cmd.cd(vim.fn.fnameescape(session.cwd))
         end
-        resume = "--resume=" .. session.id
+        resume = string.format('--resume=\\"%s\\"', session.load_id)
     end
     -- else: Use new session.
 
@@ -141,32 +143,45 @@ local function open_session(session)
     return send_session(cfg.terminal_cmd, session)
 end
 
-function claudehopper.resume(args, use_existing_repl)
-    if args == NEW_SESSION then
+local function FormatSession(session)
+    local display = claudehopper.display_name(session)
+    if session.cwd then
+        display = display .. "  [" .. session.cwd .. "]"
+    end
+    return display
+end
+
+local function ValidateSessionId(session_id)
+    if type(session_id) == 'string'
+        and session_id ~= ""
+    then
+        return session_id
+    end
+    return nil
+end
+
+function claudehopper.resume(session_id, use_existing_repl)
+    if session_id == NEW_SESSION then
         open_session()
         return
     end
 
-    if not args or args == "" then
+    session_id = ValidateSessionId(session_id)
+    if not session_id then
         local sessions = claudehopper.get_sessions()
 
         local items = { NEW_SESSION }
         for _, session in ipairs(sessions) do
-            table.insert(items, claudehopper.display_name(session))
+            table.insert(items, session)
         end
 
         vim.ui.select(items, {
                 prompt = string.format("Select Copilot session %s:", use_existing_repl and "to send to repl" or "to open"),
-                format_item = function(item)
-                    if item == NEW_SESSION then
-                        return item
+                format_item = function(session)
+                    if session == NEW_SESSION then
+                        return session
                     end
-                    for _, session in ipairs(sessions) do
-                        if claudehopper.display_name(session) == item and session.cwd then
-                            return item .. "  [" .. session.cwd .. "]"
-                        end
-                    end
-                    return item
+                    return FormatSession(session)
                 end,
             },
             function(choice)
@@ -176,7 +191,7 @@ function claudehopper.resume(args, use_existing_repl)
                 if choice == NEW_SESSION then
                     open_session()
                 else
-                    local session = claudehopper.find_session(choice)
+                    local session = choice
                     if session then
                         if use_existing_repl then
                             send_session('ReplSend', session)
@@ -189,9 +204,9 @@ function claudehopper.resume(args, use_existing_repl)
         return
     end
 
-    local session = claudehopper.find_session(args)
+    local session = claudehopper.find_session(session_id)
     if not session then
-        vim.notify("Session not found: " .. args, vim.log.levels.ERROR)
+        vim.notify("Session not found: " .. session_id, vim.log.levels.ERROR)
         return
     end
 
@@ -220,33 +235,24 @@ local function delete_session(session)
         end)
 end
 
-function claudehopper.delete(args)
-    if not args or args == "" then
+function claudehopper.delete(session_id)
+    session_id = ValidateSessionId(session_id)
+    if not session_id then
         local sessions = claudehopper.get_sessions()
         if #sessions == 0 then
             vim.notify("No copilot sessions found", vim.log.levels.WARN)
             return
         end
 
-        local items = {}
-        for _, session in ipairs(sessions) do
-            table.insert(items, claudehopper.display_name(session))
-        end
-
-        vim.ui.select(items, {
+        vim.ui.select(sessions, {
                 prompt = "Select Copilot session to delete:",
-                format_item = function(item)
-                    for _, session in ipairs(sessions) do
-                        if claudehopper.display_name(session) == item and session.cwd then
-                            return item .. "  [" .. session.cwd .. "]"
-                        end
-                    end
-                    return item
-                end,
+                format_item = FormatSession,
             },
             function(choice)
-                if not choice then return end
-                local session = claudehopper.find_session(choice)
+                if not choice then
+                    return
+                end
+                local session = choice
                 if session then
                     delete_session(session)
                 end
@@ -254,9 +260,9 @@ function claudehopper.delete(args)
         return
     end
 
-    local session = claudehopper.find_session(args)
+    local session = claudehopper.find_session(session_id)
     if not session then
-        vim.notify("Session not found: " .. args, vim.log.levels.ERROR)
+        vim.notify("Session not found: " .. session_id, vim.log.levels.ERROR)
         return
     end
 
@@ -276,8 +282,8 @@ function claudehopper.setup(cfg_overrides)
         -- Better to use `copilot --resume` if you already have a shell open!
         desc = "Resume a GitHub Copilot CLI session. Use bang to open in existing repl.",
     })
-    vim.api.nvim_create_user_command("ClaudeDelete", function(cmd_args)
-        claudehopper.delete(cmd_args.args)
+    vim.api.nvim_create_user_command("ClaudeDelete", function(opt)
+        claudehopper.delete(opt.args)
     end, {
         nargs = "?",
         complete = claudehopper.complete,
