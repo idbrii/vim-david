@@ -98,6 +98,8 @@ set spelloptions+=camel
 if !exists('$LANG')
     set encoding=utf-8
 endif
+" Sometimes utf8 files were loaded as latin1, so remove it as an option.
+set fileencodings-=latin1
 
 if has('win32')
 	let g:snips_author = expand('$USERNAME')
