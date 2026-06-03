@@ -10,6 +10,17 @@ local cfg = {
     terminal_unmap_keys = {
         "<C-w>",
     },
+    terminal_setup_fn = function(bufnr)
+        -- C-u/d are useless in copilot since it acts like a tui instead of outputting text.
+        vim.api.nvim_buf_set_keymap(bufnr, "t", "<C-u>", "<ScrollWheelUp>", {
+                noremap = true,
+                desc = "Scroll copilot output up",
+            })
+        vim.api.nvim_buf_set_keymap(bufnr, "t", "<C-d>", "<ScrollWheelDown>", {
+                noremap = true,
+                desc = "Scroll copilot output down",
+            })
+    end,
 
     -- How to invoke the terminal (a vim command).
     terminal_cmd = "terminal",
@@ -121,6 +132,7 @@ local function setup_terminal_keymaps(bufnr)
                 desc = "Pass through to copilot",
             })
     end
+    cfg.terminal_setup_fn(bufnr)
 end
 
 local function send_session(send_cmd, session)
