@@ -140,7 +140,10 @@ local function send_session(send_cmd, session)
     local resume = ""
     if session then
         if session.cwd then
-            vim.cmd.cd(vim.fn.fnameescape(session.cwd))
+            vim.cmd.cd{
+                args = { vim.fn.fnameescape(session.cwd) },
+                mods = { silent = true },
+            }
         end
         resume = string.format('--resume=\\"%s\\"', session.load_id)
     end
