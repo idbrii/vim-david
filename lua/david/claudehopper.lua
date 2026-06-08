@@ -27,6 +27,8 @@ local cfg = {
 
     -- How to run copilot (an executable).
     copilot_exe = "copilot",
+
+    default_working_dir = "c:/code/project/",
 }
 
 local function get_session_dir()
@@ -136,22 +138,13 @@ local function setup_terminal_keymaps(bufnr)
 end
 
 local function send_session(send_cmd, session)
-    --~ local prev_dir = vim.fn.getcwd()
-    local resume = ""
-    if session then
-        if session.cwd then
-            vim.cmd.cd{
-                args = { vim.fn.fnameescape(session.cwd) },
-                mods = { silent = true },
-            }
-        end
-        resume = string.format('--resume=\\"%s\\"', session.load_id)
-    end
-    -- else: Use new session.
+    vim.cmd.cd{
+        args = { vim.fn.fnameescape(cfg.default_working_dir) },
+        mods = { silent = true },
+    }
 
-    vim.cmd(string.format("%s %s %s", send_cmd, cfg.copilot_exe, resume))
+    vim.cmd(string.format("%s %s --resume", send_cmd, cfg.copilot_exe))
     setup_terminal_keymaps(vim.api.nvim_get_current_buf())
-    --~ vim.cmd.cd(vim.fn.fnameescape(prev_dir))
 end
 
 local function open_session(session)
@@ -176,56 +169,13 @@ local function ValidateSessionId(session_id)
 end
 
 function claudehopper.resume(session_id, use_existing_repl)
-    if session_id == NEW_SESSION then
-        open_session()
-        return
+    -- Instead of trying to manage my own sessions, just rely on copilot's
+    -- resume feature.
+    if use_existing_repl then
+        send_session('ReplSend', nil)
+    else
+        open_session(nil)
     end
-
-    session_id = ValidateSessionId(session_id)
-    if not session_id then
-        local sessions = claudehopper.get_sessions()
-
-        local items = { NEW_SESSION }
-        for _, session in ipairs(sessions) do
-            table.insert(items, session)
-        end
-
-        vim.ui.select(items, {
-                prompt = string.format("Select Copilot session %s:", use_existing_repl and "to send to repl" or "to open"),
-                format_item = function(session)
-                    if session == NEW_SESSION then
-                        return session
-                    end
-                    return FormatSession(session)
-                end,
-            },
-            function(choice)
-                if not choice then
-                    return
-                end
-                if choice == NEW_SESSION then
-                    open_session()
-                else
-                    local session = choice
-                    if session then
-                        if use_existing_repl then
-                            send_session('ReplSend', session)
-                        else
-                            open_session(session)
-                        end
-                    end
-                end
-            end)
-        return
-    end
-
-    local session = claudehopper.find_session(session_id)
-    if not session then
-        vim.notify("Session not found: " .. session_id, vim.log.levels.ERROR)
-        return
-    end
-
-    open_session(session)
 end
 
 local function delete_session(session)
