@@ -141,12 +141,8 @@ quicker.setup({
       })
 
 -- LLM {{{
+
 -- Not sure I always want copilot, so it's an opt plugin.
-
-require("david.claudehopper").setup{
-    terminal_cmd = "Shell",  -- uses zepl to easily switch back.
-}
-
 -- Disabled: Annoyed at its tiny barely-helpful suggestions that discourage
 -- snippets and whole line matching which usually work better.
 --~ vim.cmd.packadd "copilot"

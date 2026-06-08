@@ -29,6 +29,9 @@ local cfg = {
     copilot_exe = "copilot",
 
     default_working_dir = "c:/code/project/",
+    default_run_fn = function(opt, cfg)
+        vim.cmd.terminal(cfg.default_working_dir .. "bin/game.exe")
+    end,
 }
 
 local function get_session_dir()
@@ -253,6 +256,13 @@ function claudehopper.setup(cfg_overrides)
         nargs = "?",
         complete = claudehopper.complete,
         desc = "Delete a GitHub Copilot CLI session.",
+    })
+    vim.api.nvim_create_user_command("ClaudeRun", function(opt)
+        -- Ideally, you could select from working directories of the claude
+        -- sessions, but that's not currently useful to me.
+        cfg.default_run_fn(opt, cfg)
+    end, {
+        desc = "Run primary project.",
     })
 end
 
