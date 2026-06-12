@@ -1,4 +1,8 @@
 
+if exists("g:loaded_undotree_plugin") && g:loaded_undotree_plugin
+    nnoremap <F2> <Cmd>Undotree<CR>
+endif
+
 " Mundo -- visualize the undo tree (a fork of gundo).
 if !exists("g:loaded_mundo") || !g:loaded_mundo
     finish
