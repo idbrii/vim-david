@@ -21,8 +21,10 @@ from plumbum.cmd import sed, grep, lua, ctags
 
 
 def _find(search_dirs, globs, additional_files):
-    # TODO: Filter out .svn, etc.
-    results = [p.glob("**/" + g) for p in search_dirs for g in globs]
+    results = [p.glob("[!.]*/**/" + g) for p in search_dirs for g in globs]
+    # [!.] filters out dotfolders like .svn, etc. but also ignores files in the
+    # root. Add them too.
+    results += [p.glob("[!.]" + g) for p in search_dirs for g in globs]
     results = [p.as_posix() for r in results for p in r]
     if additional_files:
         results += [p.as_posix() for p in additional_files]
