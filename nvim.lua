@@ -186,6 +186,10 @@ else
     vim.o.titlestring = vim.o.titlestring .. 'nvim'
 end
 
+if vim.fn.has("nvim-0.12.0") then
+    -- nvim 0.12 fails to include all completion results when using longest with smartcase.
+    vim.opt.completeopt:remove "longest"
+end
 
 -- Neovide {{{
 -- Turn down the flash slow cursor anims.
