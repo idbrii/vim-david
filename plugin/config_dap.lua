@@ -125,8 +125,8 @@ vim.keymap.set("n", "<Leader>bW", MakeCursorWordWatchFn("<cWORD>"), { desc = "Ad
 vim.keymap.set("x", "<Leader>bw", function()
     local buffer = require "david.buffer"
     local lines = buffer.get_visual_lines() or {}
-    if lines[0] then
-        AddWatch(lines[0])
+    if lines[1] then
+        AddWatch(lines[1])
     else
         slick.error("Failed to get selection.")
     end
