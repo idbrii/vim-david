@@ -401,7 +401,7 @@ if has("autocmd")
         autocmd BufRead,BufNewFile /tmp/bash-fc-* set filetype=sh
 
         " Implement my preamble.
-        autocmd User DirvishShdoCreated :call david#dirvish#OnShdoCreated()
+        autocmd User DirvishShdo :call david#dirvish#OnShdoCreated()
 
     augroup END
 endif
