@@ -59,6 +59,8 @@ if executable('git')
     command! -nargs=* Ghistory GV! --all <args>
     " Show stashes in quickfix. An interactive :Git stash list (cz? lists maps)
     command! Gstashlist Gclog -g stash
+    " Search logs. Bang makes it case-sensitive and count sets how many weeks ago to search.
+    command! -bar -bang -count=0 -nargs=+ Gfind  call david#git#Gfind(<count>, <bang>0, <q-args>)
 
     " Implement my own fugitive_legacy_commands without the deprecation
     " warnings.

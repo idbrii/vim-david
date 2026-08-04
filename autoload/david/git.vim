@@ -56,6 +56,36 @@ function! david#git#Gblame_popup() abort range
     call setbufvar(winbufnr(popup), "&filetype", "git")
 endf
 
+
+function! david#git#Gfind(weeks, match_case, query) abort range
+    if a:query =~ "|"
+        " Not sure how to pass bar to execute() so it doesn't separate into a
+        " different vim command.
+        call david#error("Gfind: Bar (|) is not supported.")
+        return
+    endif
+    
+    let week_count = a:weeks
+    if week_count <= 0
+        let week_count = 4
+        echomsg "Using default 1 month limit."
+    endif
+
+    let case_flag = "-i"
+    if a:match_case
+        let case_flag = ""
+    endif
+    
+    " Showing logs of info
+    let cmd = "G log --grep %s --since=%d.weeks %s --name-status" 
+    let cmd = printf(cmd, a:query, week_count, case_flag)
+    call execute(cmd)
+    " fugitive keeps the name of the temp file, but much more useful to see
+    " the command.
+    execute 'file' cmd
+endf
+
+
 function! david#git#GitRevert(commit)
     try
         exec 'Git revert --no-commit '. a:commit
