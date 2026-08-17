@@ -10,8 +10,8 @@ local slick = require 'david.slick'
 
 
 local function setup_lsp(lsp_id, cfg)
-    vim.lsp.enable(lsp_id)
     vim.lsp.config(lsp_id, cfg)
+    vim.lsp.enable(lsp_id)
 end
 
 local VERSION = vim.version()
